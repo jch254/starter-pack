@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+dist/js/
+*.d.ts
+.vscode/
+typings.json
+npm-debug.log
+config.js
+semaphore
