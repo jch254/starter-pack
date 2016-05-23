@@ -53,6 +53,7 @@
     "eslint-plugin-react": "^4.3.0",
     "express": "^4.13.4",
     "file-loader": "^0.8.5",
+    "json-loader": "^0.5.4",
     "packageify": "^0.2.3",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
