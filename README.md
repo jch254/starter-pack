@@ -55,4 +55,4 @@ npm install
 npm run build
 ```
 
-## Good times!
+## Good one!
