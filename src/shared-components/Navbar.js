@@ -40,9 +40,6 @@ const Navbar = ({ profile, handleLogin, handleLogout, toggleDropdown, dropdownOp
                 onDismiss={() => toggleDropdown()}
                 open={dropdownOpen}
               >
-                <NavItem is="object" color="midgray">
-                  <Link to="/profile" children="Profile" />
-                </NavItem>
                 <NavItem
                   onClick={() => handleLogout()}
                   children="Logout"
