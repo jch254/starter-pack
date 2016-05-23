@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from 'reflexbox';
+import { Flex } from 'reflexbox';
 import Icon from 'react-geomicons';
 import {
   Heading,
@@ -11,7 +11,7 @@ import {
 } from 'rebass'
 
 const HomePage = () => (
-  <Box>
+  <Flex column style={{ flex: '1 0 auto' }}>
     <Banner
       style={{ minHeight: '75vh', backgroundAttachment: 'scroll' }}
       backgroundImage="http://img.jch254.com/Banner.jpg"
@@ -72,7 +72,7 @@ const HomePage = () => (
         </Blockquote>
       </Section>
     </Container>
-  </Box>
+  </Flex>
 );
 
 export default HomePage;
