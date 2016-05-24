@@ -41,7 +41,7 @@ class BooksPage extends Component {
             <Flex align="center" justify="center" wrap gutter={2}>
               {
                 books.map((b, index) =>
-                  <Card key={index} m={2} width={309}>
+                  <Card key={index} m={2} style={{ width: '309px', height: '610px' }} >
                     <a href={b.url} target="_blank">
                       <CardImage src={b.img} />
                     </a>
