@@ -10,7 +10,7 @@ const AppFooter = () => (
   <Box style={{ flex: 'none' }}>
     <Toolbar backgroundColor="white">
       <Space auto />
-      <NavItem color="black" href="http://603.nu" children="© 603.nu 2016" />
+      <NavItem color="black" href="https://603.nu" children="© 603.nu 2016" />
     </Toolbar>
   </Box>
 );

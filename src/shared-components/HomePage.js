@@ -14,7 +14,7 @@ const HomePage = () => (
   <Flex column style={{ flex: '1 0 auto' }}>
     <Banner
       style={{ minHeight: '75vh', backgroundAttachment: 'scroll' }}
-      backgroundImage="http://img.jch254.com/Banner.jpg"
+      backgroundImage="https://img.jch254.com/Banner.jpg"
       m={0}
     >
       <Heading size={1} big children="Starter Pack" />
@@ -41,7 +41,7 @@ const HomePage = () => (
           new ideas.
         </p>
         <p style={{ fontSize: '20px', marginBottom: '0px' }}>
-          The app contains a <a href="http://sp.603.nu/books">'locked down' Books page</a> which
+          The app contains a <a href="https://sp.603.nu/books">'locked down' Books page</a> which
           requires a user to log in/sign up before content will be visible. The data is read from a
           local JSON file as this is a only demonstration/starting point. In the real world data
           would be fetched from external APIs (see externalApiService.js). The API should check

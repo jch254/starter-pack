@@ -1,4 +1,4 @@
-# [Starter Pack](http://sp.603.nu)
+# [Starter Pack](https://sp.603.nu)
 
 [![Build Status](https://semaphoreci.com/api/v1/jch254/starter-pack/branches/master/shields_badge.svg)](https://semaphoreci.com/jch254/starter-pack)
 
@@ -15,11 +15,11 @@ Protected routes in the external APIs should check validity of the JWT token and
 if invalid. The app should then prompt the user to log in again. This is the perfect companion for
 AWS Lambda/API Gateway-driven Node.js microservices. Separate those concerns!
 
-![Main](http://img.jch254.com/Main.png)
+![Main](https://img.jch254.com/Main.png)
 
-![Modal](http://img.jch254.com/Login.png)
+![Modal](https://img.jch254.com/Login.png)
 
-![Recommended](http://img.jch254.com/Books.png)
+![Recommended](https://img.jch254.com/Books.png)
 
 ## Tools Used
 
