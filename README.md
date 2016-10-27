@@ -33,9 +33,9 @@ AWS Lambda/API Gateway-driven Node.js microservices. Separate those concerns!
 * [Webpack](https://github.com/webpack/webpack)
 * [Node.js](https://github.com/nodejs/node)
 
-**SPOTIFY_CLIENT_ID, SPOTIFY_SCOPES and SPOTIFY_CALLBACK_URI environment variable must be set before `yarn run` commands below.**
+**AUTH0_CLIENT_ID and AUTH0_DOMAIN environment variable must be set before `yarn run` commands below.**
 
-E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-modify-private" SPOTIFY_CALLBACK_URI="http://localhost:3001/spotifylogincallback" yarn run dev`
+E.g. `AUTH0_CLIENT_ID=YOUR_CLIENT_ID AUTH0_DOMAIN=YOUR_DOMAIN yarn run dev`
 
 ## Running locally
 

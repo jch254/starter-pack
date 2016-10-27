@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "babel-node devServer.js",
-    "build": "webpack --config ./webpack.prod.config.js --progress --profile --colors",
+    "build": "webpack --config ./webpack.prod.config.babel.js --progress --profile --colors",
     "lint": "eslint src || exit 0"
   },
   "repository": {
