@@ -1,6 +1,5 @@
 import React from 'react';
 import { Flex } from 'reflexbox';
-import Icon from 'react-geomicons';
 import {
   Heading,
   Banner,
@@ -8,7 +7,7 @@ import {
   Section,
   SectionHeader,
   Blockquote,
-} from 'rebass'
+} from 'rebass';
 
 const HomePage = () => (
   <Flex column style={{ flex: '1 0 auto' }}>
@@ -17,31 +16,43 @@ const HomePage = () => (
       backgroundImage="https://img.jch254.com/Banner.jpg"
       m={0}
     >
-      <Heading size={1} big children="Starter Pack" />
-      <Heading size={2} children="React + Redux + Auth0" />
-      <a href="https://github.com/jch254/starter-pack" target="_BLANK" style={{ paddingTop: '16px' }} >
-        <Icon name="github" width="32px" height="32px" />
-      </a>
+      <Heading size={1} big>
+        Starter Pack
+      </Heading>
+      <Heading size={2}>
+        React + Redux + Auth0
+      </Heading>
+      <Heading size={3} pt={2}>
+        <a
+          href="https://github.com/jch254/starter-pack"
+          target="_BLANK"
+          rel="noreferrer noopener"
+        >
+          View on Github
+        </a>
+      </Heading>
     </Banner>
     <Container pb={3}>
       <Section pb={0}>
         <SectionHeader heading="About" href="#about" />
         <p style={{ fontSize: '20px' }}>
-          <a href="https://github.com/jch254/starter-pack" target="_BLANK">Starter Pack </a>
-          combines <a href="https://github.com/facebook/react" target="_BLANK">React</a>, <a
-            href="https://github.com/reactjs/redux" target="_BLANK"
-          >Redux</a> and <a href="https://github.com/yelouafi/redux-saga" target="_BLANK">
-          Redux-saga</a> with <a href="https://github.com/auth0/lock" target="_BLANK">
-          Auth0's Lock</a> as a starting point for modern web apps with solid authentication.
-          Why reinvent the wheel? The app utilises <a href="https://github.com/jxnblk/rebass"
-            target="_BLANK"
+          <a href="https://github.com/jch254/starter-pack" target="_blank" rel="noopener noreferrer">Starter Pack </a>
+          combines <a href="https://github.com/facebook/react" target="_blank" rel="noopener noreferrer">React</a>, <a
+            href="https://github.com/reactjs/redux" target="_blank" rel="noopener noreferrer"
+          >Redux</a> and <a href="https://github.com/yelouafi/redux-saga" target="_blank" rel="noopener noreferrer">
+          Redux-saga</a> with <a href="https://github.com/auth0/lock" target="_blank" rel="noopener noreferrer">
+          Auth0&#39;s Lock</a> as a starting point for modern web apps with solid authentication.
+          Why reinvent the wheel? The app utilises <a
+            href="https://github.com/jxnblk/rebass"
+            target="_blank"
+            rel="noopener noreferrer"
           >Rebass</a> and <a
-            href="https://github.com/jxnblk/reflexbox" target="_BLANK"
+            href="https://github.com/jxnblk/reflexbox" target="_blank" rel="noopener noreferrer"
           >Reflexbox</a> to keep things looking decent. I built this as a way to quickly prototype
           new ideas.
         </p>
         <p style={{ fontSize: '20px', marginBottom: '0px' }}>
-          The app contains a <a href="https://sp.603.nu/books">'locked down' Books page</a> which
+          The app contains a <a href="https://sp.603.nu/books">&#39;locked down&#39; Books page</a> which
           requires a user to log in/sign up before content will be visible. The data is read from a
           local JSON file as this is a only demonstration/starting point. In the real world data
           would be fetched from external APIs (see externalApiService.js). The API should check

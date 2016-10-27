@@ -5,5 +5,4 @@ dist/js/
 .vscode/
 typings.json
 npm-debug.log
-config.js
-semaphore
+yarn-error.log

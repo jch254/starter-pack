@@ -1,29 +1,31 @@
-'use strict';
+import path from 'path';
+import webpack from 'webpack';
 
-var path = require('path');
-var webpack = require('webpack');
-var config = require('./config');
-
-module.exports = {
-  devtool: 'eval-source-map',
+export default {
   entry: [
     'babel-polyfill',
-    'webpack-hot-middleware/client?reload=true',
-    './src/index'
+    path.join(__dirname, 'src/index.js'),
   ],
   output: {
     path: path.join(__dirname, 'dist/js'),
     filename: 'bundle.js',
-    publicPath: '/js'
+    publicPath: '/js',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin(config)
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
+      },
+    }),
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    modulesDirectories: [
+      'node_modules',
+    ],
+    extensions: ['', '.js', '.jsx'],
   },
   module: {
     loaders: [
@@ -32,35 +34,31 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         include: __dirname,
-        query: {
-          plugins: ['transform-runtime'],
-          presets: ['es2015', 'stage-0', 'stage-1', 'react'],
-        }
       },
       {
         test: /node_modules[\\\/]auth0-lock[\\\/].*\.js$/,
         loaders: [
           'transform-loader/cacheable?brfs',
-          'transform-loader/cacheable?packageify'
-        ]
+          'transform-loader/cacheable?packageify',
+        ],
       },
       {
         test: /node_modules[\\\/]auth0-lock[\\\/].*\.ejs$/,
-        loader: 'transform-loader/cacheable?ejsify'
+        loader: 'transform-loader/cacheable?ejsify',
       },
       {
         test: /\.json?$/,
-        loader: 'json'
+        loader: 'json',
       },
       {
         test: /\.css?$/,
-        loaders: ['style', 'raw'],
-        include: __dirname
+        loader: 'style-loader!css-loader?modules',
+        include: /src/,
       },
       { test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'url',
-        query: {limit: 10240}
-      }
-    ]
+        query: { limit: 10240 },
+      },
+    ],
   }
 };

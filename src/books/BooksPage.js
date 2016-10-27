@@ -29,31 +29,35 @@ class BooksPage extends Component {
     return (
       isFetching ?
         <FullscreenLoader /> :
-        <Box style={{ flex: '1 0 auto' }}>
-          <Container pt={4} pb={3}>
-            <PageHeader my={2} py={2} description="All the books" heading="Books" />
-            {
-              error &&
-              <Message theme="error">
-                { `Error: ${JSON.stringify(error)}` }
-              </Message>
-            }
-            <Flex align="center" justify="center" wrap gutter={2}>
+          <Box style={{ flex: '1 0 auto' }}>
+            <Container pt={4} pb={3}>
+              <PageHeader my={2} py={2} description="All the books" heading="Books" />
               {
-                books.map((b, index) =>
-                  <Card key={index} m={2} style={{ width: '309px', height: '610px' }} >
-                    <a href={b.url} target="_blank">
-                      <CardImage src={b.img} />
-                    </a>
-                    <HeadingLink level={3} children={b.title} href={b.url} target="_blank" />
-                    <Text bold>{b.author}</Text>
-                    <Text small children={b.description} />
-                  </Card>
-                )
+                error &&
+                <Message theme="error">
+                  { `Error: ${JSON.stringify(error)}` }
+                </Message>
               }
-            </Flex>
-          </Container>
-        </Box>
+              <Flex align="center" justify="center" wrap gutter={2}>
+                {
+                  books.map((b, index) =>
+                    <Card key={index} m={2} style={{ width: '309px', height: '610px' }} >
+                      <a href={b.url} target="_blank" rel="noopener noreferrer">
+                        <CardImage src={b.img} />
+                      </a>
+                      <HeadingLink level={3} href={b.url} target="_blank" rel="noopener noreferrer">
+                        { b.title }
+                      </HeadingLink>
+                      <Text bold>{b.author}</Text>
+                      <Text small>
+                        { b.description }
+                      </Text>
+                    </Card>
+                  )
+                }
+              </Flex>
+            </Container>
+          </Box>
     );
   }
 }
@@ -66,13 +70,13 @@ BooksPage.propTypes = {
   error: PropTypes.object,
 };
 
-function mapStateToProps(state) {
-  return {
+const mapStateToProps = state => (
+  {
     idToken: authSelectors.getIdToken(state),
     books: getBooks(state),
     isFetching: getIsFetching(state),
     error: getError(state),
-  };
-};
+  }
+);
 
 export default connect(mapStateToProps)(BooksPage);

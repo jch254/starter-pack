@@ -1,6 +1,2 @@
 **/dist/*
 **/node_modules/*
-**/devServer.js
-**/webpack.config.js
-**/webpack.prod.config.js
-**/config.js

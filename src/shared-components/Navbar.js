@@ -15,37 +15,40 @@ const Navbar = ({ profile, handleLogin, handleLogout, toggleDropdown, dropdownOp
   <Fixed top left right zIndex={1}>
     <Toolbar backgroundColor="black">
       <NavItem is="object" color="midgray">
-        <IndexLink to="/" children="Home" />
+        <IndexLink to="/">
+          Home
+        </IndexLink>
       </NavItem>
       {
         profile &&
         <NavItem is="object" color="midgray">
-          <Link to="/books" children="Books" />
+          <Link to="/books">
+            Books
+          </Link>
         </NavItem>
       }
       <Space auto />
       <NavItem is="object">
         {
           !profile ?
-            <Button onClick={ handleLogin } backgroundColor="green">
+            <Button onClick={handleLogin} backgroundColor="green">
               Login
             </Button> :
-            <Dropdown>
-              <NavItem color="midgray" onClick={() => toggleDropdown()}>
-                {profile.name}
-                <Arrow />
-              </NavItem>
-              <DropdownMenu
-                right
-                onDismiss={() => toggleDropdown()}
-                open={dropdownOpen}
-              >
-                <NavItem
-                  onClick={() => handleLogout()}
-                  children="Logout"
-                />
-              </DropdownMenu>
-            </Dropdown>
+              <Dropdown>
+                <NavItem color="midgray" onClick={() => toggleDropdown()}>
+                  {profile.name}
+                  <Arrow />
+                </NavItem>
+                <DropdownMenu
+                  right
+                  onDismiss={() => toggleDropdown()}
+                  open={dropdownOpen}
+                >
+                  <NavItem onClick={() => handleLogout()}>
+                    Logout
+                  </NavItem>
+                </DropdownMenu>
+              </Dropdown>
         }
       </NavItem>
     </Toolbar>

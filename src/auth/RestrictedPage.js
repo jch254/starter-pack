@@ -27,7 +27,6 @@ class RestrictedPage extends Component {
 
 RestrictedPage.propTypes = {
   children: PropTypes.node.isRequired,
-  location: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   idToken: PropTypes.string,
 };

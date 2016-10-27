@@ -9,7 +9,7 @@ import AppFooter from '../shared-components/AppFooter';
 import Navbar from '../shared-components/Navbar';
 import { actions as authActions, selectors as authSelectors } from '../auth';
 
-export default class App extends Component {
+class App extends Component {
   handleLogin = () => {
     this.props.dispatch(authActions.loginRequest());
   }
@@ -48,11 +48,11 @@ App.propTypes = {
   profile: PropTypes.object,
 };
 
-function mapStateToProps(state) {
-  return {
+const mapStateToProps = state => (
+  {
     dropdownOpen: getDropdownOpen(state),
     profile: authSelectors.getProfile(state),
-  };
-};
+  }
+);
 
 export default connect(mapStateToProps)(App);

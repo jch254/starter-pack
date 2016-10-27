@@ -7,7 +7,7 @@ import {
   booksFailure,
 } from './actions';
 
-import { fetchBooks, handleApiError } from '../externalApiService';
+import { fetchBooks, handleApiError } from '../apiService';
 
 export function* fetchBooksSaga(idToken) {
   try {
@@ -21,7 +21,7 @@ export function* fetchBooksSaga(idToken) {
 
 export function* watchBooksRequest() {
   while (true) {
-    const { idToken } = yield take(BOOKS_REQUEST)
+    const { idToken } = yield take(BOOKS_REQUEST);
 
     yield call(fetchBooksSaga, idToken);
   }

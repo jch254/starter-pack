@@ -1,4 +1,9 @@
 {
-  "presets": ["es2015", "react", "stage-0", "stage-1"],
-  "plugins": ["transform-runtime", "add-module-exports"]
+  presets: ["latest", "react"],
+  plugins: [
+    "transform-runtime",
+    "transform-inline-environment-variables",
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ]
 }

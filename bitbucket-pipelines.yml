@@ -1,0 +1,12 @@
+image: jch254/docker-node-terraform-aws:latest
+pipelines:
+  branches:
+    master:
+      - step:
+          script:
+            - export AWS_ACCESS_KEY_ID=$AWS_KEY
+            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET
+            - export AWS_DEFAULT_REGION=$AWS_REGION
+            - ./build-artifacts.bash
+            - ./deploy-infrastructure.bash
+            - ./upload-artifacts.bash
