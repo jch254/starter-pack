@@ -1,6 +1,6 @@
-# [Starter Pack](https://sp.603.nu)
+# [Starter Pack](https://starter-pack.603.nu)
 
-[![Build Status](https://semaphoreci.com/api/v1/jch254/starter-pack/branches/master/shields_badge.svg)](https://semaphoreci.com/jch254/starter-pack)
+[Bitbucket Pipelines status](https://bitbucket.org/jch254/starter-pack/addon/pipelines/home)
 
 ## Overview
 
@@ -32,27 +32,30 @@ AWS Lambda/API Gateway-driven Node.js microservices. Separate those concerns!
 * [Reflexbox](https://github.com/jxnblk/reflexbox)
 * [Webpack](https://github.com/webpack/webpack)
 * [Node.js](https://github.com/nodejs/node)
-* Few more tings...
+
+**SPOTIFY_CLIENT_ID, SPOTIFY_SCOPES and SPOTIFY_CALLBACK_URI environment variable must be set before `yarn run` commands below.**
+
+E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-modify-private" SPOTIFY_CALLBACK_URI="http://localhost:3001/spotifylogincallback" yarn run dev`
 
 ## Running locally
 
-1. Clone this repository
-2. Sign up and create a new [Auth0 app](https://auth0.com)
-3. Add http://localhost:3001 as an Allowed Origin (CORS) for your newly created app (don't forget to press save)
-4. Copy configExmple.js to config.js (gitignored)
-5. Update the newly copied config.js with your Auth0 app's Client ID and Domain
-6. Run the following commands in the app's root directory then open http://localhost:3001
+1. Sign up and create a new [Auth0 app](https://auth0.com)
+1. Add http://localhost:3001 as an Allowed Origin (CORS) for your newly created app (don't forget to press save)
+1. Run the following commands in the app's root directory then open http://localhost:3001
+
 ```
-npm install
-npm run dev
+yarn install
+yarn run dev
 ```
 
 ## Building the production version
-1. Update config.js with your production config values
-2. Run the following commands in the app's root directory then check the /dist folder
+1. Run the following commands in the app's root directory then check the /dist folder
+
 ```
 npm install
 npm run build
 ```
 
-## Good one!
+## Deployment/Infrastructure
+
+Refer to the [/infrastructure](../master/infrastructure) directory.
