@@ -3334,7 +3334,7 @@ react-geomicons@^2.0.5:
   dependencies:
     geomicons-open "^3.0.0-beta.2"
 
-react-immutable-proptypes@^2.1.0:
+react-immutable-proptypes:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-immutable-proptypes/-/react-immutable-proptypes-2.1.0.tgz#023d6f39bb15c97c071e9e60d00d136eac5fa0b4"
 
@@ -3583,6 +3583,10 @@ require-uncached@^1.0.2:
 reqwest@2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/reqwest/-/reqwest-2.0.5.tgz#00fb15ac4918c419ca82b43f24c78882e66039a1"
+
+reselect:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-2.5.4.tgz#b7d23fdf00b83fa7ad0279546f8dbbbd765c7047"
 
 resolve-from@^1.0.0:
   version "1.0.1"

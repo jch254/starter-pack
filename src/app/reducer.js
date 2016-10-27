@@ -1,19 +1,22 @@
-import {
-  TOGGLE_DROPDOWN,
-} from './actions';
+import { Map } from 'immutable';
 
-export const initialState = {
-  dropdownOpen: false,
-};
+export const TOGGLE_DROPDOWN = 'TOGGLE_DROPDOWN';
 
-export default function app(state = initialState, action) {
+export const initialState = new Map({
+  isDropdownOpen: false,
+});
+
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case TOGGLE_DROPDOWN:
-      return {
-        ...state,
-        dropdownOpen: !state.dropdownOpen,
-      };
+      return state.set('isDropdownOpen', !state.get('isDropdownOpen'));
     default:
       return state;
   }
 }
+
+export const toggleDropdown = () => (
+  {
+    type: TOGGLE_DROPDOWN,
+  }
+);

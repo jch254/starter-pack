@@ -1,5 +1,4 @@
-import * as actions from './actions';
-import reducer from './reducer';
+import reducer, * as actions from './reducer';
 import * as sagas from './sagas';
 import * as selectors from './selectors';
 

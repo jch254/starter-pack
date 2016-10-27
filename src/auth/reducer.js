@@ -1,50 +1,66 @@
-import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT,
-} from './actions';
+import { Map } from 'immutable';
 
-import { getStoredAuthData } from '../utils';
+import { getStoredAuthState } from '../utils';
 
-export const initialState = {
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
+
+export const initialState = new Map({
   isLoggingIn: false,
   idToken: null,
   profile: null,
   error: null,
-};
+});
 
-function initializeState() {
-  const storedAuthData = getStoredAuthData();
-  return Object.assign({}, initialState, storedAuthData);
-}
-
-export default function auth(state = initializeState(), action) {
+export default function reducer(state = initialState.merge(getStoredAuthState()), action) {
   switch (action.type) {
     case LOGIN_REQUEST:
-      return {
-        ...state,
-        isLoggingIn: true,
-      };
+      return state.set('isLoggingIn', true);
     case LOGIN_SUCCESS:
-      return {
-        ...state,
+      return state.merge({
         isLoggingIn: false,
         idToken: action.idToken,
         profile: action.profile,
-        error: null,
-      };
+      });
     case LOGIN_FAILURE:
-      return {
-        ...state,
+      return state.merge({
         isLoggingIn: false,
         idToken: null,
         profile: null,
         error: action.error,
-      };
+      });
     case LOGOUT:
       return initialState;
     default:
       return state;
   }
 }
+
+export const loginRequest = () => (
+  {
+    type: LOGIN_REQUEST,
+  }
+);
+
+export const loginSuccess = (profile, idToken) => (
+  {
+    type: LOGIN_SUCCESS,
+    profile,
+    idToken,
+  }
+);
+
+export const loginFailure = error => (
+  {
+    type: LOGIN_FAILURE,
+    error,
+  }
+);
+
+export const logout = () => (
+  {
+    type: LOGOUT,
+  }
+);

@@ -1,25 +1,27 @@
+import Immutable, { Map } from 'immutable';
+
 export const ID_TOKEN = 'id_token';
 export const PROFILE = 'profile';
 
-export const setStoredAuthData = (profile, idToken) => {
+export const setStoredAuthState = (profile, idToken) => {
   localStorage.setItem(ID_TOKEN, idToken);
   localStorage.setItem(PROFILE, JSON.stringify(profile));
 };
 
-export const removeStoredAuthData = () => {
+export const removeStoredAuthState = () => {
   localStorage.removeItem(ID_TOKEN);
   localStorage.removeItem(PROFILE);
 };
 
-export const getStoredAuthData = () => {
+export const getStoredAuthState = () => {
   try {
     const idToken = localStorage.getItem(ID_TOKEN);
-    const profile = JSON.parse(localStorage.getItem(PROFILE));
+    const profile = Immutable.fromJS(JSON.parse(localStorage.getItem(PROFILE)));
 
-    return { idToken, profile };
+    return new Map({ idToken, profile });
   } catch (err) {
-    removeStoredAuthData();
+    removeStoredAuthState();
 
-    return {};
+    return new Map();
   }
 };

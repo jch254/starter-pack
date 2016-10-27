@@ -5,7 +5,7 @@ import {
   BOOKS_REQUEST,
   booksSuccess,
   booksFailure,
-} from './actions';
+} from './reducer';
 
 import { fetchBooks, handleApiError } from '../apiService';
 

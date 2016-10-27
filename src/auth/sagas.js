@@ -2,6 +2,7 @@ import Auth0Lock from 'auth0-lock';
 import 'isomorphic-fetch';
 import { call, put, take } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import Immutable from 'immutable';
 
 import {
   LOGIN_REQUEST,
@@ -10,9 +11,9 @@ import {
   LOGOUT,
   loginFailure,
   loginSuccess,
-} from './actions';
+} from './reducer';
 
-import { setStoredAuthData, removeStoredAuthData } from '../utils';
+import { setStoredAuthState, removeStoredAuthState } from '../utils';
 
 export function* loginRequestSaga() {
   const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, { auth: { redirect: false } });
@@ -20,22 +21,28 @@ export function* loginRequestSaga() {
   const showLock = () =>
     new Promise((resolve, reject) => {
       lock.on('hide', () => reject('Lock closed'));
+
       lock.on('authenticated', (authResult) => {
         lock.getProfile(authResult.idToken, (error, profile) => {
           if (!error) {
             lock.hide();
-            resolve({ profile, token: authResult.idToken });
+            resolve({ profile: Immutable.fromJS(profile), idToken: authResult.idToken });
           }
         });
+      });
+
+      lock.on('unrecoverable_error', (error) => {
+        lock.hide();
+        reject(error);
       });
 
       lock.show();
     });
 
   try {
-    const { profile, token } = yield call(showLock);
+    const { profile, idToken } = yield call(showLock);
 
-    yield put(loginSuccess(profile, token));
+    yield put(loginSuccess(profile, idToken));
     yield put(push('/books'));
   } catch (error) {
     yield put(loginFailure(error));
@@ -54,7 +61,7 @@ export function* watchLoginSuccess() {
   while (true) {
     const { profile, idToken } = yield take(LOGIN_SUCCESS);
 
-    setStoredAuthData(profile, idToken);
+    setStoredAuthState(profile, idToken);
   }
 }
 
@@ -62,7 +69,7 @@ export function* watchLoginFailure() {
   while (true) {
     yield take(LOGIN_FAILURE);
 
-    removeStoredAuthData();
+    removeStoredAuthState();
   }
 }
 
@@ -70,7 +77,7 @@ export function* watchLogout() {
   while (true) {
     yield take(LOGOUT);
 
-    removeStoredAuthData();
+    removeStoredAuthState();
 
     yield put(push('/'));
   }

@@ -1,11 +1,10 @@
 import 'isomorphic-fetch';
 import { put } from 'redux-saga/effects';
+import { Map } from 'immutable';
 
 import { actions as authActions } from './auth';
+import { Book } from './books';
 import books from './books/books.json';
-
-// eslint-disable-next-line
-const baseUrl = 'YOUR API BASE URL';
 
 // eslint-disable-next-line
 const getFetchInit = (idToken, requestMethod, body) => {
@@ -22,6 +21,8 @@ const getFetchInit = (idToken, requestMethod, body) => {
   return fetchInit;
 };
 
+const mapBookToKeyValuePair = book => [book.id, new Book(book)];
+
 // eslint-disable-next-line
 export async function fetchBooks(idToken) {
   // This app reads data from books.json as this is just a demonstration
@@ -32,9 +33,9 @@ export async function fetchBooks(idToken) {
   // const response = await fetch(`${process.env.API_BASE_URI}/items`, getFetchInit(idToken, 'GET'));
 
   try {
-    return { books: books.sort((a, b) => a.title.localeCompare(b.title)) };
+    return { books: new Map(books.map(mapBookToKeyValuePair)) };
   } catch (err) {
-    throw new Error('Error occurred downstream');
+    throw new Error(`Error occurred downstream: ${err}`);
   }
 }
 

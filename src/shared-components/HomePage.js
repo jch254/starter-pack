@@ -25,7 +25,7 @@ const HomePage = () => (
       <Heading size={3} pt={2}>
         <a
           href="https://github.com/jch254/starter-pack"
-          target="_BLANK"
+          target="_blank"
           rel="noreferrer noopener"
         >
           View on Github
@@ -34,7 +34,7 @@ const HomePage = () => (
     </Banner>
     <Container pb={3}>
       <Section pb={0}>
-        <SectionHeader heading="About" href="#about" />
+        <SectionHeader heading="About" />
         <p style={{ fontSize: '20px' }}>
           <a href="https://github.com/jch254/starter-pack" target="_blank" rel="noopener noreferrer">Starter Pack </a>
           combines <a href="https://github.com/facebook/react" target="_blank" rel="noopener noreferrer">React</a>, <a
@@ -52,28 +52,46 @@ const HomePage = () => (
           new ideas.
         </p>
         <p style={{ fontSize: '20px', marginBottom: '0px' }}>
-          The app contains a <a href="https://sp.603.nu/books">&#39;locked down&#39; Books page</a> which
+          The app contains a <a href="https://starter-pack.603.nu/books">&#39;locked down&#39; Books page</a> which
           requires a user to log in/sign up before content will be visible. The data is read from a
           local JSON file as this is a only demonstration/starting point. In the real world data
-          would be fetched from external APIs (see externalApiService.js). The API should check
+          would be fetched from an API (see apiService.js). The API should check
           validity of the JWT token and return unauthorised if invalid. The app would then prompt
-          the user to log in again. This is the perfect companion for AWS Lambda/API Gateway-driven
-          Node.js microservices.
+          the user to log in again. This is the perfect companion for Serverless-powered web APIs.
         </p>
       </Section>
       <Section pb={0}>
-        <SectionHeader heading="Technologies Used" href="#tech" />
+        <SectionHeader heading="Technologies Used" />
         <ul style={{ fontSize: '20px', marginBottom: '0px' }}>
-          <li><a href="https://github.com/facebook/react" target="_BANK">React</a></li>
-          <li><a href="https://github.com/reactjs/redux" target="_BANK">Redux</a></li>
-          <li><a href="https://github.com/yelouafi/redux-saga" target="_BANK">Redux Saga</a></li>
-          <li><a href="https://github.com/auth0/lock" target="_BANK">Auth0 Lock</a></li>
-          <li><a href="https://github.com/reactjs/react-router" target="_BANK">React Router</a></li>
-          <li><a href="https://github.com/jxnblk/rebass" target="_BANK">Rebass</a></li>
-          <li><a href="https://github.com/jxnblk/reflexbox" target="_BANK">Reflexbox</a></li>
-          <li><a href="https://github.com/webpack/webpack" target="_BANK">Webpack</a></li>
-          <li><a href="https://github.com/nodejs/node" target="_BANK">Node.js</a></li>
-          <li>Few more tings...</li>
+          <li>
+            <a href="https://github.com/facebook/react" target="_blank" rel="noopener noreferrer">React</a>
+          </li>
+          <li>
+            <a href="https://github.com/reactjs/redux" target="_blank" rel="noopener noreferrer">Redux</a>
+          </li>
+          <li>
+            <a href="https://github.com/yelouafi/redux-saga" target="_blank" rel="noopener noreferrer">
+              Redux Saga
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/auth0/lock" target="_blank" rel="noopener noreferrer">Auth0 Lock</a>
+          </li>
+          <li>
+            <a href="https://github.com/reactjs/react-router" target="_blank" rel="noopener noreferrer">React Router</a>
+          </li>
+          <li>
+            <a href="https://github.com/jxnblk/rebass" target="_blank" rel="noopener noreferrer">Rebass</a>
+          </li>
+          <li>
+            <a href="https://github.com/jxnblk/reflexbox" target="_blank" rel="noopener noreferrer">Reflexbox</a>
+          </li>
+          <li>
+            <a href="https://github.com/webpack/webpack" target="_blank" rel="noopener noreferrer">Webpack</a>
+          </li>
+          <li>
+            <a href="https://github.com/nodejs/node" target="_blank" rel="noopener noreferrer">Node.js</a>
+          </li>
         </ul>
       </Section>
       <Section pb={0}>

@@ -10,8 +10,9 @@ import {
   DropdownMenu,
   Arrow,
 } from 'rebass';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-const Navbar = ({ profile, handleLogin, handleLogout, toggleDropdown, dropdownOpen }) => (
+const Navbar = ({ profile, handleLogin, handleLogout, onToggleDropdown, isDropdownOpen }) => (
   <Fixed top left right zIndex={1}>
     <Toolbar backgroundColor="black">
       <NavItem is="object" color="midgray">
@@ -35,14 +36,14 @@ const Navbar = ({ profile, handleLogin, handleLogout, toggleDropdown, dropdownOp
               Login
             </Button> :
               <Dropdown>
-                <NavItem color="midgray" onClick={() => toggleDropdown()}>
-                  {profile.name}
+                <NavItem color="midgray" onClick={() => onToggleDropdown()}>
+                  {profile.get('name')}
                   <Arrow />
                 </NavItem>
                 <DropdownMenu
                   right
-                  onDismiss={() => toggleDropdown()}
-                  open={dropdownOpen}
+                  onDismiss={() => onToggleDropdown()}
+                  open={isDropdownOpen}
                 >
                   <NavItem onClick={() => handleLogout()}>
                     Logout
@@ -58,9 +59,9 @@ const Navbar = ({ profile, handleLogin, handleLogout, toggleDropdown, dropdownOp
 Navbar.propTypes = {
   handleLogin: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired,
-  dropdownOpen: PropTypes.bool.isRequired,
-  toggleDropdown: PropTypes.func.isRequired,
-  profile: PropTypes.object,
+  isDropdownOpen: PropTypes.bool.isRequired,
+  onToggleDropdown: PropTypes.func.isRequired,
+  profile: ImmutablePropTypes.map,
 };
 
 export default Navbar;

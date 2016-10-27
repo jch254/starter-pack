@@ -1,58 +1,46 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Flex } from 'reflexbox';
 
-import { toggleDropdown } from './actions';
-import { getDropdownOpen } from './selectors';
-
+import { toggleDropdown } from './reducer';
+import { getIsDropdownOpen } from './selectors';
 import AppFooter from '../shared-components/AppFooter';
 import Navbar from '../shared-components/Navbar';
 import { actions as authActions, selectors as authSelectors } from '../auth';
 
-class App extends Component {
-  handleLogin = () => {
-    this.props.dispatch(authActions.loginRequest());
-  }
-
-  handleLogout = () => {
-    this.props.dispatch(authActions.logout());
-  }
-
-  toggleDropdown = () => {
-    this.props.dispatch(toggleDropdown());
-  }
-
-  render() {
-    const { children, dropdownOpen, profile } = this.props;
-
-    return (
-      <Flex column style={{ height: '100%' }}>
-        <Navbar
-          profile={profile}
-          handleLogin={this.handleLogin}
-          handleLogout={this.handleLogout}
-          toggleDropdown={this.toggleDropdown}
-          dropdownOpen={dropdownOpen}
-        />
-        {children}
-        <AppFooter />
-      </Flex>
-    );
-  }
-}
+const App = ({ children, isDropdownOpen, profile, actions }) => (
+  <Flex column style={{ height: '100%' }}>
+    <Navbar
+      profile={profile}
+      handleLogin={() => actions.loginRequest()}
+      handleLogout={() => actions.logout()}
+      onToggleDropdown={() => actions.toggleDropdown()}
+      isDropdownOpen={isDropdownOpen}
+    />
+    {children}
+    <AppFooter />
+  </Flex>
+);
 
 App.propTypes = {
   children: PropTypes.node.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  dropdownOpen: PropTypes.bool.isRequired,
+  isDropdownOpen: PropTypes.bool.isRequired,
   profile: PropTypes.object,
+  actions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => (
   {
-    dropdownOpen: getDropdownOpen(state),
+    isDropdownOpen: getIsDropdownOpen(state),
     profile: authSelectors.getProfile(state),
   }
 );
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => (
+  {
+    actions: bindActionCreators({ toggleDropdown, ...authActions }, dispatch),
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
