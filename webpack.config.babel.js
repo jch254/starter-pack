@@ -62,5 +62,5 @@ export default {
         query: { limit: 10240 },
       },
     ],
-  }
+  },
 };
