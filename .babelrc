@@ -1,7 +1,6 @@
 {
   presets: ["latest", "react"],
   plugins: [
-    "transform-runtime",
     "transform-inline-environment-variables",
     "transform-class-properties",
     "transform-object-rest-spread"
