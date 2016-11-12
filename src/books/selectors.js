@@ -8,5 +8,5 @@ export const getIsFetching = state => state.books.get('isFetching');
 
 export const getSortedBooks = createSelector(
   [getBooks],
-  books => books.sortBy(book => book.get('title'))
+  books => books.sortBy(book => book.get('title')),
 );

@@ -22,37 +22,37 @@ import { selectors as authSelectors } from '../auth';
 const BooksPage = ({ isFetching, books, error }) => (
   isFetching ?
     <FullscreenLoader /> :
-      <Box style={{ flex: '1 0 auto' }}>
-        <Container pt={4} pb={3}>
-          <PageHeader my={2} py={2} description="All the books" heading="Books" />
+    <Box style={{ flex: '1 0 auto' }}>
+      <Container pt={4} pb={3}>
+        <PageHeader my={2} py={2} description="All the books" heading="Books" />
+        {
+          error &&
+          <Message theme="error">
+            { `Error: ${JSON.stringify(error)}` }
+          </Message>
+        }
+        <Flex align="center" justify="center" wrap gutter={2}>
           {
-            error &&
-            <Message theme="error">
-              { `Error: ${JSON.stringify(error)}` }
-            </Message>
+            books
+              .entrySeq()
+              .map(([id, book]) => (
+                <Card key={id} m={2} style={{ width: '309px', height: '610px' }} >
+                  <a href={book.url} target="_blank" rel="noopener noreferrer">
+                    <CardImage src={book.get('img')} />
+                  </a>
+                  <HeadingLink level={3} href={book.get('url')} target="_blank" rel="noopener noreferrer">
+                    { book.get('title') }
+                  </HeadingLink>
+                  <Text bold>{book.get('author')}</Text>
+                  <Text small>
+                    { book.get('description') }
+                  </Text>
+                </Card>
+            ))
           }
-          <Flex align="center" justify="center" wrap gutter={2}>
-            {
-              books
-                .entrySeq()
-                .map(([id, book]) =>
-                  <Card key={id} m={2} style={{ width: '309px', height: '610px' }} >
-                    <a href={book.url} target="_blank" rel="noopener noreferrer">
-                      <CardImage src={book.get('img')} />
-                    </a>
-                    <HeadingLink level={3} href={book.get('url')} target="_blank" rel="noopener noreferrer">
-                      { book.get('title') }
-                    </HeadingLink>
-                    <Text bold>{book.get('author')}</Text>
-                    <Text small>
-                      { book.get('description') }
-                    </Text>
-                  </Card>
-              )
-            }
-          </Flex>
-        </Container>
-      </Box>
+        </Flex>
+      </Container>
+    </Box>
 );
 
 BooksPage.propTypes = {

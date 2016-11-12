@@ -31,5 +31,5 @@ ReactDOM.render(
       onUpdate={logPageView}
     />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

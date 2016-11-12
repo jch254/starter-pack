@@ -35,21 +35,21 @@ const Navbar = ({ profile, handleLogin, handleLogout, onToggleDropdown, isDropdo
             <Button onClick={handleLogin} backgroundColor="green">
               Login
             </Button> :
-              <Dropdown>
-                <NavItem color="midgray" onClick={() => onToggleDropdown()}>
-                  {profile.get('name')}
-                  <Arrow />
+            <Dropdown>
+              <NavItem color="midgray" onClick={() => onToggleDropdown()}>
+                {profile.get('name')}
+                <Arrow />
+              </NavItem>
+              <DropdownMenu
+                right
+                onDismiss={() => onToggleDropdown()}
+                open={isDropdownOpen}
+              >
+                <NavItem onClick={() => handleLogout()}>
+                  Logout
                 </NavItem>
-                <DropdownMenu
-                  right
-                  onDismiss={() => onToggleDropdown()}
-                  open={isDropdownOpen}
-                >
-                  <NavItem onClick={() => handleLogout()}>
-                    Logout
-                  </NavItem>
-                </DropdownMenu>
-              </Dropdown>
+              </DropdownMenu>
+            </Dropdown>
         }
       </NavItem>
     </Toolbar>

@@ -17,7 +17,7 @@ const reducer = combineReducers(
     app: recycleState(appReducer, [authActions.LOGOUT], appReducer.initialState),
     books: recycleState(books, [authActions.LOGOUT], books.initialState),
     routing: routerReducer,
-  }
+  },
 );
 
 export default function configureStore(browserHistory, initialState) {
@@ -27,19 +27,14 @@ export default function configureStore(browserHistory, initialState) {
   if (process.env.NODE_ENV !== 'production') {
     // Log Immutable state beautifully
     const logger = createLogger({
-      stateTransformer: (state) => {
-        const newState = {};
-
-        for (const i of Object.keys(state)) {
-          if (Iterable.isIterable(state[i])) {
-            newState[i] = state[i].toJS();
-          } else {
-            newState[i] = state[i];
+      stateTransformer: state =>
+        Object.keys(state).map((key) => {
+          if (Iterable.isIterable(state[key])) {
+            return state[key].toJS();
           }
-        }
 
-        return newState;
-      },
+          return state[key];
+        }),
     });
 
     middlewares.push(logger);
@@ -53,7 +48,7 @@ export default function configureStore(browserHistory, initialState) {
     compose(
       applyMiddleware(...middlewares),
       window.devToolsExtension &&
-      process.env.NODE_ENV !== 'production' ? window.devToolsExtension() : f => f
+      process.env.NODE_ENV !== 'production' ? window.devToolsExtension() : f => f,
   ));
 
   sagaMiddleware.run(rootSaga);

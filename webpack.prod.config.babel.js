@@ -50,19 +50,8 @@ export default {
         include: __dirname,
       },
       {
-        test: /node_modules[\\\/]auth0-lock[\\\/].*\.js$/,
-        loaders: [
-          'transform-loader/cacheable?brfs',
-          'transform-loader/cacheable?packageify',
-        ],
-      },
-      {
-        test: /node_modules[\\\/]auth0-lock[\\\/].*\.ejs$/,
-        loader: 'transform-loader/cacheable?ejsify',
-      },
-      {
         test: /\.json?$/,
-        loader: 'json',
+        loader: 'json-loader',
       },
       {
         test: /\.css?$/,
@@ -70,7 +59,7 @@ export default {
         include: /src/,
       },
       { test: /\.(jpe?g|png|gif|svg)$/,
-        loader: 'url',
+        loader: 'url-loader',
         query: { limit: 10240 },
       },
     ],
