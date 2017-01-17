@@ -23,10 +23,12 @@ export function* loginRequestSaga() {
       lock.on('hide', () => reject('Lock closed'));
 
       lock.on('authenticated', (authResult) => {
-        lock.getProfile(authResult.idToken, (error, profile) => {
+        lock.getUserInfo(authResult.accessToken, (error, profile) => {
           if (!error) {
+            const immutableProfile = Immutable.fromJS(profile);
+
             lock.hide();
-            resolve({ profile: Immutable.fromJS(profile), idToken: authResult.idToken });
+            resolve({ profile: immutableProfile, idToken: authResult.idToken });
           }
         });
       });

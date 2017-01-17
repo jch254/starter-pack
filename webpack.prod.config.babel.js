@@ -4,12 +4,12 @@ import webpack from 'webpack';
 export default {
   entry: [
     'babel-polyfill',
-    path.join(__dirname, 'src/index.js'),
+    path.join(__dirname, 'src', 'index.js'),
   ],
   output: {
-    path: path.join(__dirname, 'dist/js'),
+    path: path.join(__dirname, 'dist', 'assets'),
     filename: 'bundle.js',
-    publicPath: '/js',
+    publicPath: '/assets',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -29,37 +29,39 @@ export default {
   resolve: {
     modulesDirectories: [
       'node_modules',
+      'src',
     ],
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.css'],
   },
   module: {
     preLoaders: [
       {
         test: /\.js$/,
         loader: 'eslint-loader',
-        exclude: /(node_modules)/,
-        include: __dirname,
-        query: { quiet: true, failOnError: true },
+        include: path.join(__dirname, 'src'),
+        query: { quiet: true, failOnError: false },
       },
     ],
     loaders: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
-        include: __dirname,
+        include: path.join(__dirname, 'src'),
       },
       {
         test: /\.json?$/,
         loader: 'json-loader',
+        include: path.join(__dirname, 'src'),
       },
       {
         test: /\.css?$/,
         loader: 'style-loader!css-loader?modules',
-        include: /src/,
+        include: path.join(__dirname, 'src'),
       },
-      { test: /\.(jpe?g|png|gif|svg)$/,
+      {
+        test: /\.(jpe?g|png|gif|svg|ico)$/,
         loader: 'url-loader',
+        include: path.join(__dirname, 'src'),
         query: { limit: 10240 },
       },
     ],
