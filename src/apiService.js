@@ -29,6 +29,7 @@ export async function fetchBooks(idToken) {
   // Normally an API call would be made (see below)
   // The API should check validity of idToken and return unauthorised if not valid
   // The app would then prompt the user to log in again
+  // See https://github.com/jch254/serverless-node-dynamodb-api for an example
 
   // const response = await fetch(`${process.env.API_BASE_URI}/items`, getFetchInit(idToken, 'GET'));
 

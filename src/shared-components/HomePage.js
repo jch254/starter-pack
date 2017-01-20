@@ -57,7 +57,8 @@ const HomePage = () => (
           local JSON file as this is a only demonstration/starting point. In the real world data
           would be fetched from an API (see apiService.js). The API should check
           validity of the JWT token and return unauthorised if invalid. The app would then prompt
-          the user to log in again. This is the perfect companion for Serverless-powered web APIs.
+          the user to log in again. See <a href="https://serverless-api.603.nu">Serverless API</a> for
+          a more detailed example of authentication in action.
         </p>
       </Section>
       <Section pb={0}>
