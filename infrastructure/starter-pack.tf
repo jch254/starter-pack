@@ -40,7 +40,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
   enabled = true
-  aliases = ["${var.dns_name}", "sp.603.nu"]
+  aliases = ["${var.dns_name}"]
   custom_error_response {
     error_code = "404"
     response_code = "200"
