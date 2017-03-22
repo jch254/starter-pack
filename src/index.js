@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import 'react-router-scroll/lib/useScroll';
 import ga from 'react-ga';
 
 import configureStore from './configureStore';

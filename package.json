@@ -30,7 +30,6 @@
     "react-redux": "^5.0.3",
     "react-router": "^3.0.1",
     "react-router-redux": "^4.0.8",
-    "react-router-scroll": "^0.4.1",
     "rebass": "^0.3.4",
     "redux": "^3.6.0",
     "redux-logger": "^2.10.2",

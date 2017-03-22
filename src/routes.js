@@ -8,7 +8,15 @@ import RestrictedPage from './auth/RestrictedPage';
 import BooksPage from './books/BooksPage';
 
 export default (
-  <Route path="/" component={App}>
+  <Route
+    path="/"
+    component={App}
+    onChange={(prevState, nextState) => {
+      if (nextState.location.action !== 'POP') {
+        window.scrollTo(0, 0);
+      }
+    }}
+  >
     <IndexRoute component={HomePage} />
     <Route component={RestrictedPage}>
       <Route path="/books" component={BooksPage} />
