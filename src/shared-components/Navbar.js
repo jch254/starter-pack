@@ -64,4 +64,8 @@ Navbar.propTypes = {
   profile: ImmutablePropTypes.map,
 };
 
+Navbar.defaultProps = {
+  profile: null,
+};
+
 export default Navbar;

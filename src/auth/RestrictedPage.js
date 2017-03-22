@@ -14,6 +14,10 @@ RestrictedPage.propTypes = {
   idToken: PropTypes.string,
 };
 
+RestrictedPage.defaultProps = {
+  idToken: null,
+};
+
 RestrictedPage.componentWillMount = ({ actions, idToken }) => {
   if (!idToken) {
     actions.loginRequest();

@@ -30,6 +30,10 @@ App.propTypes = {
   actions: PropTypes.object.isRequired,
 };
 
+App.defaultProps = {
+  profile: null,
+};
+
 const mapStateToProps = state => (
   {
     isDropdownOpen: getIsDropdownOpen(state),

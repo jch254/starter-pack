@@ -61,6 +61,10 @@ BooksPage.propTypes = {
   error: PropTypes.object,
 };
 
+BooksPage.defaultProps = {
+  error: null,
+};
+
 BooksPage.componentDidMount = ({ idToken, actions }) => actions.booksRequest(idToken);
 
 const mapStateToProps = state => (
