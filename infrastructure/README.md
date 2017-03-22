@@ -18,21 +18,18 @@ To deploy to AWS, you must:
 
 #### Deploying infrastructure
 
-1. Configure Terraform to use Remote State using the following command:
-```terraform remote config -backend=s3 -backend-config="bucket=YOUR_BUCKET_NAME" -backend-config="key=starter-pack.tfstate" -backend-config="region=YOUR_REGION" -backend-config="encrypt=true"```
+1. `terraform init`
 1. `terraform plan -var-file starter-pack.tfvars`
 1. `terraform apply -var-file starter-pack-2.tfvars`
 
 #### Updating infrastructure
 
 1. Make necessary infrastructure code changes.
-1. Configure Terraform to use Remote State using the following command:
-```terraform remote config -backend=s3 -backend-config="bucket=YOUR_BUCKET_NAME" -backend-config="key=starter-pack.tfstate" -backend-config="region=YOUR_REGION" -backend-config="encrypt=true"```
+1. `terraform init`
 1. `terraform plan -var-file starter-pack.tfvars`
 1. `terraform apply -var-file starter-pack-2.tfvars`
 
 #### Destroying infrastructure (use with care)
 
-1. Configure Terraform to use Remote State using the following command:
-```terraform remote config -backend=s3 -backend-config="bucket=YOUR_BUCKET_NAME" -backend-config="key=starter-pack.tfstate" -backend-config="region=YOUR_REGION" -backend-config="encrypt=true"```
+1. `terraform init`
 1. `terraform plan -var-file starter-pack.tfvars`
