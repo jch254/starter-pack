@@ -10,7 +10,7 @@ keep things looking decent. I built this as a way to quickly prototype new ideas
 
 The app contains a 'locked down' Books page which requires a user to log in/sign up before content
 will be visible. The data is read from a local JSON file as this is a only demonstration/starting
-point. In the real world data would be fetched from an API (see [apiService.js]((../master/apiService.js))).
+point. In the real world data would be fetched from an API - see [apiService.js](./apiService.js).
 Protected routes in the API should check validity of the JWT token and return unauthorised
 if invalid. The app should then prompt the user to log in again. See [Serverless API](https://github.com/jch254/serverless-node-dynamodb-api)
 for a more detailed example of authentication in action.
