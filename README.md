@@ -10,7 +10,7 @@ keep things looking decent. I built this as a way to quickly prototype new ideas
 
 The app contains a 'locked down' Books page which requires a user to log in/sign up before content
 will be visible. The data is read from a local JSON file as this is a only demonstration/starting
-point. In the real world data would be fetched from an API (see apiService.js).
+point. In the real world data would be fetched from an API (see [apiService.js](apiService.js)).
 Protected routes in the API should check validity of the JWT token and return unauthorised
 if invalid. The app should then prompt the user to log in again. See [Serverless API](https://github.com/jch254/serverless-node-dynamodb-api)
 for a more detailed example of authentication in action.
@@ -27,7 +27,9 @@ for a more detailed example of authentication in action.
 * [Redux](https://github.com/reactjs/redux) (ft. various middleware)
 * [Redux Saga](https://github.com/yelouafi/redux-saga)
 * [Auth0 Lock](https://github.com/auth0/lock)
-* [React Router](https://github.com/reactjs/react-router)
+* [Immutable.js](https://github.com/facebook/immutable-js/)
+* [React Router](https://github.com/ReactTraining/react-router)
+* [Reselect](https://github.com/jxnblk/rebass)
 * [Rebass](https://github.com/jxnblk/rebass)
 * [Reflexbox](https://github.com/jxnblk/reflexbox)
 * [Webpack](https://github.com/webpack/webpack)
@@ -54,6 +56,15 @@ yarn run dev
 ```
 yarn install
 yarn run build
+```
+
+### Running production version locally
+
+1. Run the following commands in the app's root directory then open http://localhost:3001
+
+```
+yarn install
+yarn run prod
 ```
 
 ## Deployment/Infrastructure

@@ -79,7 +79,17 @@ const HomePage = () => (
             <a href="https://github.com/auth0/lock" target="_blank" rel="noopener noreferrer">Auth0 Lock</a>
           </li>
           <li>
-            <a href="https://github.com/reactjs/react-router" target="_blank" rel="noopener noreferrer">React Router</a>
+            <a href="https://github.com/facebook/immutable-js" target="_blank" rel="noopener noreferrer">
+              Immutable.js
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/ReactTraining/react-router" target="_blank" rel="noopener noreferrer">
+              React Router
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/reactjs/reselect" target="_blank" rel="noopener noreferrer">Reselect</a>
           </li>
           <li>
             <a href="https://github.com/jxnblk/rebass" target="_blank" rel="noopener noreferrer">Rebass</a>

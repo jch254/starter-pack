@@ -8,7 +8,7 @@ import {
 
 const NotFoundPage = () => (
   <Box style={{ flex: '1 0 auto' }}>
-    <Container pt={4} pb={3}>
+    <Container mt={4} pt={4} pb={3}>
       <PageHeader
         my={2}
         py={2}

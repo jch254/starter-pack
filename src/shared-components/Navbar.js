@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { NavLink } from 'react-router-dom';
 import {
   NavItem,
   Space,
@@ -10,22 +12,21 @@ import {
   DropdownMenu,
   Arrow,
 } from 'rebass';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const Navbar = ({ profile, handleLogin, handleLogout, onToggleDropdown, isDropdownOpen }) => (
   <Fixed top left right zIndex={1}>
-    <Toolbar backgroundColor="black">
-      <NavItem is="object" color="midgray">
-        <IndexLink to="/">
+    <Toolbar backgroundColor="#fff">
+      <NavItem is="object" color="black">
+        <NavLink to="/" exact activeStyle={{ color: 'rgb(136, 136, 136)' }}>
           Home
-        </IndexLink>
+        </NavLink>
       </NavItem>
       {
         profile &&
-        <NavItem is="object" color="midgray">
-          <Link to="/books">
+        <NavItem is="object" color="black">
+          <NavLink to="/books" activeStyle={{ color: 'rgb(136, 136, 136)' }}>
             Books
-          </Link>
+          </NavLink>
         </NavItem>
       }
       <Space auto />
@@ -36,7 +37,7 @@ const Navbar = ({ profile, handleLogin, handleLogout, onToggleDropdown, isDropdo
               Login
             </Button> :
             <Dropdown>
-              <NavItem color="midgray" onClick={() => onToggleDropdown()}>
+              <NavItem color="black" onClick={() => onToggleDropdown()}>
                 {profile.get('name')}
                 <Arrow />
               </NavItem>

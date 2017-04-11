@@ -1,13 +1,13 @@
 import 'isomorphic-fetch';
 import { call, put, take } from 'redux-saga/effects';
 
+import { fetchBooks, handleApiError } from '../apiService';
+
 import {
   BOOKS_REQUEST,
   booksSuccess,
   booksFailure,
 } from './reducer';
-
-import { fetchBooks, handleApiError } from '../apiService';
 
 export function* fetchBooksSaga(idToken) {
   try {

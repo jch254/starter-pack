@@ -1,5 +1,7 @@
 import path from 'path';
+
 import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
   entry: [
@@ -12,12 +14,10 @@ export default {
     publicPath: '/assets',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
+    new ExtractTextPlugin({ filename: 'styles.css' }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false,
-        screw_ie8: true,
       },
     }),
     new webpack.DefinePlugin({
@@ -27,42 +27,41 @@ export default {
     }),
   ],
   resolve: {
-    modulesDirectories: [
-      'node_modules',
-      'src',
+    extensions: ['.js', '.jsx', '.css', '.json'],
+    modules: [
+      path.join(__dirname, 'src'),
+      path.join(__dirname, 'node_modules'),
     ],
-    extensions: ['', '.js', '.jsx', '.css'],
   },
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'eslint-loader',
-        include: path.join(__dirname, 'src'),
-        query: { quiet: true, failOnError: false },
-      },
-    ],
-    loaders: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: path.join(__dirname, 'src'),
-      },
-      {
-        test: /\.json?$/,
-        loader: 'json-loader',
+        use: ['babel-loader'],
         include: path.join(__dirname, 'src'),
       },
       {
         test: /\.css?$/,
-        loader: 'style-loader!css-loader?modules',
         include: path.join(__dirname, 'src'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+        }),
       },
       {
         test: /\.(jpe?g|png|gif|svg|ico)$/,
-        loader: 'url-loader',
         include: path.join(__dirname, 'src'),
-        query: { limit: 10240 },
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 10240,
+          },
+        }],
       },
     ],
   },

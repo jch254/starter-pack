@@ -1,8 +1,9 @@
 import path from 'path';
+
 import webpack from 'webpack';
 
 export default {
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   entry: [
     'babel-polyfill',
     'webpack-hot-middleware/client?reload=true',
@@ -15,7 +16,7 @@ export default {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
@@ -23,34 +24,43 @@ export default {
     }),
   ],
   resolve: {
-    modulesDirectories: [
-      'node_modules',
-      'src',
+    extensions: ['.js', '.jsx', '.css', '.json'],
+    modules: [
+      path.join(__dirname, 'src'),
+      path.join(__dirname, 'node_modules'),
     ],
-    extensions: ['', '.js', '.jsx', '.css'],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        include: path.join(__dirname, 'src'),
-      },
-      {
-        test: /\.json?$/,
-        loader: 'json-loader',
+        use: ['babel-loader'],
         include: path.join(__dirname, 'src'),
       },
       {
         test: /\.css?$/,
-        loader: 'style-loader!css-loader?modules',
         include: path.join(__dirname, 'src'),
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg|ico)$/,
-        loader: 'url-loader',
         include: path.join(__dirname, 'src'),
-        query: { limit: 10240 },
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 10240,
+          },
+        }],
       },
     ],
   },

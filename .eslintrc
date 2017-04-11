@@ -12,6 +12,7 @@
     react/forbid-prop-types: 0,
     jsx-a11y/no-static-element-interactions: 0,
     import/no-extraneous-dependencies: ["error", { devDependencies: true }],
-    import/no-unresolved: 0
+    import/no-unresolved: 0,
+    import/order: ["warn", {"newlines-between": "always"}]
   }
 }

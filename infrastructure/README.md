@@ -15,6 +15,17 @@ To deploy to AWS, you must:
    1. Set your credentials as the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
    1. Run `aws configure` and fill in the details it asks for.
    1. Run on an EC2 instance with an IAM Role.
+ 1. Update the S3 backend in [starter-pack.tf](starter-pack.tf):
+ ```
+terraform {
+   backend "s3" {
+      bucket = "YOUR_S3_BUCKET"
+      key = "terraform.tfstate"
+      region = "YOUR_REGION"
+      encrypt= "true"
+   }
+}
+```
 
 #### Deploying infrastructure
 

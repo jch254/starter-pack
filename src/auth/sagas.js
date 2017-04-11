@@ -1,8 +1,9 @@
 import Auth0Lock from 'auth0-lock';
-import 'isomorphic-fetch';
 import { call, put, take } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import Immutable from 'immutable';
+
+import { setStoredAuthState, removeStoredAuthState } from '../utils';
 
 import {
   LOGIN_REQUEST,
@@ -12,8 +13,6 @@ import {
   loginFailure,
   loginSuccess,
 } from './reducer';
-
-import { setStoredAuthState, removeStoredAuthState } from '../utils';
 
 export function* loginRequestSaga() {
   const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, { auth: { redirect: false } });
