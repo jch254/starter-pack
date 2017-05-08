@@ -1,0 +1,49 @@
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+
+import FullscreenLoader from '../shared-components/FullscreenLoader';
+import { GlobalState } from '../rootReducer';
+
+import { loginRequest, LoginRequest } from './reducer';
+import { getIdToken } from './selectors';
+
+export interface RestrictedPageProps {
+  children?: any;
+}
+
+interface StateProps {
+  idToken: string | null;
+}
+
+interface DispatchProps {
+  actions: {
+    loginRequest: () => LoginRequest;
+  };
+}
+
+class RestrictedPage extends React.PureComponent<RestrictedPageProps & StateProps & DispatchProps, {}> {
+  componentWillMount() {
+    const { actions, idToken } = this.props;
+
+    if (!idToken) {
+      actions.loginRequest();
+    }
+  }
+
+  render() {
+    const { children, idToken } = this.props;
+
+    return idToken ? children : <FullscreenLoader delay={0} />;
+  }
+}
+
+const mapStateToProps = (state: GlobalState, ownProps: RestrictedPageProps): StateProps => ({
+  idToken: getIdToken(state),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => ({
+  actions: bindActionCreators({ loginRequest }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestrictedPage);

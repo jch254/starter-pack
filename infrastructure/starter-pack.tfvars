@@ -2,4 +2,4 @@
 region = "ap-southeast-2"
 
 # DNS name
-dns_name = "starter-pack.603.nu"
+dns_name = "starter-pack-typescript.603.nu"

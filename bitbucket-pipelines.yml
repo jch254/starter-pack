@@ -7,3 +7,9 @@ pipelines:
             - ./build-artifacts.bash
             - ./deploy-infrastructure.bash
             - ./upload-artifacts.bash
+    typescript:
+      - step:
+          script:
+            - ./build-artifacts.bash
+            - ./deploy-infrastructure.bash
+            - ./upload-artifacts.bash
