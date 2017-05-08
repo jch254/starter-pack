@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Flex } from 'reflexbox';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import {
   Heading,
   Banner,
@@ -25,7 +25,7 @@ const HomePage: React.StatelessComponent<RouteComponentProps<any>> = () => (
       </Heading>
       <Heading size={3} style={{ paddingTop: '12px' }}>
         <a
-          href="https://github.com/jch254/starter-pack"
+          href="https://github.com/jch254/starter-pack/tree/typescript"
           target="_blank"
           rel="noreferrer noopener"
           style={{ color: '#fff' }}
@@ -38,20 +38,16 @@ const HomePage: React.StatelessComponent<RouteComponentProps<any>> = () => (
       <Section pb={0}>
         <SectionHeader heading="About" />
         <p style={{ fontSize: '20px' }}>
-          <a href="https://github.com/jch254/starter-pack" target="_blank" rel="noopener noreferrer">Starter Pack </a>
-          combines <a href="https://github.com/facebook/react" target="_blank" rel="noopener noreferrer">React</a>, <a
-            href="https://github.com/reactjs/redux" target="_blank" rel="noopener noreferrer"
-          >Redux</a> and <a href="https://github.com/yelouafi/redux-saga" target="_blank" rel="noopener noreferrer">
-          Redux-saga</a> with <a href="https://github.com/auth0/lock" target="_blank" rel="noopener noreferrer">
-          Auth0&#39;s Lock</a> as a starting point for modern web apps with solid authentication.
-          Why reinvent the wheel? The app utilises <a
-            href="https://github.com/jxnblk/rebass"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Rebass</a> and <a
-            href="https://github.com/jxnblk/reflexbox" target="_blank" rel="noopener noreferrer"
-          >Reflexbox</a> to keep things looking decent. I built this as a way to quickly prototype
-          new ideas.
+          <a href="https://github.com/jch254/starter-pack/tree/typescript" target="_blank" rel="noopener noreferrer">
+          Starter Pack</a> combines <a href="https://github.com/facebook/react" target="_blank"
+          rel="noopener noreferrer">React</a>, <a href="https://github.com/reactjs/redux" target="_blank"
+          rel="noopener noreferrer">Redux</a> and <a href="https://github.com/yelouafi/redux-saga" target="_blank"
+          rel="noopener noreferrer">Redux-saga</a> with <a href="https://github.com/auth0/lock" target="_blank"
+          rel="noopener noreferrer">Auth0&#39;s Lock</a> as a starting point for modern web apps with solid
+          authentication. Why reinvent the wheel? The app utilises <a href="https://github.com/jxnblk/rebass"
+          target="_blank" rel="noopener noreferrer">Rebass</a> and <a href="https://github.com/jxnblk/reflexbox"
+          target="_blank" rel="noopener noreferrer">Reflexbox</a> to keep things looking decent. I built this
+          as a way to quickly prototype new ideas.
         </p>
         <p style={{ fontSize: '20px' }}>
           Webpack (ft. various loaders/plugins/tools) is used to run a local development server and build
@@ -65,7 +61,7 @@ const HomePage: React.StatelessComponent<RouteComponentProps<any>> = () => (
           inlined into index.html to save requests.
         </p>
         <p style={{ fontSize: '20px' }}>
-          The app contains a <a href="https://starter-pack.603.nu/books">&#39;locked down&#39; Books page</a> which
+          The app contains a <Link to="/books">&#39;locked down&#39; Books page</Link> which
           requires a user to log in/sign up before content will be visible. The data is read from a
           local JSON file as this is a only demonstration/starting point. In the real world data
           would be fetched from an API (see apiService.ts). The API should check

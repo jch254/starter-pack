@@ -11,8 +11,8 @@ const AppFooter: React.StatelessComponent<{}> = () => (
   <Box style={{ flex: 'none' }}>
     <Toolbar backgroundColor="white">
       <Space auto />
-      <NavItem color="black" style={{ fontWeight: 'normal', fontSize: '12px' }}>
-        <a href="https://603.nu" style={{ cusor: 'pointer' }}>
+      <NavItem style={{ fontWeight: 'normal', fontSize: '12px' }}>
+        <a href="https://603.nu" style={{ cusor: 'pointer', color: 'black' }}>
           {`© 603.nu ${moment().year()}`}
         </a>
       </NavItem>
