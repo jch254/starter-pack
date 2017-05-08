@@ -2,7 +2,6 @@
 node_modules/
 .history/
 dist/
-*.d.ts
 .vscode/
 typings.json
 npm-debug.log
