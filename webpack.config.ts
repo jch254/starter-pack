@@ -64,6 +64,11 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /\.tsx?$/,
+        enforce: 'pre',
+        loader: 'tslint-loader',
+      },
+      {
+        test: /\.tsx?$/,
         use: ['awesome-typescript-loader'],
         include: path.join(__dirname, 'src'),
       },

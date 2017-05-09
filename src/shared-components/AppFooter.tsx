@@ -1,9 +1,9 @@
-import * as React from 'react';
 import * as moment from 'moment';
+import * as React from 'react';
 import {
-  Toolbar,
-  Space,
   NavItem,
+  Space,
+  Toolbar,
 } from 'rebass';
 
 const AppFooter: React.StatelessComponent<{}> = () => (

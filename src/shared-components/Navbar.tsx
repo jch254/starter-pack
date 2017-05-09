@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-  NavItem,
-  Space,
-  Fixed,
-  Toolbar,
+  Arrow,
   Button,
   Dropdown,
   DropdownMenu,
-  Arrow,
+  Fixed,
+  NavItem,
+  Space,
+  Toolbar,
 } from 'rebass';
 
-import { LoginRequest, Logout } from '../auth/reducer';
 import { ToggleDropdown } from '../app/reducer';
+import { LoginRequest, Logout } from '../auth/reducer';
 
 interface NavbarProps {
   profile: auth0.Auth0UserProfile | null;

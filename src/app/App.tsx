@@ -1,22 +1,22 @@
+import { History } from 'history';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Flex } from 'reflexbox';
-import { Switch, Route } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
-import { History } from 'history';
 
-import { loginRequest, LoginRequest, logout, Logout } from '../auth/reducer';
+import RestrictedPage from '../auth/LoadableRestrictedPage';
+import { loginRequest, logout, LoginRequest, Logout } from '../auth/reducer';
 import { getProfile } from '../auth/selectors';
+import BooksPage from '../books/LoadableBooksPage';
 import { GlobalState } from '../rootReducer';
 import AppFooter from '../shared-components/AppFooter';
-import Navbar from '../shared-components/Navbar';
-import ScrollToTop from '../shared-components/ScrollToTop';
 import GaTracker from '../shared-components/GaTracker';
-import RestrictedPage from '../auth/LoadableRestrictedPage';
-import BooksPage from '../books/LoadableBooksPage';
 import HomePage from '../shared-components/LoadableHomePage';
 import NotFoundPage from '../shared-components/LoadableNotFoundPage';
+import Navbar from '../shared-components/Navbar';
+import ScrollToTop from '../shared-components/ScrollToTop';
 
 import { toggleDropdown, ToggleDropdown } from './reducer';
 import { getIsDropdownOpen } from './selectors';

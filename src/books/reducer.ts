@@ -1,7 +1,7 @@
 import iassign = require('immutable-assign');
 
-import Book from './Book';
 import { ResponseError } from '../apiService';
+import Book from './Book';
 
 export interface BooksRequest {
   type: 'BOOKS_REQUEST';

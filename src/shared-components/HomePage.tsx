@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { RouteComponentProps, Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import {
-  Heading,
   Banner,
+  Blockquote,
   Container,
+  Heading,
   Section,
   SectionHeader,
-  Blockquote,
 } from 'rebass';
 
 const banner = require('./Banner.jpg');

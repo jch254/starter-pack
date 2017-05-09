@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import {
-  PageHeader,
   Blockquote,
   Container,
+  PageHeader,
 } from 'rebass';
 
 const NotFoundPage: React.StatelessComponent<RouteComponentProps<any>> = () => (

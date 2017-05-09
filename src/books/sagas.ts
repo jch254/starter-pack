@@ -5,10 +5,10 @@ import { fetchBooks, handleApiError } from '../apiService';
 
 import Book from './Book';
 import {
-  BOOKS_REQUEST,
-  BooksRequest,
-  booksSuccess,
   booksFailure,
+  booksSuccess,
+  BooksRequest,
+  BOOKS_REQUEST,
 } from './reducer';
 
 export function* fetchBooksSaga(idToken: string) {

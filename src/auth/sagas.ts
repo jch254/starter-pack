@@ -1,16 +1,16 @@
 import Auth0Lock from 'auth0-lock';
-import { call, put, take } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import { call, put, take } from 'redux-saga/effects';
 
-import { setStoredAuthState, removeStoredAuthState } from '../utils';
+import { removeStoredAuthState, setStoredAuthState } from '../utils';
 
 import {
+  loginFailure,  
+  loginSuccess,
+  LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE,
   LOGOUT,
-  loginFailure,
-  loginSuccess,
 } from './reducer';
 
 interface ShowLock {

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as ga from 'react-ga';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 interface GaTrackerProps {
   children?: any;

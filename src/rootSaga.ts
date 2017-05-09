@@ -1,6 +1,6 @@
 import { fork } from 'redux-saga/effects';
 
-import { watchLoginRequest, watchLoginSuccess, watchLoginFailure, watchLogout } from './auth/sagas';
+import { watchLoginFailure, watchLoginRequest, watchLoginSuccess, watchLogout } from './auth/sagas';
 import { watchBooksRequest } from './books/sagas';
 
 export default function* rootSaga() {

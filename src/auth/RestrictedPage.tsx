@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
-import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { GlobalState } from '../rootReducer';
+import FullscreenLoader from '../shared-components/FullscreenLoader';
 
 import { loginRequest, LoginRequest } from './reducer';
 import { getIdToken } from './selectors';

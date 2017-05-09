@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import { Action }from 'redux';
+import { Action } from 'redux';
 import { put } from 'redux-saga/effects';
 
 import { loginRequest } from './auth/reducer';

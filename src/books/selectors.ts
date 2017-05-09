@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-import { GlobalState } from '../rootReducer';
 import { ResponseError } from '../apiService';
+import { GlobalState } from '../rootReducer';
 
 import Book from './Book';
 

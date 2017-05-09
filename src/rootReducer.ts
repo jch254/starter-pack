@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux';
 import { routerReducer, RouterState } from 'react-router-redux';
+import { combineReducers } from 'redux';
 import recycleState from 'redux-recycle';
 
+import appReducer, { initialState as appInitialState, AppState } from './app/reducer';
 import authReducer, { AuthState, LOGOUT } from './auth/reducer';
-import appReducer, { AppState, initialState as appInitialState } from './app/reducer';
-import booksReducer, { BooksState, initialState as booksInitialsState } from './books/reducer';
+import booksReducer, { initialState as booksInitialsState, BooksState } from './books/reducer';
 
 export interface GlobalState {
   auth: AuthState;

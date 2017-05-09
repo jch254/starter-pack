@@ -1,25 +1,25 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { Flex } from 'reflexbox';
 import {
-  PageHeader,
-  Container,
-  Message,
   Card,
   CardImage,
+  Container,
   Heading,
+  Message,
+  PageHeader,
   Text,
 } from 'rebass';
+import { bindActionCreators, Dispatch } from 'redux';
+import { Flex } from 'reflexbox';
 
-import FullscreenLoader from '../shared-components/FullscreenLoader';
+import { ResponseError } from '../apiService';
 import { getIdToken } from '../auth/selectors';
 import { GlobalState } from '../rootReducer';
-import { ResponseError } from '../apiService';
+import FullscreenLoader from '../shared-components/FullscreenLoader';
 
-import { booksRequest, BooksRequest } from './reducer';
-import { getSortedBooks, getError, getIsFetching } from './selectors';
 import Book from './Book';
+import { booksRequest, BooksRequest } from './reducer';
+import { getError, getIsFetching, getSortedBooks } from './selectors';
 
 const styles = require('./BooksPage.css');
 

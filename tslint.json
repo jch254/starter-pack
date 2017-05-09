@@ -3,6 +3,13 @@
   "rules": {
     "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
     "import-name": false,
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "case-insensitive",
+        "named-imports-order": "lowercase-first"
+      }
+    ],
     "max-line-length": [
       true,
       120
