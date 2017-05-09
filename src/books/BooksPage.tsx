@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { Box, Flex } from 'reflexbox';
+import { Flex } from 'reflexbox';
 import {
   PageHeader,
   Container,
@@ -50,39 +50,37 @@ class BooksPage extends React.PureComponent<StateProps & DispatchProps, {}> {
 
     return isFetching ?
       <FullscreenLoader /> :
-      <Box style={{ flex: '1 0 auto' }}>
-        <Container pt={4} pb={3}>
-          <PageHeader my={2} py={2} description="All the books" heading="Books" />
+      <Container mt={4} pt={4} pb={3} style={{ flex: '1 1 auto', width: '100%' }}>
+        <PageHeader my={2} py={2} description="All the books" heading="Books" />
+        {
+          error &&
+          <Message theme="error">
+            { `Error: ${JSON.stringify(error)}` }
+          </Message>
+        }
+        <Flex align="center" justify="center" wrap gutter={2}>
           {
-            error &&
-            <Message theme="error">
-              { `Error: ${JSON.stringify(error)}` }
-            </Message>
-          }
-          <Flex align="center" justify="center" wrap gutter={2}>
-            {
-              Object
-                .keys(books)
-                .map(id => (
-                  <Card key={id} m={2} style={{ width: '309px', height: '610px' }} >
+            Object
+              .keys(books)
+              .map(id => (
+                <Card key={id} m={2} style={{ width: '309px', height: '610px' }} >
+                  <a href={books[id].url} target="_blank" rel="noopener noreferrer">
+                    <CardImage src={books[id].img} />
+                  </a>
+                  <Heading level={3}>
                     <a href={books[id].url} target="_blank" rel="noopener noreferrer">
-                      <CardImage src={books[id].img} />
+                      { books[id].title }
                     </a>
-                    <Heading level={3}>
-                      <a href={books[id].url} target="_blank" rel="noopener noreferrer">
-                        { books[id].title }
-                      </a>
-                    </Heading>
-                    <Text bold>{books[id].author}</Text>
-                    <p className={styles.description}>
-                      { books[id].description }
-                    </p>
-                  </Card>
-              ))
-            }
-          </Flex>
-        </Container>
-      </Box>;
+                  </Heading>
+                  <Text bold>{books[id].author}</Text>
+                  <p className={styles.description}>
+                    { books[id].description }
+                  </p>
+                </Card>
+            ))
+          }
+        </Flex>
+      </Container>;
   }
 }
 

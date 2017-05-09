@@ -2,7 +2,7 @@ declare module 'reflexbox';
 declare module 'react-loading';
 declare module 'inline-chunk-manifest-html-webpack-plugin';
 declare module 'webpack-chunk-hash';
- 
+
 // TODO: Remove once https://github.com/thejameskyle/react-loadable/pull/36 merged
 declare module 'react-loadable' {
   import * as React from "react";

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Flex } from 'reflexbox';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import {
   Heading,
@@ -10,11 +9,13 @@ import {
   Blockquote,
 } from 'rebass';
 
+const banner = require('./Banner.jpg');
+
 const HomePage: React.StatelessComponent<RouteComponentProps<any>> = () => (
-  <Flex column style={{ flex: '1 0 auto' }}>
+  <div>
     <Banner
       style={{ minHeight: '75vh', backgroundAttachment: 'scroll' }}
-      backgroundImage="https://img.jch254.com/Banner.jpg"
+      backgroundImage={banner}
       m={0}
     >
       <Heading size={1} big>
@@ -130,7 +131,7 @@ const HomePage: React.StatelessComponent<RouteComponentProps<any>> = () => (
         </Blockquote>
       </Section>
     </Container>
-  </Flex>
+  </div>
 );
 
 export default HomePage;

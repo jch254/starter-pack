@@ -15,7 +15,7 @@
   },
   "author": "Jordan Hornblow <jordan@jch254.com>",
   "dependencies": {
-    "auth0-lock": "^10.15.1",
+    "auth0-lock": "^10.16.0",
     "history": "^4.6.1",
     "immutable-assign": "1.0.30",
     "isomorphic-fetch": "^2.2.1",
