@@ -13,18 +13,22 @@ import {
   Arrow,
 } from 'rebass';
 
+const activeStyle = {
+  color: '#111',
+};
+
 const Navbar = ({ profile, handleLogin, handleLogout, onToggleDropdown, isDropdownOpen }) => (
   <Fixed top left right zIndex={1}>
     <Toolbar backgroundColor="#fff">
-      <NavItem is="object" color="black">
-        <NavLink to="/" exact activeStyle={{ color: 'rgb(136, 136, 136)' }}>
+      <NavItem is="object">
+        <NavLink to="/" exact activeStyle={activeStyle}>
           Home
         </NavLink>
       </NavItem>
       {
         profile &&
-        <NavItem is="object" color="black">
-          <NavLink to="/books" activeStyle={{ color: 'rgb(136, 136, 136)' }}>
+        <NavItem is="object">
+          <NavLink to="/books" activeStyle={activeStyle}>
             Books
           </NavLink>
         </NavItem>
@@ -37,16 +41,16 @@ const Navbar = ({ profile, handleLogin, handleLogout, onToggleDropdown, isDropdo
               Login
             </Button> :
             <Dropdown>
-              <NavItem color="black" onClick={() => onToggleDropdown()}>
+              <NavItem color="black" onClick={onToggleDropdown}>
                 {profile.get('name')}
                 <Arrow />
               </NavItem>
               <DropdownMenu
                 right
-                onDismiss={() => onToggleDropdown()}
+                onDismiss={onToggleDropdown}
                 open={isDropdownOpen}
               >
-                <NavItem onClick={() => handleLogout()}>
+                <NavItem onClick={handleLogout}>
                   Logout
                 </NavItem>
               </DropdownMenu>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <% var item, key %>
+    <% htmlWebpackPlugin.options.meta = htmlWebpackPlugin.options.meta || [] %>
+    <% if (Array.isArray(htmlWebpackPlugin.options.meta)) { %>
+    <% for (item of htmlWebpackPlugin.options.meta) { %>
+    <meta<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %>>
+    <% } %>
+    <% } %>
+
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+
+  <body>
+    <div id="root">
+    </div>
+  </body>
+</html>

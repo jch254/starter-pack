@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 
 export const TOGGLE_DROPDOWN = 'TOGGLE_DROPDOWN';
 
-export const initialState = new Map({
+export const initialState = Map({
   isDropdownOpen: false,
 });
 

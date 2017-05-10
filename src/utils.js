@@ -18,10 +18,10 @@ export const getStoredAuthState = () => {
     const idToken = localStorage.getItem(ID_TOKEN);
     const profile = Immutable.fromJS(JSON.parse(localStorage.getItem(PROFILE)));
 
-    return new Map({ idToken, profile });
+    return Map({ idToken, profile });
   } catch (err) {
     removeStoredAuthState();
 
-    return new Map();
+    return Map();
   }
 };

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Box, Flex } from 'reflexbox';
+import { Flex } from 'reflexbox';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {
   PageHeader,
@@ -32,37 +32,35 @@ class BooksPage extends PureComponent {
 
     return isFetching ?
       <FullscreenLoader /> :
-      <Box style={{ flex: '1 0 auto' }}>
-        <Container pt={4} pb={3}>
-          <PageHeader my={2} py={2} description="All the books" heading="Books" />
+      <Container mt={4} pt={4} pb={3} style={{ flex: '1 1 auto', width: '100%' }}>
+        <PageHeader my={2} py={2} description="All the books" heading="Books" />
+        {
+          error &&
+          <Message theme="error">
+            { `Error: ${JSON.stringify(error)}` }
+          </Message>
+        }
+        <Flex align="center" justify="center" wrap gutter={2}>
           {
-            error &&
-            <Message theme="error">
-              { `Error: ${JSON.stringify(error)}` }
-            </Message>
+            books
+              .entrySeq()
+              .map(([id, book]) => (
+                <Card key={id} m={2} style={{ width: '309px', height: '610px' }} >
+                  <a href={book.url} target="_blank" rel="noopener noreferrer">
+                    <CardImage src={book.get('img')} />
+                  </a>
+                  <HeadingLink level={3} href={book.get('url')} target="_blank" rel="noopener noreferrer">
+                    { book.get('title') }
+                  </HeadingLink>
+                  <Text bold>{book.get('author')}</Text>
+                  <Text small>
+                    { book.get('description') }
+                  </Text>
+                </Card>
+            ))
           }
-          <Flex align="center" justify="center" wrap gutter={2}>
-            {
-              books
-                .entrySeq()
-                .map(([id, book]) => (
-                  <Card key={id} m={2} style={{ width: '309px', height: '610px' }} >
-                    <a href={book.url} target="_blank" rel="noopener noreferrer">
-                      <CardImage src={book.get('img')} />
-                    </a>
-                    <HeadingLink level={3} href={book.get('url')} target="_blank" rel="noopener noreferrer">
-                      { book.get('title') }
-                    </HeadingLink>
-                    <Text bold>{book.get('author')}</Text>
-                    <Text small>
-                      { book.get('description') }
-                    </Text>
-                  </Card>
-              ))
-            }
-          </Flex>
-        </Container>
-      </Box>;
+        </Flex>
+      </Container>;
   }
 }
 BooksPage.propTypes = {

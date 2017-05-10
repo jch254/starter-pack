@@ -1,5 +1,4 @@
 import React from 'react';
-import { Flex } from 'reflexbox';
 import {
   Heading,
   Banner,
@@ -9,11 +8,13 @@ import {
   Blockquote,
 } from 'rebass';
 
+import banner from './Banner.jpg';
+
 const HomePage = () => (
-  <Flex column style={{ flex: '1 0 auto' }}>
+  <div>
     <Banner
       style={{ minHeight: '75vh', backgroundAttachment: 'scroll' }}
-      backgroundImage="https://img.jch254.com/Banner.jpg"
+      backgroundImage={banner}
       m={0}
     >
       <Heading size={1} big>
@@ -22,11 +23,12 @@ const HomePage = () => (
       <Heading size={2}>
         React + Redux + Auth0
       </Heading>
-      <Heading size={3} pt={2}>
+      <Heading size={3} style={{ paddingTop: '12px' }}>
         <a
           href="https://github.com/jch254/starter-pack"
           target="_blank"
           rel="noreferrer noopener"
+          style={{ color: '#fff' }}
         >
           View on Github
         </a>
@@ -51,7 +53,20 @@ const HomePage = () => (
           >Reflexbox</a> to keep things looking decent. I built this as a way to quickly prototype
           new ideas.
         </p>
-        <p style={{ fontSize: '20px', marginBottom: '0px' }}>
+        <p style={{ fontSize: '20px' }}>
+          Webpack (ft. various loaders/plugins/tools) is used to run a local development server and build
+          the production version. <a
+            href="https://webpack.js.org/guides/code-splitting" target="_blank" rel="noopener noreferrer"
+          >Code splitting</a> (with <a
+            href="https://webpack.js.org/guides/caching" target="_blank" rel="noopener noreferrer"
+          >long-term caching</a> in the production version) has been set
+          up via Webpack and React Loadable. Webpack&#39;s CommonsChunkPlugin is used to split vendor code.
+          React Loadable is used for async component-centric code splitting and loading - see LoadableBooksPage.js
+          as an example of creating a split point. ExtractTextPlugin is used to split CSS. HtmlWebpackPlugin is
+          used to generate an index.html with the appropriate output assets injected, the Webpack manifest is
+          inlined into index.html to save requests.
+        </p>
+        <p style={{ fontSize: '20px' }}>
           The app contains a <a href="https://starter-pack.603.nu/books">&#39;locked down&#39; Books page</a> which
           requires a user to log in/sign up before content will be visible. The data is read from a
           local JSON file as this is a only demonstration/starting point. In the real world data
@@ -59,6 +74,13 @@ const HomePage = () => (
           validity of the JWT token and return unauthorised if invalid. The app would then prompt
           the user to log in again. See <a href="https://serverless-api.603.nu">Serverless API</a> for
           a more detailed example of authentication in action.
+        </p>
+        <p style={{ fontSize: '20px', marginBottom: '0px' }}>
+          I&#39;ve also created a <a
+            href="https://github.com/jch254/starter-pack/tree/typescript" target="_blank" rel="noopener noreferrer"
+          >branch</a> that utilises <a
+            href="https://www.youtube.com/watch?v=V1po0BT7kac" target="_blank" rel="noopener noreferrer"
+          >TypeScript for type checking</a> and transpliation to browser-friendly ES5 JavaScript.
         </p>
       </Section>
       <Section pb={0}>
@@ -92,10 +114,16 @@ const HomePage = () => (
             <a href="https://github.com/reactjs/reselect" target="_blank" rel="noopener noreferrer">Reselect</a>
           </li>
           <li>
-            <a href="https://github.com/jxnblk/rebass" target="_blank" rel="noopener noreferrer">Rebass</a>
+            <span>
+              <a href="https://github.com/jxnblk/rebass" target="_blank" rel="noopener noreferrer">Rebass</a>
+              &nbsp;&&nbsp;
+              <a href="https://github.com/jxnblk/reflexbox" target="_blank" rel="noopener noreferrer">Reflexbox</a>
+            </span>
           </li>
           <li>
-            <a href="https://github.com/jxnblk/reflexbox" target="_blank" rel="noopener noreferrer">Reflexbox</a>
+            <a href="https://github.com/thejameskyle/react-loadable" target="_blank" rel="noopener noreferrer">
+              React Loadable
+            </a>
           </li>
           <li>
             <a href="https://github.com/webpack/webpack" target="_blank" rel="noopener noreferrer">Webpack</a>
@@ -112,7 +140,7 @@ const HomePage = () => (
         </Blockquote>
       </Section>
     </Container>
-  </Flex>
+  </div>
 );
 
 export default HomePage;

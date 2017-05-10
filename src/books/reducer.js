@@ -4,9 +4,9 @@ export const BOOKS_REQUEST = 'BOOKS_REQUEST';
 export const BOOKS_SUCCESS = 'BOOKS_SUCCESS';
 export const BOOKS_FAILURE = 'BOOKS_FAILURE';
 
-export const initialState = new Map({
+export const initialState = Map({
   isFetching: false,
-  books: new Map(),
+  books: Map(),
   error: null,
 });
 

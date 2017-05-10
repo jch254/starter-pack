@@ -1,6 +1,7 @@
 .DS_Store
 node_modules/
-dist/assets/
+.history/
+dist/
 *.d.ts
 .vscode/
 typings.json

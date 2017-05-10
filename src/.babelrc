@@ -12,6 +12,11 @@
     "react"
   ],
   "plugins": [
+    "syntax-dynamic-import",
+    [
+      "react-loadable/babel",
+      { "webpack": true }
+    ],
     "transform-inline-environment-variables",
     "transform-class-properties",
     "transform-object-rest-spread"

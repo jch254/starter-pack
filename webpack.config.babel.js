@@ -1,26 +1,55 @@
 import path from 'path';
 
 import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import InlineChunkManifestHtmlWebpackPlugin from 'inline-chunk-manifest-html-webpack-plugin';
+
+const SERVER_PORT = process.env.SERVER_PORT || 3001;
+const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
 
 export default {
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   entry: [
     'babel-polyfill',
-    'webpack-hot-middleware/client?reload=true',
+    'webpack/hot/dev-server',
+    `webpack-dev-server/client?http://${SERVER_HOSTNAME}:${SERVER_PORT}`,
     path.join(__dirname, 'src', 'index.js'),
   ],
   output: {
-    path: path.join(__dirname, 'dist', 'assets'),
-    filename: 'bundle.js',
-    publicPath: '/assets',
+    path: path.join(__dirname, 'dist'),
+    filename: 'assets/[name].js',
+    chunkFilename: 'assets/[name].js',
+    publicPath: '/',
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
       },
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => module.context && module.context.indexOf('node_modules') !== -1,
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Starter Pack | 603.nu',
+      template: path.join(__dirname, 'src', 'index.ejs'),
+      favicon: path.join(__dirname, 'src', 'favicon.ico'),
+      meta: [
+        {
+          name: 'description',
+          content: 'React + Redux + Auth0',
+        },
+      ],
+      minify: {
+        collapseWhitespace: true,
+      },
+    }),
+    new InlineChunkManifestHtmlWebpackPlugin({
+      dropAsset: true,
     }),
   ],
   resolve: {
@@ -48,6 +77,7 @@ export default {
             loader: 'css-loader',
             options: {
               modules: true,
+              localIdentName: '[name]__[local]__[hash:base64:5]',
             },
           },
         ],

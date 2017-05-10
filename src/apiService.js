@@ -34,7 +34,7 @@ export async function fetchBooks(idToken) {
   // const response = await fetch(`${process.env.API_BASE_URI}/items`, getFetchInit(idToken, 'GET'));
 
   try {
-    return { books: new Map(books.map(mapBookToKeyValuePair)) };
+    return { books: Map(books.map(mapBookToKeyValuePair)) };
   } catch (err) {
     throw new Error(`Error occurred downstream: ${err}`);
   }
@@ -43,18 +43,13 @@ export async function fetchBooks(idToken) {
 export function* handleApiError(error, failureAction) {
   const response = error.response;
 
-  if (response === undefined) {
-    yield put(failureAction(error.message));
-  } else if (response.status === 401) {
-    // Unauthorised - show login
-    yield put(authActions.loginRequest());
+  if (response !== undefined) {
+    if (response.status === 401) {
+      // Unauthorised - show login
+      yield put(failureAction(null));
+      yield put(authActions.loginRequest());
+    }
   } else {
-    const responseError = {
-      status: response.status,
-      statusText: response.statusText,
-      message: error.message,
-    };
-
-    yield put(failureAction(responseError));
+    yield put(failureAction(error));
   }
 }

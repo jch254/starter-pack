@@ -9,12 +9,12 @@ import { ConnectedRouter } from 'react-router-redux';
 import AppFooter from '../shared-components/AppFooter';
 import Navbar from '../shared-components/Navbar';
 import { actions as authActions, selectors as authSelectors } from '../auth';
-import HomePage from '../shared-components/HomePage';
-import BooksPage from '../books/BooksPage';
-import NotFoundPage from '../shared-components/NotFoundPage';
+import HomePage from '../shared-components/LoadableHomePage';
+import BooksPage from '../books/LoadableBooksPage';
+import NotFoundPage from '../shared-components/LoadableNotFoundPage';
 import ScrollToTop from '../shared-components/ScrollToTop';
 import GaTracker from '../shared-components/GaTracker';
-import RestrictedPage from '../auth/RestrictedPage';
+import RestrictedPage from '../auth/LoadableRestrictedPage';
 
 import { toggleDropdown } from './reducer';
 import { getIsDropdownOpen } from './selectors';

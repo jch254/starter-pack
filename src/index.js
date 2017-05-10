@@ -7,6 +7,8 @@ import createHistory from 'history/createBrowserHistory';
 import App from './app/App';
 import configureStore from './configureStore';
 
+import './index.css';
+
 const history = createHistory();
 const store = configureStore(history);
 

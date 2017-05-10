@@ -1,0 +1,34 @@
+:global(*) {
+  box-sizing: border-box;
+}
+
+:global(html) {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+:global(#root) {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+:global(a) {
+  text-decoration: none;
+  color: #999;
+}
+
+:global(body) {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: #fff;
+  color: #111;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+:global(button:focus) {
+  outline: none;
+}
