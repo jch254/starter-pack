@@ -1,13 +1,10 @@
-import iassign = require('immutable-assign');
+import * as iassign from 'immutable-assign';
+
+export const TOGGLE_DROPDOWN = 'TOGGLE_DROPDOWN';
 
 export interface ToggleDropdown {
   type: 'TOGGLE_DROPDOWN';
 }
-
-export const TOGGLE_DROPDOWN = 'TOGGLE_DROPDOWN';
-export const toggleDropdown = (): ToggleDropdown => ({
-  type: TOGGLE_DROPDOWN,
-});
 
 type AppAction = ToggleDropdown;
 
@@ -31,3 +28,7 @@ export default function reducer(state: AppState = initialState, action: AppActio
       return state;
   }
 }
+
+export const toggleDropdown = (): ToggleDropdown => ({
+  type: TOGGLE_DROPDOWN,
+});

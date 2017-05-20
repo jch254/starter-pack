@@ -83,4 +83,4 @@ yarn run prod
 
 ## Deployment/Infrastructure
 
-Refer to the [/infrastructure](../master/infrastructure) directory.
+Refer to the [/infrastructure](./infrastructure) directory.

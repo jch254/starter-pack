@@ -25,7 +25,7 @@ const styles = require('./BooksPage.css');
 
 interface StateProps {
   idToken: string | null;
-  books: { [id: string]: Book };
+  books: Map<string, Book>;
   isFetching: boolean;
   error: ResponseError | null;
 }
@@ -60,21 +60,20 @@ class BooksPage extends React.PureComponent<StateProps & DispatchProps, {}> {
         }
         <Flex align="center" justify="center" wrap gutter={2}>
           {
-            Object
-              .keys(books)
-              .map(id => (
+            [...books]
+              .map(([id, book]) => (
                 <Card key={id} m={2} style={{ width: '309px', height: '610px' }} >
-                  <a href={books[id].url} target="_blank" rel="noopener noreferrer">
-                    <CardImage src={books[id].img} />
+                  <a href={book.url} target="_blank" rel="noopener noreferrer">
+                    <CardImage src={book.img} />
                   </a>
                   <Heading level={3}>
-                    <a href={books[id].url} target="_blank" rel="noopener noreferrer">
-                      { books[id].title }
+                    <a href={book.url} target="_blank" rel="noopener noreferrer">
+                      { book.title }
                     </a>
                   </Heading>
-                  <Text bold>{books[id].author}</Text>
+                  <Text bold>{book.author}</Text>
                   <p className={styles.description}>
-                    { books[id].description }
+                    { book.description }
                   </p>
                 </Card>
             ))

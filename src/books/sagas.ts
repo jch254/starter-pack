@@ -13,7 +13,7 @@ import {
 
 export function* fetchBooksSaga(idToken: string) {
   try {
-    const books: { [id: string]: Book; } = yield call(fetchBooks, idToken);
+    const books: Map<string, Book> = yield call(fetchBooks, idToken);
 
     yield put(booksSuccess(books));
   } catch (error) {

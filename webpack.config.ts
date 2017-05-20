@@ -28,9 +28,24 @@ const config: webpack.Configuration = {
         AUTH0_DOMAIN: JSON.stringify(process.env.AUTH0_DOMAIN),
       },
     }),
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: (module: any) => module.context && module.context.indexOf('node_modules') !== -1,
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      chunks: ['vendor'],
+      name: 'auth0',
+      minChunks: (module: any) => module.resource && (/auth0/).test(module.resource),
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      chunks: ['vendor'],
+      name: 'react-loading',
+      minChunks: (module: any) => module.resource && (/react-loading/).test(module.resource),
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      async: 'async-common',
+      minChunks: (module: any, count: number) => count >= 2,
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
@@ -69,8 +84,13 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.tsx?$/,
-        use: ['awesome-typescript-loader'],
         include: path.join(__dirname, 'src'),
+        use: [{
+          loader: 'awesome-typescript-loader',
+          options: {
+            silent: true,
+          },
+        }],
       },
       {
         test: /\.js$/,

@@ -1,15 +1,15 @@
-import iassign = require('immutable-assign');
+import * as iassign from 'immutable-assign';
 
 import { getStoredAuthState } from '../utils';
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
 
 export interface LoginRequest {
   type: 'LOGIN_REQUEST';
 }
-
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const loginRequest = (): LoginRequest => ({
-  type: LOGIN_REQUEST,
-});
 
 export interface LoginSuccess {
   type: 'LOGIN_SUCCESS';
@@ -17,29 +17,15 @@ export interface LoginSuccess {
   idToken: string;
 }
 
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const loginSuccess = (profile: auth0.Auth0UserProfile, idToken: string): LoginSuccess => ({
-  type: LOGIN_SUCCESS,
-  profile,
-  idToken,
-});
-
 export interface LoginFailure {
   type: 'LOGIN_FAILURE';
   error: string;
 }
 
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const loginFailure = (error: string): LoginFailure => ({
-  type: LOGIN_FAILURE,
-  error,
-});
-
 export interface Logout {
   type: 'LOGOUT';
 }
 
-export const LOGOUT = 'LOGOUT';
 export const logout = (): Logout => ({
   type: LOGOUT,
 });
@@ -100,3 +86,18 @@ export default function reducer(
       return state;
   }
 }
+
+export const loginRequest = (): LoginRequest => ({
+  type: LOGIN_REQUEST,
+});
+
+export const loginSuccess = (profile: auth0.Auth0UserProfile, idToken: string): LoginSuccess => ({
+  type: LOGIN_SUCCESS,
+  profile,
+  idToken,
+});
+
+export const loginFailure = (error: string): LoginFailure => ({
+  type: LOGIN_FAILURE,
+  error,
+});
