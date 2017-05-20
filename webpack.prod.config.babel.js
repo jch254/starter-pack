@@ -24,9 +24,24 @@ export default {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
       },
     }),
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: module => module.context && module.context.indexOf('node_modules') !== -1,
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      chunks: ['vendor'],
+      name: 'auth0',
+      minChunks: module => module.resource && (/auth0/).test(module.resource),
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      chunks: ['vendor'],
+      name: 'react-loading',
+      minChunks: module => module.resource && (/react-loading/).test(module.resource),
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      async: 'async-common',
+      minChunks: (module, count) => count >= 2,
     }),
     new webpack.HashedModuleIdsPlugin(),
     new WebpackChunkHash(),
@@ -35,7 +50,8 @@ export default {
       allChunks: true,
     }),
     new OptimizeCssAssetsPlugin({
-      cssProcessorOptions: { discardComments: { removeAll: true } },
+      cssProcessorOptions: { discardComments: {removeAll: true } },
+      canPrint: false,
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

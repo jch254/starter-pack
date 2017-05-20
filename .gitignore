@@ -7,3 +7,4 @@ dist/
 typings.json
 npm-debug.log
 yarn-error.log
+stats.json
