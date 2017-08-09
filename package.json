@@ -51,7 +51,6 @@
     "@types/react-router-dom": "^4.0.4",
     "@types/react-router-redux": "^5.0.1",
     "@types/rebass": "^0.2.17",
-    "@types/redux": "^3.6.0",
     "@types/redux-recycle": "^1.2.0",
     "@types/webpack": "^2.2.15",
     "@types/webpack-dev-server": "^2.4.0",
