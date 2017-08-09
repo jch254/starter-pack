@@ -4,5 +4,8 @@ import ComponentLoader from './ComponentLoader';
 
 export default Loadable({
   LoadingComponent: ComponentLoader,
-  loader: () => import('./NotFoundPage'),
+  loader: () => import(
+    /* webpackChunkName: "not-found" */
+    './NotFoundPage',
+  ),
 });

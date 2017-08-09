@@ -4,5 +4,8 @@ import ComponentLoader from './ComponentLoader';
 
 export default Loadable({
   LoadingComponent: ComponentLoader,
-  loader: () => import('./HomePage'),
+  loader: () => import(
+    /* webpackChunkName: "home" */
+    './HomePage',
+  ),
 });

@@ -4,5 +4,8 @@ import ComponentLoader from '../shared-components/ComponentLoader';
 
 export default Loadable({
   LoadingComponent: ComponentLoader,
-  loader: () => import('./BooksPage'),
+  loader: () => import(
+    /* webpackChunkName: "books" */
+    './BooksPage',
+  ),
 });

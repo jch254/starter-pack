@@ -40,7 +40,9 @@ const HomePage = () => (
         <p style={{ fontSize: '20px' }}>
           <a href="https://github.com/jch254/starter-pack" target="_blank" rel="noopener noreferrer">Starter Pack </a>
           combines <a href="https://github.com/facebook/react" target="_blank" rel="noopener noreferrer">React</a>, <a
-            href="https://github.com/reactjs/redux" target="_blank" rel="noopener noreferrer"
+            href="https://github.com/reactjs/redux"
+            target="_blank"
+            rel="noopener noreferrer"
           >Redux</a> and <a href="https://github.com/yelouafi/redux-saga" target="_blank" rel="noopener noreferrer">
           Redux-saga</a> with <a href="https://github.com/auth0/lock" target="_blank" rel="noopener noreferrer">
           Auth0&#39;s Lock</a> as a starting point for modern web apps with solid authentication.
@@ -49,16 +51,22 @@ const HomePage = () => (
             target="_blank"
             rel="noopener noreferrer"
           >Rebass</a> and <a
-            href="https://github.com/jxnblk/reflexbox" target="_blank" rel="noopener noreferrer"
+            href="https://github.com/jxnblk/reflexbox"
+            target="_blank"
+            rel="noopener noreferrer"
           >Reflexbox</a> to keep things looking decent. I built this as a way to quickly prototype
           new ideas.
         </p>
         <p style={{ fontSize: '20px' }}>
           Webpack (ft. various loaders/plugins/tools) is used to run a local development server and build
           the production version. <a
-            href="https://webpack.js.org/guides/code-splitting" target="_blank" rel="noopener noreferrer"
+            href="https://webpack.js.org/guides/code-splitting"
+            target="_blank"
+            rel="noopener noreferrer"
           >Code splitting</a> (with <a
-            href="https://webpack.js.org/guides/caching" target="_blank" rel="noopener noreferrer"
+            href="https://webpack.js.org/guides/caching"
+            target="_blank"
+            rel="noopener noreferrer"
           >long-term caching</a> in the production version) has been set
           up via Webpack and React Loadable. Webpack&#39;s CommonsChunkPlugin is used to split vendor code.
           React Loadable is used for async component-centric code splitting and loading - see LoadableBooksPage.js
@@ -77,9 +85,13 @@ const HomePage = () => (
         </p>
         <p style={{ fontSize: '20px', marginBottom: '0px' }}>
           I&#39;ve also created a <a
-            href="https://github.com/jch254/starter-pack/tree/typescript" target="_blank" rel="noopener noreferrer"
+            href="https://github.com/jch254/starter-pack/tree/typescript"
+            target="_blank"
+            rel="noopener noreferrer"
           >branch</a> that utilises <a
-            href="https://www.youtube.com/watch?v=V1po0BT7kac" target="_blank" rel="noopener noreferrer"
+            href="https://www.youtube.com/watch?v=V1po0BT7kac"
+            target="_blank"
+            rel="noopener noreferrer"
           >TypeScript for type checking</a> and transpliation to browser-friendly ES5 JavaScript.
         </p>
       </Section>

@@ -57,7 +57,7 @@ class BooksPage extends PureComponent {
                     { book.get('description') }
                   </Text>
                 </Card>
-            ))
+              ))
           }
         </Flex>
       </Container>;

@@ -4,5 +4,8 @@ import ComponentLoader from '../shared-components/ComponentLoader';
 
 export default Loadable({
   LoadingComponent: ComponentLoader,
-  loader: () => import('./RestrictedPage'),
+  loader: () => import(
+    /* webpackChunkName: "restricted" */
+    './RestrictedPage',
+  ),
 });
