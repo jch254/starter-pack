@@ -5,7 +5,7 @@ import { call, put, take } from 'redux-saga/effects';
 import { removeStoredAuthState, setStoredAuthState } from '../utils';
 
 import {
-  loginFailure,  
+  loginFailure,
   loginSuccess,
   LOGIN_FAILURE,
   LOGIN_REQUEST,
@@ -20,8 +20,8 @@ interface ShowLock {
 
 export function* loginRequestSaga() {
   const lock = new Auth0Lock(
-    process.env.AUTH0_CLIENT_ID,
-    process.env.AUTH0_DOMAIN,
+    process.env.AUTH0_CLIENT_ID as string,
+    process.env.AUTH0_DOMAIN as string,
     {
       auth: { redirect: false },
       languageDictionary: { title: 'Starter Pack' },

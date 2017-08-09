@@ -1,8 +1,8 @@
 import path = require('path');
 
-import webpack = require('webpack');
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
+import webpack = require('webpack');
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';

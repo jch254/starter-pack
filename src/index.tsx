@@ -15,14 +15,6 @@ declare global {
   interface Window {
     devToolsExtension: any;
   }
-
-  // TODO: Remove once TypeScript supports dynamic imports. Webpack handles System.import calls.
-  // See https://github.com/Microsoft/TypeScript/issues/12364#issuecomment-288087153
-  interface System {
-    import<T> (modulePath: string): Promise<T>;
-  }
-
-  var System: System;
 }
 
 ReactDOM.render(

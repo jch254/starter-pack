@@ -13,7 +13,7 @@ class GaTracker extends React.PureComponent<Props, {}> {
     super(props);
 
     if (process.env.NODE_ENV === 'production' && process.env.GA_ID) {
-      ga.initialize(process.env.GA_ID);
+      ga.initialize(process.env.GA_ID as string);
     }
   }
 

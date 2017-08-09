@@ -1,8 +1,9 @@
 import LoadableComponent from '../shared-components/LoadableComponent';
 
-import RestrictedPage from './RestrictedPage';
-
 export default LoadableComponent({
-  loader: () => System.import<typeof RestrictedPage>('./RestrictedPage'),
+  loader: () => import(
+    /* webpackChunkName: "restricted" */
+    './RestrictedPage',
+  ),
   webpackRequireWeakId: () => require.resolveWeak('./RestrictedPage'),
 });

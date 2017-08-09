@@ -1,10 +1,10 @@
 import path = require('path');
 
-import webpack = require('webpack');
 import ExtractTextPlugin = require('extract-text-webpack-plugin');
-import OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
+import OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+import webpack = require('webpack');
 import WebpackChunkHash = require('webpack-chunk-hash');
 
 // TODO: Add to @types/webpack
@@ -58,7 +58,7 @@ const config: webpack.Configuration = {
       allChunks: true,
     }),
     new OptimizeCssAssetsPlugin({
-      cssProcessorOptions: { discardComments: {removeAll: true } },
+      cssProcessorOptions: { discardComments: { removeAll: true } },
       canPrint: false,
     }),
     new webpack.optimize.UglifyJsPlugin({
