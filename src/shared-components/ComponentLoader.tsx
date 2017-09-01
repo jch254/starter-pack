@@ -4,7 +4,7 @@ import FullscreenLoader from './FullscreenLoader';
 
 interface ComponentLoaderProps {
   isLoading: boolean;
-  error: Error | null;
+  error?: Error;
   pastDelay: boolean;
 }
 

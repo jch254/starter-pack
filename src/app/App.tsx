@@ -7,18 +7,18 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { Flex } from 'reflexbox';
 
 import RestrictedPage from '../auth/LoadableRestrictedPage';
-import { loginRequest, logout, LoginRequest, Logout } from '../auth/reducer';
+import { loginRequest, logout } from '../auth/reducer';
 import { getProfile } from '../auth/selectors';
 import BooksPage from '../books/LoadableBooksPage';
 import { GlobalState } from '../rootReducer';
 import AppFooter from '../shared-components/AppFooter';
 import GaTracker from '../shared-components/GaTracker';
-import HomePage from '../shared-components/LoadableHomePage';
+import HomePage from '../shared-components/HomePage';
 import NotFoundPage from '../shared-components/LoadableNotFoundPage';
 import Navbar from '../shared-components/Navbar';
 import ScrollToTop from '../shared-components/ScrollToTop';
 
-import { toggleDropdown, ToggleDropdown } from './reducer';
+import { toggleDropdown } from './reducer';
 import { getIsDropdownOpen } from './selectors';
 
 interface AppProps {
@@ -27,14 +27,14 @@ interface AppProps {
 
 interface StateProps {
   isDropdownOpen: boolean;
-  profile: auth0.Auth0UserProfile | null;
+  profile?: auth0.Auth0UserProfile;
 }
 
 interface DispatchProps {
   actions: {
-    toggleDropdown: () => ToggleDropdown,
-    loginRequest: () => LoginRequest,
-    logout: () => Logout,
+    toggleDropdown: typeof toggleDropdown,
+    loginRequest: typeof loginRequest,
+    logout: typeof logout,
   };
 }
 
@@ -50,9 +50,9 @@ const App: React.StatelessComponent<AppProps & StateProps & DispatchProps> = ({
         <Flex column style={{ height: '100%' }}>
           <Navbar
             profile={profile}
-            handleLogin={() => actions.loginRequest()}
-            handleLogout={() => actions.logout()}
-            onToggleDropdown={() => actions.toggleDropdown()}
+            handleLogin={actions.loginRequest}
+            handleLogout={actions.logout}
+            onToggleDropdown={actions.toggleDropdown}
             isDropdownOpen={isDropdownOpen}
           />
           <Switch>

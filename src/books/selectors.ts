@@ -7,7 +7,7 @@ import Book from './Book';
 
 const getBooks = (state: GlobalState): Map<string, Book> => state.books.books;
 
-export const getError = (state: GlobalState): ResponseError | null => state.books.error;
+export const getError = (state: GlobalState): ResponseError | undefined => state.books.error;
 
 export const getIsFetching = (state: GlobalState): boolean => state.books.isFetching;
 

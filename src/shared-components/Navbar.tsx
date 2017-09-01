@@ -11,14 +11,14 @@ import {
   Toolbar,
 } from 'rebass';
 
-import { ToggleDropdown } from '../app/reducer';
-import { LoginRequest, Logout } from '../auth/reducer';
+import { toggleDropdown } from '../app/reducer';
+import { loginRequest, logout } from '../auth/reducer';
 
 interface NavbarProps {
-  profile: auth0.Auth0UserProfile | null;
-  handleLogin: () => LoginRequest;
-  handleLogout: () => Logout;
-  onToggleDropdown: () => ToggleDropdown;
+  profile?: auth0.Auth0UserProfile;
+  handleLogin: typeof loginRequest;
+  handleLogout: typeof logout;
+  onToggleDropdown: typeof toggleDropdown;
   isDropdownOpen: boolean;
 }
 
@@ -51,7 +51,7 @@ const Navbar: React.StatelessComponent<NavbarProps> = ({
       <Space auto />
       <NavItem is="object">
         {
-          !profile ?
+          profile === undefined ?
             <Button backgroundColor="green">
               <div onClick={handleLogin}>
                 Login

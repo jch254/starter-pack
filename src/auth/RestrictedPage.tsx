@@ -5,7 +5,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { GlobalState } from '../rootReducer';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 
-import { loginRequest, LoginRequest } from './reducer';
+import { loginRequest } from './reducer';
 import { getIdToken } from './selectors';
 
 export interface RestrictedPageProps {
@@ -13,12 +13,12 @@ export interface RestrictedPageProps {
 }
 
 interface StateProps {
-  idToken: string | null;
+  idToken?: string;
 }
 
 interface DispatchProps {
   actions: {
-    loginRequest: () => LoginRequest;
+    loginRequest: typeof loginRequest;
   };
 }
 

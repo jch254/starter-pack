@@ -7,13 +7,6 @@ import OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 import webpack = require('webpack');
 import WebpackChunkHash = require('webpack-chunk-hash');
 
-// TODO: Add to @types/webpack
-declare module 'webpack' {
-  class HashedModuleIdsPlugin extends Plugin {
-    constructor();
-  }
-}
-
 const config: webpack.Configuration = {
   entry: [
     path.join(__dirname, 'src', 'index.tsx'),
@@ -30,6 +23,7 @@ const config: webpack.Configuration = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
         AUTH0_CLIENT_ID: JSON.stringify(process.env.AUTH0_CLIENT_ID),
         AUTH0_DOMAIN: JSON.stringify(process.env.AUTH0_DOMAIN),
+        GA_ID: JSON.stringify(process.env.GA_ID),
       },
     }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
@@ -58,7 +52,7 @@ const config: webpack.Configuration = {
       allChunks: true,
     }),
     new OptimizeCssAssetsPlugin({
-      cssProcessorOptions: { discardComments: { removeAll: true } },
+      cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
       canPrint: false,
     }),
     new webpack.optimize.UglifyJsPlugin({

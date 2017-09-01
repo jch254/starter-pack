@@ -18,21 +18,21 @@ import { GlobalState } from '../rootReducer';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 
 import Book from './Book';
-import { booksRequest, BooksRequest } from './reducer';
+import { booksRequest } from './reducer';
 import { getError, getIsFetching, getSortedBooks } from './selectors';
 
 const styles = require('./BooksPage.css');
 
 interface StateProps {
-  idToken: string | null;
+  idToken?: string;
   books: Map<string, Book>;
   isFetching: boolean;
-  error: ResponseError | null;
+  error?: ResponseError;
 }
 
 interface DispatchProps {
   actions: {
-    booksRequest: (idToken: string) => BooksRequest,
+    booksRequest: typeof booksRequest,
   };
 }
 

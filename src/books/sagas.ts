@@ -1,4 +1,3 @@
-import 'isomorphic-fetch';
 import { call, put, take } from 'redux-saga/effects';
 
 import { fetchBooks, handleApiError } from '../apiService';

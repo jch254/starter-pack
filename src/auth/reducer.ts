@@ -34,16 +34,13 @@ type AuthAction = LoginRequest | LoginSuccess | LoginFailure | Logout;
 
 export interface AuthState {
   isLoggingIn: boolean;
-  idToken: string | null;
-  profile: auth0.Auth0UserProfile | null;
-  error: string | null;
+  idToken?: string;
+  profile?: auth0.Auth0UserProfile;
+  error?: string;
 }
 
 export const initialState: AuthState = {
   isLoggingIn: false,
-  idToken: null,
-  profile: null,
-  error: null,
 };
 
 export default function reducer(
@@ -73,8 +70,8 @@ export default function reducer(
         state,
         (s) => {
           s.isLoggingIn = false;
-          s.idToken = null;
-          s.profile = null;
+          s.idToken = undefined;
+          s.profile = undefined;
           s.error = action.error;
 
           return s;

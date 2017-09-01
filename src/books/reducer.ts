@@ -27,13 +27,12 @@ type BooksAction = BooksRequest | BooksSuccess | BooksFailure;
 export interface BooksState {
   isFetching: boolean;
   books: Map<string, Book>;
-  error: ResponseError | null;
+  error?: ResponseError;
 }
 
 export const initialState: BooksState = {
   isFetching: false,
   books: new Map<string, Book>(),
-  error: null,
 };
 
 export default function reducer(state: BooksState = initialState, action: BooksAction) {

@@ -12,8 +12,9 @@ class GaTracker extends React.PureComponent<Props, {}> {
   constructor(props: Props) {
     super(props);
 
-    if (process.env.NODE_ENV === 'production' && process.env.GA_ID) {
+    if (process.env.NODE_ENV === 'production' && process.env.GA_ID !== undefined) {
       ga.initialize(process.env.GA_ID as string);
+      ga.pageview(window.location.pathname);      
     }
   }
 
@@ -30,4 +31,4 @@ class GaTracker extends React.PureComponent<Props, {}> {
   }
 }
 
-export default withRouter(GaTracker);
+export default withRouter<GaTrackerProps>(GaTracker);
