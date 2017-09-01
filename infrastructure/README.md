@@ -15,12 +15,13 @@ To deploy to AWS, you must:
    1. Set your credentials as the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
    1. Run `aws configure` and fill in the details it asks for.
    1. Run on an EC2 instance with an IAM Role.
- 1. Update the S3 backend in [starter-pack.tf](./starter-pack.tf):
+   1. Run via CodeBuild or ECS Task with an IAM Role.
+ 1. Update the S3 backend in [main.tf](./main.tf):
  ```
 terraform {
    backend "s3" {
       bucket = "YOUR_S3_BUCKET"
-      key = "terraform.tfstate"
+      key = "starter-pack.tfstate"
       region = "YOUR_REGION"
       encrypt= "true"
    }
@@ -30,17 +31,17 @@ terraform {
 #### Deploying infrastructure
 
 1. `terraform init`
-1. `terraform plan -var-file starter-pack.tfvars`
-1. `terraform apply -var-file starter-pack-2.tfvars`
+1. `terraform plan -var-file main.tfvars -out main.tfplan`
+1. `terraform apply main.tfplan`
 
 #### Updating infrastructure
 
 1. Make necessary infrastructure code changes.
 1. `terraform init`
-1. `terraform plan -var-file starter-pack.tfvars`
-1. `terraform apply -var-file starter-pack-2.tfvars`
+1. `terraform plan -var-file main.tfvars -out main.tfplan`
+1. `terraform apply main.tfplan`
 
 #### Destroying infrastructure (use with care)
 
 1. `terraform init`
-1. `terraform plan -var-file starter-pack.tfvars`
+1. `terraform destroy -var-file main.tfvars`

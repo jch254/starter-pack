@@ -4,6 +4,6 @@ pipelines:
     master:
       - step:
           script:
-            - ./build-artifacts.bash
-            - ./deploy-infrastructure.bash
-            - ./upload-artifacts.bash
+            - ./infrastructure/build-artifacts.bash
+            - ./infrastructure/deploy-infrastructure.bash
+            - ./infrastructure/upload-artifacts.bash

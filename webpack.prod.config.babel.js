@@ -50,7 +50,7 @@ export default {
       allChunks: true,
     }),
     new OptimizeCssAssetsPlugin({
-      cssProcessorOptions: { discardComments: {removeAll: true } },
+      cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
       canPrint: false,
     }),
     new webpack.optimize.UglifyJsPlugin({
