@@ -9,6 +9,7 @@ class GaTracker extends PureComponent {
 
     if (process.env.NODE_ENV === 'production' && process.env.GA_ID) {
       ga.initialize(process.env.GA_ID);
+      ga.pageview(window.location.pathname);
     }
   }
 
