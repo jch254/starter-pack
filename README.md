@@ -25,7 +25,8 @@ if invalid. The app should then prompt the user to log in again. See
 of authentication in action.
 
 This branch utilises [TypeScript for type checking](https://www.youtube.com/watch?v=V1po0BT7kac) and
-transpliation to browser-friendly ES5 JavaScript while the master branch is a JavaScript implementation.
+transpliation to browser-friendly ES5 JavaScript while the [master branch](https://github.com/jch254/starter-pack/tree/master)
+is a JavaScript implementation.
 
 ![Main](https://img.jch254.com/Main.png)
 
