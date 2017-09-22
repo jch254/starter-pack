@@ -1,5 +1,5 @@
 {
-  "presets": ["latest", "react"],
+  "presets": ["env", "react"],
   "plugins": [
     "transform-inline-environment-variables",
     "transform-class-properties",

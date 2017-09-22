@@ -1,4 +1,7 @@
 #!/bin/bash -ex
 
-yarn install
+echo Building artifacts...
+
 yarn run build
+
+echo Finished building artifacts

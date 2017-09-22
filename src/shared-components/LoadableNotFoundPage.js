@@ -3,7 +3,7 @@ import Loadable from 'react-loadable';
 import ComponentLoader from './ComponentLoader';
 
 export default Loadable({
-  LoadingComponent: ComponentLoader,
+  loading: ComponentLoader,
   loader: () => import(
     /* webpackChunkName: "not-found" */
     './NotFoundPage',

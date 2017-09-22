@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "latest",
+      "env",
       {
         "es2015": {
           "modules": false,
@@ -14,8 +14,8 @@
   "plugins": [
     "syntax-dynamic-import",
     [
-      "react-loadable/babel",
-      { "webpack": true }
+      "import-inspector",
+      { "webpackRequireWeakId": true }
     ],
     "transform-inline-environment-variables",
     "transform-class-properties",

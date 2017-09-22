@@ -1,0 +1,43 @@
+# All commands below are run from root directory of repository by CodeBuild
+version: 0.2
+
+env:
+  variables:
+    TF_VAR_region: "ap-southeast-2"
+    TF_VAR_name: "starter-pack"
+    TF_VAR_kms_key_arns: '["arn:aws:kms:ap-southeast-2:982898479788:key/0ec9686b-13a1-40fc-8256-86e8d3503e9c"]'
+    TF_VAR_ssm_parameter_arns: '["arn:aws:ssm:ap-southeast-2:982898479788:parameter/shared/*","arn:aws:ssm:ap-southeast-2:982898479788:parameter/starter-pack/*"]'
+    TF_VAR_build_docker_image: "jch254/docker-node-terraform-aws"
+    TF_VAR_build_docker_tag: "latest"
+    TF_VAR_buildspec: "buildspec.yml"
+    TF_VAR_source_location: "https://github.com/jch254/starter-pack.git"
+    TF_VAR_bucket_name: "starter-pack.603.nu"
+    TF_VAR_dns_names: '["starter-pack.603.nu"]'
+    TF_VAR_route53_zone_id: "ZS32KHT5LS4PR"
+    TF_VAR_acm_arn: "arn:aws:acm:us-east-1:982898479788:certificate/2367a831-34bd-4d81-bb17-2f79d08329a6"
+    AUTH0_CLIENT_ID: "kM4QwLQxic0Kvxur0d4frLI8CY0FxOmk"
+    AUTH0_DOMAIN: "603.au.auth0.com"
+    REMOTE_STATE_BUCKET: "603-terraform-remote-state"
+  parameter-store:
+    GA_ID: "/starter-pack/ga-id"
+
+phases:
+  install:
+    commands:
+      # Workaround until CodeBuild/CodePipeline retains file permissions
+      - find ./infrastructure -name "*.bash" -exec chmod +x {} \;
+      - ./infrastructure/install.bash
+
+  pre_build:
+    commands:
+      # Workaround until TF supports creds via Task Roles when running on ECS or CodeBuild
+      # See: https://github.com/hashicorp/terraform/issues/8746
+      - export AWS_ACCESS_KEY_ID=`curl --silent http://169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.AccessKeyId'`
+      - export AWS_SECRET_ACCESS_KEY=`curl --silent http://169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.SecretAccessKey'`
+      - export AWS_SESSION_TOKEN=`curl --silent http://169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.Token'`
+
+  build:
+    commands:
+      - ./infrastructure/build-artifacts.bash
+      - ./infrastructure/deploy-infrastructure.bash
+      - ./infrastructure/upload-artifacts.bash
