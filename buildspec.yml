@@ -12,7 +12,7 @@ env:
     TF_VAR_buildspec: "buildspec.yml"
     TF_VAR_source_location: "https://github.com/jch254/starter-pack.git"
     TF_VAR_bucket_name: "starter-pack.603.nu"
-    TF_VAR_dns_names: '["starter-pack.603.nu"]'
+    TF_VAR_dns_names: '["starter-pack.603.nu","sp.603.nu"]'
     TF_VAR_route53_zone_id: "ZS32KHT5LS4PR"
     TF_VAR_acm_arn: "arn:aws:acm:us-east-1:982898479788:certificate/2367a831-34bd-4d81-bb17-2f79d08329a6"
     AUTH0_CLIENT_ID: "kM4QwLQxic0Kvxur0d4frLI8CY0FxOmk"
