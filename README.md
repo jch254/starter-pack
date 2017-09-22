@@ -1,7 +1,5 @@
 # [Starter Pack](https://starter-pack-typescript.603.nu)
 
-[Bitbucket Pipelines status](https://bitbucket.org/jch254/starter-pack/addon/pipelines/home)
-
 ## Overview
 
 Starter Pack combines React, Redux and Redux-saga with Auth0's Lock as a starting point for modern
@@ -62,6 +60,14 @@ E.g. `AUTH0_CLIENT_ID=YOUR_CLIENT_ID AUTH0_DOMAIN=YOUR_DOMAIN yarn run dev`
 ```
 yarn install
 yarn run dev
+```
+
+### Running development version locally in Docker container
+1. Run the following commands in the app's root directory then submit requests to http://localhost:3001.
+
+```
+docker build -t starter-pack:typescript .
+docker run -p 3001:3001 -e AUTH0_CLIENT_ID=YOUR_CLIENT_ID -e AUTH0_DOMAIN=YOUR_DOMAIN starter-pack:typescript
 ```
 
 ## Building the production version

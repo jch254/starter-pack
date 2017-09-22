@@ -5,6 +5,5 @@ CLOUDFRONT_DISTRIBUTION_ID=$(cd infrastructure && terraform output cloudfront_di
 
 cd dist
 aws s3 sync . "s3://${S3_BUCKET_ID}/" --delete --acl=public-read --exclude '.git/*'
-aws configure set preview.cloudfront true
 aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths '/*'
 cd ..

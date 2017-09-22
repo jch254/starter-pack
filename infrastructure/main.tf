@@ -1,8 +1,5 @@
 terraform {
   backend "s3" {
-    bucket = "603-terraform-remote-state"
-    key = "starter-pack-typescript.tfstate"
-    region = "ap-southeast-2"
     encrypt= "true"
   }
 }
@@ -12,86 +9,57 @@ provider "aws" {
   version = "~> 0.1"
 }
 
-resource "aws_s3_bucket" "apex_bucket" {
-  bucket = "${var.dns_name}"
-  acl = "public-read"
-  force_destroy = true
+resource "aws_iam_role" "codebuild_role" {
+  name = "${var.name}-codebuild"
 
-  policy = <<POLICY
+  assume_role_policy = <<EOF
 {
-  "Version":"2012-10-17",
-  "Statement":[{
-    "Sid":"PublicReadForGetBucketObjects",
-    "Effect":"Allow",
-    "Principal": "*",
-    "Action":"s3:GetObject",
-    "Resource":["arn:aws:s3:::${var.dns_name}/*"]
-  }]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "codebuild.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
 }
-POLICY
-
-  website {
-    index_document = "index.html"
-    error_document = "index.html"
-  }
+EOF
 }
 
-resource "aws_cloudfront_distribution" "cdn" {
-  origin {
-    domain_name = "${aws_s3_bucket.apex_bucket.website_endpoint}"
-    origin_id = "apex_bucket_origin"
-    custom_origin_config {
-      http_port = "80"
-      https_port = "443"
-      origin_protocol_policy = "http-only"
-      origin_ssl_protocols = ["TLSv1", "TLSv1.1", "TLSv1.2"]
-    }
-  }
-  enabled = true
-  aliases = ["${var.dns_name}"]
-  custom_error_response {
-    error_code = "404"
-    response_code = "200"
-    response_page_path ="/index.html"
-  }
-  price_class = "PriceClass_All"
-  default_cache_behavior {
-    allowed_methods = [ "DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT" ]
-    cached_methods = [ "GET", "HEAD" ]
-    target_origin_id = "apex_bucket_origin"
-    forwarded_values {
-      query_string = true
-      headers = ["*"]
-      cookies {
-        forward = "all"
-      }
-    }
-    viewer_protocol_policy = "redirect-to-https"
-    compress = true
-    min_ttl = 0
-    default_ttl = 3600
-    max_ttl = 86400
-  }
-  viewer_certificate {
-    acm_certificate_arn = "${var.acm_arn}"
-    ssl_support_method = "sni-only"
-    minimum_protocol_version = "TLSv1"
-  }
-  restrictions {
-    geo_restriction {
-      restriction_type = "none"
-    }
+data "template_file" "codebuild_policy" {
+  template = "${file("./codebuild-role-policy.tpl")}"
+
+  vars {
+    kms_key_arns = "${var.kms_key_arns}"
+    ssm_parameter_arns = "${var.ssm_parameter_arns}"
   }
 }
 
-resource "aws_route53_record" "apex_route53_record" {
-  zone_id = "${var.route53_zone_id}"
-  name = "${var.dns_name}"
-  type = "A"
+resource "aws_iam_role_policy" "codebuild_policy" {
+  name = "${var.name}-codebuild-policy"
+  role = "${aws_iam_role.codebuild_role.id}"
+  policy = "${data.template_file.codebuild_policy.rendered}"
+}
 
-  alias {
-    name = "${aws_cloudfront_distribution.cdn.domain_name}"
-    zone_id = "${aws_cloudfront_distribution.cdn.hosted_zone_id}"
-    evaluate_target_health = false
-  }
+module "codebuild_project" {
+  source = "github.com/jch254/terraform-modules//codebuild-project?ref=1.0.0"
+
+  name = "${var.name}"
+  codebuild_role_arn = "${aws_iam_role.codebuild_role.arn}"
+  build_docker_image = "${var.build_docker_image}"
+  build_docker_tag = "${var.build_docker_tag}"
+  source_type = "${var.source_type}"
+  buildspec = "${var.buildspec}"
+  source_location = "${var.source_location}"
+}
+
+module "webapp" {
+  source = "github.com/jch254/terraform-modules//web-app?ref=1.0.0"
+
+  bucket_name = "${var.bucket_name}"
+  dns_names = "${var.dns_names}"
+  route53_zone_id = "${var.route53_zone_id}"
+  acm_arn = "${var.acm_arn}"
 }
