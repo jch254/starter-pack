@@ -75,7 +75,7 @@ const HomePage = () => (
           inlined into index.html to save requests.
         </p>
         <p style={{ fontSize: '20px' }}>
-          The app contains a <a href="https://starter-pack.603.nu/books">&#39;locked down&#39; Books page</a> which
+          The app contains a <a href="https://starter-pack.603.nz/books">&#39;locked down&#39; Books page</a> which
           requires a user to log in/sign up before content will be visible. The data is read from a
           local JSON file as this is a only demonstration/starting point. In the real world data
           would be fetched from an API (see apiService.js). The API should check

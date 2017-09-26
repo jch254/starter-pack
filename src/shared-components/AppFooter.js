@@ -9,8 +9,8 @@ import {
 const AppFooter = () => (
   <Toolbar backgroundColor="white">
     <Space auto />
-    <NavItem color="black" href="https://603.nu" style={{ fontWeight: 'normal', fontSize: '12px' }}>
-      {`© 603.nu ${moment().year()}`}
+    <NavItem color="black" href="https://603.nz" style={{ fontWeight: 'normal', fontSize: '12px' }}>
+      {`© 603.nz ${moment().year()}`}
     </NavItem>
   </Toolbar>
 );
