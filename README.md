@@ -1,4 +1,4 @@
-# [Starter Pack](https://starter-pack-typescript.603.nu)
+# [Starter Pack](https://starter-pack-typescript.603.nz)
 
 ## Overview
 

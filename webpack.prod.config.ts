@@ -61,7 +61,7 @@ const config: webpack.Configuration = {
       },
     }),
     new HtmlWebpackPlugin({
-      title: 'Starter Pack | 603.nu',
+      title: 'Starter Pack | 603.nz',
       template: path.join(__dirname, 'src', 'index.ejs'),
       favicon:  path.join(__dirname, 'src', 'favicon.ico'),
       meta: [

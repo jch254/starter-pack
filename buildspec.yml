@@ -11,10 +11,10 @@ env:
     TF_VAR_build_docker_tag: "latest"
     TF_VAR_buildspec: "buildspec.yml"
     TF_VAR_source_location: "https://github.com/jch254/starter-pack.git"
-    TF_VAR_bucket_name: "starter-pack-typescript.603.nu"
-    TF_VAR_dns_names: '["starter-pack-typescript.603.nu"]'
-    TF_VAR_route53_zone_id: "ZS32KHT5LS4PR"
-    TF_VAR_acm_arn: "arn:aws:acm:us-east-1:982898479788:certificate/2367a831-34bd-4d81-bb17-2f79d08329a6"
+    TF_VAR_bucket_name: "starter-pack-typescript.603.nz"
+    TF_VAR_dns_names: '["starter-pack-typescript.603.nz"]'
+    TF_VAR_route53_zone_id: "Z18NTUPI1RKRGC"
+    TF_VAR_acm_arn: "arn:aws:acm:us-east-1:982898479788:certificate/65811194-cc89-4926-83c3-199c5c0b6e0c"
     AUTH0_CLIENT_ID: "kM4QwLQxic0Kvxur0d4frLI8CY0FxOmk"
     AUTH0_DOMAIN: "603.au.auth0.com"
     REMOTE_STATE_BUCKET: "603-terraform-remote-state"
