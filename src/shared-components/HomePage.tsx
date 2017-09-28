@@ -67,7 +67,7 @@ const HomePage: React.StatelessComponent<RouteComponentProps<any>> = () => (
           local JSON file as this is a only demonstration/starting point. In the real world data
           would be fetched from an API (see apiService.ts). The API should check
           validity of the JWT token and return unauthorised if invalid. The app would then prompt
-          the user to log in again. See <a href="https://serverless-api.603.nu">Serverless API</a> for
+          the user to log in again. See <a href="https://serverless-api.603.nz">Serverless API</a> for
           a more detailed example of authentication in action.
         </p>
         <p style={{ fontSize: '20px', marginBottom: '0px' }}>
