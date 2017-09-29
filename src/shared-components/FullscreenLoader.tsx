@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Loading from 'react-loading';
-import { Flex } from 'reflexbox';
+import { Flex } from 'rebass';
 
 interface FullscreenLoaderProps {
   delay?: number;
 }
 
 const FullscreenLoader: React.StatelessComponent<FullscreenLoaderProps> = ({ delay }) => (
-  <Flex auto align="center" justify="center">
+  <Flex align="center" justify="center" style={{ flex: 'auto' }}>
     <Loading delay={delay} type="spinningBubbles" color="#111" /> 
   </Flex>
 );

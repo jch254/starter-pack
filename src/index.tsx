@@ -4,6 +4,7 @@ import 'isomorphic-fetch';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { Provider as RebassProvider } from 'rebass';
 
 import App from './app/App';
 import { configureStore } from './configureStore';
@@ -38,7 +39,9 @@ declare global {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App history={history} />
+    <RebassProvider id="provider">
+      <App history={history} />
+    </RebassProvider>
   </Provider>,
   document.getElementById('root'),
 );

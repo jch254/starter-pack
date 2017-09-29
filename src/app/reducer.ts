@@ -1,34 +1,10 @@
-import * as iassign from 'immutable-assign';
+export interface AppState {}
 
-export const TOGGLE_DROPDOWN = 'TOGGLE_DROPDOWN';
+export const initialState: AppState = {};
 
-export interface ToggleDropdown {
-  type: 'TOGGLE_DROPDOWN';
-}
-
-type AppAction = ToggleDropdown;
-
-export interface AppState {
-  isDropdownOpen: boolean;
-}
-
-export const initialState: AppState = {
-  isDropdownOpen: false,
-};
-
-export default function reducer(state: AppState = initialState, action: AppAction): AppState {
+export default function reducer(state: AppState = initialState, action: any): AppState {
   switch (action.type) {
-    case TOGGLE_DROPDOWN:
-      return iassign(
-        state,
-        state => state.isDropdownOpen,
-        isDropdownOpen => !isDropdownOpen,
-      );
     default:
       return state;
   }
 }
-
-export const toggleDropdown = (): ToggleDropdown => ({
-  type: TOGGLE_DROPDOWN,
-});

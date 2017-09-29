@@ -14,7 +14,7 @@ class GaTracker extends React.PureComponent<Props, {}> {
 
     if (process.env.NODE_ENV === 'production' && process.env.GA_ID !== undefined) {
       ga.initialize(process.env.GA_ID as string);
-      ga.pageview(window.location.pathname);      
+      ga.pageview(window.location.pathname);
     }
   }
 

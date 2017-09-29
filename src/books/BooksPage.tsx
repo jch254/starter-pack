@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {
+  Box,
   Card,
-  CardImage,
   Container,
+  Flex,
   Heading,
+  Image,
   Message,
-  PageHeader,
   Text,
 } from 'rebass';
 import { bindActionCreators, Dispatch } from 'redux';
-import { Flex } from 'reflexbox';
 
 import { ResponseError } from '../apiService';
 import { getIdToken } from '../auth/selectors';
@@ -50,31 +50,33 @@ class BooksPage extends React.PureComponent<StateProps & DispatchProps, {}> {
 
     return isFetching ?
       <FullscreenLoader /> :
-      <Container mt={4} pt={4} pb={3} style={{ flex: '1 1 auto', width: '100%' }}>
-        <PageHeader my={2} py={2} description="All the books" heading="Books" />
+      <Container py={6} width={1} style={{ flex: 'auto' }}>
+        <Heading pb={4} children="Books" />
         {
           error &&
           <Message theme="error">
             { `Error: ${JSON.stringify(error)}` }
           </Message>
         }
-        <Flex align="center" justify="center" wrap gutter={2}>
+        <Flex align="center" justify="space-between" wrap>
           {
             [...books]
               .map(([id, book]) => (
-                <Card key={id} m={2} style={{ width: '309px', height: '610px' }} >
+                <Card key={id} my={2} style={{ width: '309px', height: '610px' }} >
                   <a href={book.url} target="_blank" rel="noopener noreferrer">
-                    <CardImage src={book.img} />
+                    <Image src={book.img} />
                   </a>
-                  <Heading level={3}>
-                    <a href={book.url} target="_blank" rel="noopener noreferrer">
-                      { book.title }
-                    </a>
-                  </Heading>
-                  <Text bold>{book.author}</Text>
-                  <p className={styles.description}>
-                    { book.description }
-                  </p>
+                  <Box p={2}>
+                    <Heading f={3}>
+                      <a href={book.url} target="_blank" rel="noopener noreferrer">
+                        { book.title }
+                      </a>
+                    </Heading>
+                    <Text bold>{book.author}</Text>
+                    <p className={styles.description}>
+                      { book.description }
+                    </p>
+                  </Box>
                 </Card>
             ))
           }

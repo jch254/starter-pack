@@ -3,7 +3,7 @@
 ## Overview
 
 Starter Pack combines React, Redux and Redux-saga with Auth0's Lock as a starting point for modern
-web apps with solid authentication. Why reinvent the wheel? The app utilises Rebass and Reflexbox to
+web apps with solid authentication. Why reinvent the wheel? The app utilises Rebass to
 keep things looking decent. I built this as a way to quickly prototype new ideas.
 
 Webpack (ft. various loaders/plugins/tools) is used to run a local development server and build
@@ -42,7 +42,7 @@ is a JavaScript implementation.
 * [Auth0 Lock](https://github.com/auth0/lock)
 * [React Router](https://github.com/ReactTraining/react-router)
 * [Reselect](https://github.com/jxnblk/rebass)
-* [Rebass](https://github.com/jxnblk/rebass) & [Reflexbox](https://github.com/jxnblk/reflexbox)
+* [Rebass](https://github.com/jxnblk/rebass)
 * [React Loadable](https://github.com/thejameskyle/react-loadable)
 * [Webpack](https://github.com/webpack/webpack)
 * [TypeScript](https://github.com/Microsoft/TypeScript)

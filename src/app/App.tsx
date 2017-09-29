@@ -3,8 +3,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
+import { Flex } from 'rebass';
 import { bindActionCreators, Dispatch } from 'redux';
-import { Flex } from 'reflexbox';
 
 import RestrictedPage from '../auth/LoadableRestrictedPage';
 import { loginRequest, logout } from '../auth/reducer';
@@ -18,21 +18,16 @@ import NotFoundPage from '../shared-components/LoadableNotFoundPage';
 import Navbar from '../shared-components/Navbar';
 import ScrollToTop from '../shared-components/ScrollToTop';
 
-import { toggleDropdown } from './reducer';
-import { getIsDropdownOpen } from './selectors';
-
 interface AppProps {
   history: History;
 }
 
 interface StateProps {
-  isDropdownOpen: boolean;
   profile?: auth0.Auth0UserProfile;
 }
 
 interface DispatchProps {
   actions: {
-    toggleDropdown: typeof toggleDropdown,
     loginRequest: typeof loginRequest,
     logout: typeof logout,
   };
@@ -40,7 +35,6 @@ interface DispatchProps {
 
 const App: React.StatelessComponent<AppProps & StateProps & DispatchProps> = ({
   history,
-  isDropdownOpen,
   profile,
   actions,
 }) => (
@@ -52,8 +46,6 @@ const App: React.StatelessComponent<AppProps & StateProps & DispatchProps> = ({
             profile={profile}
             handleLogin={actions.loginRequest}
             handleLogout={actions.logout}
-            onToggleDropdown={actions.toggleDropdown}
-            isDropdownOpen={isDropdownOpen}
           />
           <Switch>
             <Route path="/" exact component={HomePage} />
@@ -72,12 +64,11 @@ const App: React.StatelessComponent<AppProps & StateProps & DispatchProps> = ({
 );
 
 const mapStateToProps = (state: GlobalState, ownProps: AppProps): StateProps => ({
-  isDropdownOpen: getIsDropdownOpen(state),
   profile: getProfile(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => ({
-  actions: bindActionCreators({ toggleDropdown, loginRequest, logout }, dispatch),
+  actions: bindActionCreators({ loginRequest, logout }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
