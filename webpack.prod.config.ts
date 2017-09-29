@@ -4,6 +4,7 @@ import ExtractTextPlugin = require('extract-text-webpack-plugin');
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
 import OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+import UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 import webpack = require('webpack');
 import WebpackChunkHash = require('webpack-chunk-hash');
 
@@ -55,10 +56,8 @@ const config: webpack.Configuration = {
       cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
       canPrint: false,
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
+    new UglifyJSPlugin({
+      parallel: true,
     }),
     new HtmlWebpackPlugin({
       title: 'Starter Pack | 603.nz',
