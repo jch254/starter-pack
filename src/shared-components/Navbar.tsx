@@ -44,7 +44,7 @@ const Navbar: React.StatelessComponent<NavbarProps> = ({
           <Button ml="auto" bg="green4" onClick={handleLogin} style={{ cursor: 'pointer' }}>
             Login
           </Button> :
-          <Button  ml="auto" bg="red5" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+          <Button  ml="auto" bg="red4" onClick={handleLogout} style={{ cursor: 'pointer' }}>
             Logout
           </Button>
       }
