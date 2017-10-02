@@ -58,6 +58,11 @@ const config: webpack.Configuration = {
     }),
     new UglifyJSPlugin({
       parallel: true,
+      uglifyOptions: {
+        mangle: {
+          safari10: true,
+        },
+      },
     }),
     new HtmlWebpackPlugin({
       title: 'Starter Pack | 603.nz',
