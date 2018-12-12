@@ -1,6 +1,5 @@
-import webpack = require('webpack');
-import WebpackDevServer = require('webpack-dev-server');
-
+import * as webpack from 'webpack';
+import * as WebpackDevServer from 'webpack-dev-server';
 import devConfig from './webpack.config';
 import prodConfig from './webpack.prod.config';
 
@@ -26,7 +25,7 @@ const server = new WebpackDevServer(compiler, {
   },
 });
 
-server.listen(SERVER_PORT, SERVER_HOSTNAME, (err: Error) => {
+server.listen(SERVER_PORT, SERVER_HOSTNAME, (err?: Error) => {
   if (err) {
     console.log(err);
   }

@@ -7,8 +7,8 @@ interface FullscreenLoaderProps {
 }
 
 const FullscreenLoader: React.StatelessComponent<FullscreenLoaderProps> = ({ delay }) => (
-  <Flex align="center" justify="center" style={{ flex: 'auto' }}>
-    <Loading delay={delay} type="spinningBubbles" color="#111" /> 
+  <Flex alignItems="center" justifyContent="center" style={{ flex: 'auto' }}>
+    <Loading delay={delay} type="spinningBubbles" color="#111" />
   </Flex>
 );
 

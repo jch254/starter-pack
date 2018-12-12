@@ -1,6 +1,5 @@
 declare module 'react-loading';
-declare module 'inline-chunk-manifest-html-webpack-plugin';
+declare module 'inline-manifest-webpack-plugin';
 declare module 'webpack-chunk-hash';
-declare module 'react-loadable';
 declare module 'rebass';
-declare module 'uglifyjs-webpack-plugin';
+declare module 'redux-recycle';

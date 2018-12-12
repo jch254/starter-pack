@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-
 import { ResponseError } from '../apiService';
 import { GlobalState } from '../rootReducer';
 

@@ -12,7 +12,7 @@ export const setStoredAuthState = (profile?: auth0.Auth0UserProfile, idToken?: s
 };
 
 export const removeStoredAuthState = (): void => {
-  localStorage.removeItem(AUTH);  
+  localStorage.removeItem(AUTH);
 };
 
 export const getStoredAuthState = (): Partial<AuthState> => {

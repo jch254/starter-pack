@@ -5,7 +5,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Provider as RebassProvider } from 'rebass';
-
 import App from './app/App';
 import { configureStore } from './configureStore';
 
@@ -33,7 +32,7 @@ const store = configureStore(history);
 
 declare global {
   interface Window {
-    devToolsExtension: any;
+    __REDUX_DEVTOOLS_EXTENSION__: any;
   }
 }
 
@@ -45,5 +44,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 );
-
-

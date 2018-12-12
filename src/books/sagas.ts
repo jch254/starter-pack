@@ -1,5 +1,4 @@
 import { call, put, take } from 'redux-saga/effects';
-
 import { fetchBooks, handleApiError } from '../apiService';
 
 import Book from './Book';
@@ -16,7 +15,7 @@ export function* fetchBooksSaga(idToken: string) {
 
     yield put(booksSuccess(books));
   } catch (error) {
-    yield call(handleApiError, error, booksFailure);
+    yield call(handleApiError, booksFailure, error);
   }
 }
 

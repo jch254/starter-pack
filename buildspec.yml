@@ -28,14 +28,6 @@ phases:
       - find ./infrastructure -name "*.bash" -exec chmod +x {} \;
       - ./infrastructure/install.bash
 
-  pre_build:
-    commands:
-      # Workaround until TF supports creds via Task Roles when running on ECS or CodeBuild
-      # See: https://github.com/hashicorp/terraform/issues/8746
-      - export AWS_ACCESS_KEY_ID=`curl --silent http://169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.AccessKeyId'`
-      - export AWS_SECRET_ACCESS_KEY=`curl --silent http://169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.SecretAccessKey'`
-      - export AWS_SESSION_TOKEN=`curl --silent http://169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.Token'`
-
   build:
     commands:
       - ./infrastructure/build-artifacts.bash

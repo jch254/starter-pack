@@ -1,7 +1,6 @@
 import Auth0Lock from 'auth0-lock';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { call, put, take } from 'redux-saga/effects';
-
 import { removeStoredAuthState, setStoredAuthState } from '../utils';
 
 import {

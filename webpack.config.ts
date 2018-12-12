@@ -1,13 +1,13 @@
-import path = require('path');
-
-import HtmlWebpackPlugin = require('html-webpack-plugin');
-import InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
-import webpack = require('webpack');
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as path from 'path';
+import * as webpack from 'webpack';
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
 
 const config: webpack.Configuration = {
+  mode: 'development',
   devtool: 'cheap-module-source-map',
   entry: [
     'webpack/hot/dev-server',
@@ -23,38 +23,17 @@ const config: webpack.Configuration = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
         AUTH0_CLIENT_ID: JSON.stringify(process.env.AUTH0_CLIENT_ID),
         AUTH0_DOMAIN: JSON.stringify(process.env.AUTH0_DOMAIN),
         GA_ID: JSON.stringify(process.env.GA_ID),
       },
     }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: (module: any) => module.context && module.context.indexOf('node_modules') !== -1,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      chunks: ['vendor'],
-      name: 'auth0',
-      minChunks: (module: any) => module.resource && (/auth0/).test(module.resource),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      chunks: ['vendor'],
-      name: 'react-loading',
-      minChunks: (module: any) => module.resource && (/react-loading/).test(module.resource),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      async: 'async-common',
-      minChunks: (module: any, count: number) => count >= 2,
-    }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       title: 'Starter Pack | 603.nz',
       template: path.join(__dirname, 'src', 'index.ejs'),
-      favicon:  path.join(__dirname, 'src', 'favicon.ico'),
+      favicon: path.join(__dirname, 'src', 'favicon.ico'),
       meta: [
         {
           name: 'description',
@@ -65,10 +44,24 @@ const config: webpack.Configuration = {
         collapseWhitespace: true,
       },
     }),
-    new InlineChunkManifestHtmlWebpackPlugin({
-      dropAsset: true,
-	  }),
+    new InlineManifestWebpackPlugin(),
   ],
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        auth0: {
+          test: /[\\/]node_modules[\\/](auth0-js|auth0-lock|auth-password-policies)[\\/]/,
+          name: 'auth0',
+        },
+        utilities: {
+          test: /[\\/]node_modules[\\/](immutable|moment|react|react-dom|react-loading)[\\/]/,
+          name: 'utilities',
+        },
+      },
+    },
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
     modules: [

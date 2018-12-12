@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-
 import { GlobalState } from '../rootReducer';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
-
 import { loginRequest } from './reducer';
 import { getIdToken } from './selectors';
 
@@ -42,7 +40,7 @@ const mapStateToProps = (state: GlobalState, ownProps: RestrictedPageProps): Sta
   idToken: getIdToken(state),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   actions: bindActionCreators({ loginRequest }, dispatch),
 });
 

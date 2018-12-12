@@ -11,12 +11,10 @@ import {
   Text,
 } from 'rebass';
 import { bindActionCreators, Dispatch } from 'redux';
-
 import { ResponseError } from '../apiService';
 import { getIdToken } from '../auth/selectors';
 import { GlobalState } from '../rootReducer';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
-
 import Book from './Book';
 import { booksRequest } from './reducer';
 import { getError, getIsFetching, getSortedBooks } from './selectors';
@@ -32,7 +30,7 @@ interface StateProps {
 
 interface DispatchProps {
   actions: {
-    booksRequest: typeof booksRequest,
+    booksRequest: typeof booksRequest;
   };
 }
 
@@ -55,30 +53,30 @@ class BooksPage extends React.PureComponent<StateProps & DispatchProps, {}> {
         {
           error &&
           <Message theme="error">
-            { `Error: ${JSON.stringify(error)}` }
+            {`Error: ${JSON.stringify(error)}`}
           </Message>
         }
-        <Flex align="center" justify="space-between" wrap>
+        <Flex alignItems="center" justifyContent="space-between" flexWrap="wrap">
           {
             [...books]
               .map(([id, book]) => (
-                <Card key={id} my={2} style={{ width: '309px', height: '610px' }} >
+                <Card key={id} my={2} p={0} style={{ width: '309px', height: '610px' }} >
                   <a href={book.url} target="_blank" rel="noopener noreferrer">
                     <Image src={book.img} />
                   </a>
                   <Box p={2}>
-                    <Heading f={3}>
+                    <Heading fontSize={3}>
                       <a href={book.url} target="_blank" rel="noopener noreferrer">
-                        { book.title }
+                        {book.title}
                       </a>
                     </Heading>
-                    <Text bold>{book.author}</Text>
+                    <Text fontWeight="bold">{book.author}</Text>
                     <p className={styles.description}>
-                      { book.description }
+                      {book.description}
                     </p>
                   </Box>
                 </Card>
-            ))
+              ))
           }
         </Flex>
       </Container>;
@@ -92,7 +90,7 @@ const mapStateToProps = (state: GlobalState, ownProps: {}): StateProps => ({
   error: getError(state),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   actions: bindActionCreators({ booksRequest }, dispatch),
 });
 

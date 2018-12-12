@@ -1,5 +1,4 @@
 import * as iassign from 'immutable-assign';
-
 import { ResponseError } from '../apiService';
 import Book from './Book';
 
@@ -19,7 +18,7 @@ export interface BooksSuccess {
 
 export interface BooksFailure {
   type: 'BOOKS_FAILURE';
-  error: ResponseError;
+  error?: ResponseError;
 }
 
 type BooksAction = BooksRequest | BooksSuccess | BooksFailure;
@@ -78,7 +77,7 @@ export const booksSuccess = (books: Map<string, Book>): BooksSuccess => ({
   books,
 });
 
-export const booksFailure = (error: ResponseError): BooksFailure => ({
+export const booksFailure = (error?: ResponseError): BooksFailure => ({
   type: BOOKS_FAILURE,
   error,
 });

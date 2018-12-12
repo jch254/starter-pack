@@ -9,12 +9,12 @@ keep things looking decent. I built this as a way to quickly prototype new ideas
 Webpack (ft. various loaders/plugins/tools) is used to run a local development server and build
 the production version. [Code splitting](https://webpack.js.org/guides/code-splitting)
 (with [long-term caching](https://webpack.js.org/guides/caching) in the production version) has
-been set up via Webpack and React Loadable. Webpack's CommonsChunkPlugin is used to split vendor
-code. React Loadable is used for async component-centric code splitting and loading - see
-[LoadableBooksPage.tsx](./src/books/LoadableBooksPage.tsx) as an example of creating a split point
-(restart the dev server if the new chunk is not emitted). ExtractTextPlugin is used to split CSS.
-HtmlWebpackPlugin is used to generate an index.html with the appropriate output assets injected,
-the Webpack manifest is inlined into index.html to save requests.
+been set up via Webpack and React. Webpack's SplitChunksPlugin is used to split vendor
+code. [React.lazy](https://reactjs.org/docs/code-splitting.html#reactlazy) is used for
+async component-centric code splitting and loading - see [App.tsx](./src/app/App.tsx) as an
+example of creating a split point (restart the dev server if the new chunk is not emitted).
+MiniCssExtractPlugin is used to split CSS. HtmlWebpackPlugin is used to generate an index.html
+with the appropriate output assets injected, the Webpack manifest is inlined into index.html to save requests.
 
 The app contains a 'locked down' Books page which requires a user to log in/sign up before content
 will be visible. The data is read from a local JSON file as this is a only demonstration/starting
@@ -43,7 +43,6 @@ is a JavaScript implementation.
 * [React Router](https://github.com/ReactTraining/react-router)
 * [Reselect](https://github.com/jxnblk/rebass)
 * [Rebass](https://github.com/jxnblk/rebass)
-* [React Loadable](https://github.com/thejameskyle/react-loadable)
 * [Webpack](https://github.com/webpack/webpack)
 * [TypeScript](https://github.com/Microsoft/TypeScript)
 * [Node.js](https://github.com/nodejs/node)

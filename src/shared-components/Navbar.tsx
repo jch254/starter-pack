@@ -6,7 +6,6 @@ import {
   Label,
   Toolbar,
 } from 'rebass';
-
 import { loginRequest, logout } from '../auth/reducer';
 
 interface NavbarProps {
@@ -24,32 +23,32 @@ const Navbar: React.StatelessComponent<NavbarProps> = ({
   handleLogin,
   handleLogout,
 }) => (
-  <Fixed top left right z={1}>
-    <Toolbar bg="white">
-      <NavLink to="/" exact activeStyle={activeStyle}>
-        <Label mx={3} style={{ cursor: 'pointer' }}>
-          Home
-        </Label>
-      </NavLink>
-      {
-        profile &&
-        <NavLink to="/books" activeStyle={activeStyle}>
+    <Fixed top={0} left={0} right={0} z={1}>
+      <Toolbar bg="white">
+        <NavLink to="/" exact activeStyle={activeStyle}>
           <Label mx={3} style={{ cursor: 'pointer' }}>
-            Books
-          </Label>
+            Home
+        </Label>
         </NavLink>
-      }
-      {
-        profile === undefined ?
-          <Button ml="auto" bg="green4" onClick={handleLogin} style={{ cursor: 'pointer' }}>
-            Login
-          </Button> :
-          <Button  ml="auto" bg="red4" onClick={handleLogout} style={{ cursor: 'pointer' }}>
-            Logout
-          </Button>
-      }
-    </Toolbar>
-  </Fixed>
-);
+        {
+          profile &&
+          <NavLink to="/books" activeStyle={activeStyle}>
+            <Label mx={3} style={{ cursor: 'pointer' }}>
+              Books
+          </Label>
+          </NavLink>
+        }
+        {
+          profile === undefined ?
+            <Button ml="auto" bg="green" onClick={handleLogin} style={{ cursor: 'pointer' }}>
+              Login
+            </Button> :
+            <Button ml="auto" bg="red" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+              Logout
+            </Button>
+        }
+      </Toolbar>
+    </Fixed>
+  );
 
 export default Navbar;

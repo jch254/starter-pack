@@ -1,14 +1,14 @@
-import path = require('path');
-
-import ExtractTextPlugin = require('extract-text-webpack-plugin');
-import HtmlWebpackPlugin = require('html-webpack-plugin');
-import InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
-import OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-import UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-import webpack = require('webpack');
-import WebpackChunkHash = require('webpack-chunk-hash');
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import * as OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import * as path from 'path';
+import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import * as webpack from 'webpack';
+import * as WebpackChunkHash from 'webpack-chunk-hash';
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const config: webpack.Configuration = {
+  mode: 'production',
   entry: [
     path.join(__dirname, 'src', 'index.tsx'),
   ],
@@ -21,53 +21,21 @@ const config: webpack.Configuration = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
         AUTH0_CLIENT_ID: JSON.stringify(process.env.AUTH0_CLIENT_ID),
         AUTH0_DOMAIN: JSON.stringify(process.env.AUTH0_DOMAIN),
         GA_ID: JSON.stringify(process.env.GA_ID),
       },
     }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: (module: any) => module.context && module.context.indexOf('node_modules') !== -1,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      chunks: ['vendor'],
-      name: 'auth0',
-      minChunks: (module: any) => module.resource && (/auth0/).test(module.resource),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      chunks: ['vendor'],
-      name: 'react-loading',
-      minChunks: (module: any) => module.resource && (/react-loading/).test(module.resource),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      async: 'async-common',
-      minChunks: (module: any, count: number) => count >= 2,
-    }),
     new webpack.HashedModuleIdsPlugin(),
     new WebpackChunkHash(),
-    new ExtractTextPlugin({ 
+    new MiniCssExtractPlugin({
       filename: 'assets/[name].[contenthash].css',
-      allChunks: true,
-    }),
-    new OptimizeCssAssetsPlugin({
-      cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
-      canPrint: false,
-    }),
-    new UglifyJSPlugin({
-      parallel: true,
-      uglifyOptions: {
-        mangle: {
-          safari10: true,
-        },
-      },
     }),
     new HtmlWebpackPlugin({
       title: 'Starter Pack | 603.nz',
       template: path.join(__dirname, 'src', 'index.ejs'),
-      favicon:  path.join(__dirname, 'src', 'favicon.ico'),
+      favicon: path.join(__dirname, 'src', 'favicon.ico'),
       meta: [
         {
           name: 'description',
@@ -78,10 +46,40 @@ const config: webpack.Configuration = {
         collapseWhitespace: true,
       },
     }),
-    new InlineChunkManifestHtmlWebpackPlugin({
-      dropAsset: true,
-	  }),
+    new InlineManifestWebpackPlugin(),
   ],
+  optimization: {
+    runtimeChunk: 'single',
+    minimizer: [
+      new OptimizeCssAssetsPlugin({
+        cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
+        canPrint: false,
+      }),
+      new UglifyJsPlugin({
+        parallel: true,
+      }),
+    ],
+    splitChunks: {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      cacheGroups: {
+        auth0: {
+          test: /[\\/]node_modules[\\/](auth0-js|auth0-lock|auth-password-policies)[\\/]/,
+          name: 'auth0',
+        },
+        utilities: {
+          test: /[\\/]node_modules[\\/](immutable|moment|react|react-dom|react-loading)[\\/]/,
+          name: 'utilities',
+        },
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
     modules: [
@@ -113,15 +111,15 @@ const config: webpack.Configuration = {
       {
         test: /\.css?$/,
         include: path.join(__dirname, 'src'),
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: {
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
             loader: 'css-loader',
             options: {
               modules: true,
             },
           },
-        }),
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg|ico)$/,

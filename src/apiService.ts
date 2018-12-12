@@ -1,6 +1,5 @@
-import { Action } from 'redux';
+import { AnyAction } from 'redux';
 import { put } from 'redux-saga/effects';
-
 import { loginRequest } from './auth/reducer';
 import Book from './books/Book';
 
@@ -38,7 +37,7 @@ export async function fetchBooks(idToken: string): Promise<Map<string, Book>> {
       .reduce(
         (returnedBooks: Map<string, Book>, book: Book) => {
           returnedBooks.set(book.id, book);
-          
+
           return returnedBooks;
         },
         new Map<string, Book>(),
@@ -52,7 +51,7 @@ export interface ResponseError extends Error {
   response?: Response;
 }
 
-export function* handleApiError(error: ResponseError, failureAction: (error?: ResponseError) => Action) {
+export function* handleApiError(error: any, failureAction: (error?: any) => AnyAction) {
   const response = error.response;
 
   if (response !== undefined) {

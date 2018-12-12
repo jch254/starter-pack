@@ -1,8 +1,7 @@
+import { routerMiddleware } from 'connected-react-router';
 import { History } from 'history';
-import { routerMiddleware } from 'react-router-redux';
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
 
@@ -11,11 +10,11 @@ export function configureStore(history: History) {
   const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
   const store = createStore(
-    rootReducer,
-    window.devToolsExtension && process.env.NODE_ENV !== 'production' ?
+    rootReducer(history),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && process.env.NODE_ENV !== 'production' ?
       compose(
         applyMiddleware(...middlewares),
-        window.devToolsExtension(),
+        window.__REDUX_DEVTOOLS_EXTENSION__(),
       ) :
       applyMiddleware(...middlewares),
   );
@@ -24,4 +23,3 @@ export function configureStore(history: History) {
 
   return store;
 }
-

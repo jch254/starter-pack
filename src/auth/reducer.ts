@@ -1,5 +1,4 @@
 import * as iassign from 'immutable-assign';
-
 import { getStoredAuthState } from '../utils';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';

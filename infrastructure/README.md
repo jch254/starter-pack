@@ -1,6 +1,6 @@
 # Deployment/Infrastructure
 
-This project is built, tested and deployed to AWS by [codebuild-github-webhook](https://github.com/jch254/codebuild-github-webhook) and CodeBuild. Artifacts are served from S3. CloudFront is used as a CDN. Route 53 is used for DNS.
+This project is built, tested and deployed to AWS CodeBuild. Artifacts are served from S3. CloudFront is used as a CDN. Route 53 is used for DNS.
 
 ---
 

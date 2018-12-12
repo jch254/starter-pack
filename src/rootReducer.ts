@@ -1,7 +1,7 @@
-import { routerReducer, RouterState } from 'react-router-redux';
+import { connectRouter, RouterState } from 'connected-react-router';
+import { History } from 'history';
 import { combineReducers } from 'redux';
 import recycleState from 'redux-recycle';
-
 import appReducer, { initialState as appInitialState, AppState } from './app/reducer';
 import authReducer, { AuthState, LOGOUT } from './auth/reducer';
 import booksReducer, { initialState as booksInitialsState, BooksState } from './books/reducer';
@@ -13,9 +13,9 @@ export interface GlobalState {
   router: RouterState;
 }
 
-export default combineReducers<GlobalState>({
+export default (history: History) => combineReducers<GlobalState>({
   auth: authReducer,
   app: recycleState(appReducer, [LOGOUT], appInitialState),
   books: recycleState(booksReducer, [LOGOUT], booksInitialsState),
-  router: routerReducer,
+  router: connectRouter(history),
 });
