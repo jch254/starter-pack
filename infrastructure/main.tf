@@ -61,8 +61,6 @@ module "codebuild_project" {
   cache_bucket       = "${var.cache_bucket}"
 }
 
-cache_bucket = "${var.cache_bucket}"
-
 module "webapp" {
   source = "github.com/jch254/terraform-modules//web-app?ref=1.0.4"
 
