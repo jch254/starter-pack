@@ -3,7 +3,7 @@ import { History } from 'history';
 import { combineReducers } from 'redux';
 import recycleState from 'redux-recycle';
 import appReducer, { initialState as appInitialState, AppState } from './app/reducer';
-import authReducer, { AuthState, LOGOUT } from './auth/reducer';
+import authReducer, { authActions, AuthState } from './auth/reducer';
 import booksReducer, { initialState as booksInitialsState, BooksState } from './books/reducer';
 
 export interface GlobalState {
@@ -15,7 +15,7 @@ export interface GlobalState {
 
 export default (history: History) => combineReducers<GlobalState>({
   auth: authReducer,
-  app: recycleState(appReducer, [LOGOUT], appInitialState),
-  books: recycleState(booksReducer, [LOGOUT], booksInitialsState),
+  app: recycleState(appReducer, [authActions.logout], appInitialState),
+  books: recycleState(booksReducer, [authActions.logout], booksInitialsState),
   router: connectRouter(history),
 });

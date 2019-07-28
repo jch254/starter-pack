@@ -1,28 +1,29 @@
-import { call, put, take } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
+import { call, spawn, take } from 'redux-saga/effects';
+import { Action } from 'typescript-fsa';
+import { bindAsyncAction } from 'typescript-fsa-redux-saga';
 import { fetchBooks, handleApiError } from '../apiService';
-
 import Book from './Book';
-import {
-  booksFailure,
-  booksSuccess,
-  BooksRequest,
-  BOOKS_REQUEST,
-} from './reducer';
+import { booksActions } from './reducer';
 
-export function* fetchBooksSaga(idToken: string) {
-  try {
-    const books: Map<string, Book> = yield call(fetchBooks, idToken);
+const fetchBooksWorker = bindAsyncAction(booksActions.fetchBooks, { skipStartedAction: true })(
+  function* (idToken): SagaIterator {
+    try {
+      const books: Map<string, Book> = yield call(fetchBooks, idToken);
 
-    yield put(booksSuccess(books));
-  } catch (error) {
-    yield call(handleApiError, booksFailure, error);
-  }
-}
+      return books;
+    } catch (error) {
+      yield call(handleApiError, error);
+
+      throw error;
+    }
+  },
+);
 
 export function* watchBooksRequest() {
   while (true) {
-    const { idToken }: BooksRequest = yield take(BOOKS_REQUEST);
+    const action: Action<string> = yield take(booksActions.fetchBooks.started);
 
-    yield call(fetchBooksSaga, idToken);
+    yield spawn(fetchBooksWorker, action.payload);
   }
 }

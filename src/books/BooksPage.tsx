@@ -16,7 +16,7 @@ import { getIdToken } from '../auth/selectors';
 import { GlobalState } from '../rootReducer';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 import Book from './Book';
-import { booksRequest } from './reducer';
+import { booksActions } from './reducer';
 import { getError, getIsFetching, getSortedBooks } from './selectors';
 
 const styles = require('./BooksPage.css');
@@ -30,7 +30,7 @@ interface StateProps {
 
 interface DispatchProps {
   actions: {
-    booksRequest: typeof booksRequest;
+    booksRequest: typeof booksActions.fetchBooks.started;
   };
 }
 
@@ -91,7 +91,7 @@ const mapStateToProps = (state: GlobalState, ownProps: {}): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  actions: bindActionCreators({ booksRequest }, dispatch),
+  actions: bindActionCreators({ booksRequest: booksActions.fetchBooks.started }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksPage);

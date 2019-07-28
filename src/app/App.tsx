@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Flex } from 'rebass';
 import { bindActionCreators, Dispatch } from 'redux';
-import { loginRequest, logout } from '../auth/reducer';
+import { authActions } from '../auth/reducer';
 import { getProfile } from '../auth/selectors';
 import { GlobalState } from '../rootReducer';
 import AppFooter from '../shared-components/AppFooter';
@@ -15,15 +15,12 @@ import HomePage from '../shared-components/HomePage';
 import Navbar from '../shared-components/Navbar';
 import ScrollToTop from '../shared-components/ScrollToTop';
 
-const RestrictedPage = React.lazy(() => import(
-  /* webpackChunkName: "restricted" */'../auth/RestrictedPage',
-));
-const BooksPage = React.lazy(() => import(
-  /* webpackChunkName: "books" */'../books/BooksPage',
-));
-const NotFoundPage = React.lazy(() => import(
-  /* webpackChunkName: "not-found" */'../shared-components/NotFoundPage',
-));
+// tslint:disable-next-line:space-in-parens
+const RestrictedPage = React.lazy(() => import('../auth/RestrictedPage'));
+// tslint:disable-next-line:space-in-parens
+const BooksPage = React.lazy(() => import(/* webpackChunkName: "books" */'../books/BooksPage'));
+// tslint:disable-next-line:space-in-parens
+const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */'../shared-components/NotFoundPage'));
 
 interface AppProps {
   history: History;
@@ -35,8 +32,8 @@ interface StateProps {
 
 interface DispatchProps {
   actions: {
-    loginRequest: typeof loginRequest,
-    logout: typeof logout,
+    loginRequest: typeof authActions.login.started,
+    logout: typeof authActions.logout,
   };
 }
 
@@ -77,7 +74,7 @@ const mapStateToProps = (state: GlobalState, ownProps: AppProps): StateProps => 
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  actions: bindActionCreators({ loginRequest, logout }, dispatch),
+  actions: bindActionCreators({ loginRequest: authActions.login.started, logout: authActions.logout }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

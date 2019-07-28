@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { GlobalState } from '../rootReducer';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
-import { loginRequest } from './reducer';
+import { authActions } from './reducer';
 import { getIdToken } from './selectors';
 
 export interface RestrictedPageProps {
@@ -16,7 +16,7 @@ interface StateProps {
 
 interface DispatchProps {
   actions: {
-    loginRequest: typeof loginRequest;
+    loginRequest: typeof authActions.login.started;
   };
 }
 
@@ -41,7 +41,7 @@ const mapStateToProps = (state: GlobalState, ownProps: RestrictedPageProps): Sta
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  actions: bindActionCreators({ loginRequest }, dispatch),
+  actions: bindActionCreators({ loginRequest: authActions.login.started }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RestrictedPage);

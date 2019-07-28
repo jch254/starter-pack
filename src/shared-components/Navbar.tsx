@@ -6,12 +6,12 @@ import {
   Label,
   Toolbar,
 } from 'rebass';
-import { loginRequest, logout } from '../auth/reducer';
+import { authActions } from '../auth/reducer';
 
 interface NavbarProps {
   profile?: auth0.Auth0UserProfile;
-  handleLogin: typeof loginRequest;
-  handleLogout: typeof logout;
+  handleLogin: typeof authActions.login.started;
+  handleLogout: typeof authActions.logout;
 }
 
 const activeStyle = {

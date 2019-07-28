@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { put } from 'redux-saga/effects';
-import { loginRequest } from './auth/reducer';
+import { authActions } from './auth/reducer';
 import Book from './books/Book';
 
 const books = require('./books/books.json');
@@ -51,16 +51,20 @@ export interface ResponseError extends Error {
   response?: Response;
 }
 
-export function* handleApiError(error: any, failureAction: (error?: any) => AnyAction) {
+export function* handleApiError(error: any, failureAction?: (error?: any) => AnyAction) {
   const response = error.response;
 
   if (response !== undefined) {
     if (response.status === 401) {
       // Unauthorised - show login
-      yield put(failureAction());
-      yield put(loginRequest());
+      if (failureAction !== undefined) {
+        yield put(failureAction());
+      }
+      yield put(authActions.login.started());
     }
   } else {
-    yield put(failureAction(error));
+    if (failureAction !== undefined) {
+      yield put(failureAction());
+    }
   }
 }

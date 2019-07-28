@@ -1,35 +1,7 @@
-import * as iassign from 'immutable-assign';
+import produce from 'immer';
+import actionCreatorFactory from 'typescript-fsa';
+import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { getStoredAuthState } from '../utils';
-
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const LOGOUT = 'LOGOUT';
-
-export interface LoginRequest {
-  type: 'LOGIN_REQUEST';
-}
-
-export interface LoginSuccess {
-  type: 'LOGIN_SUCCESS';
-  profile: auth0.Auth0UserProfile;
-  idToken: string;
-}
-
-export interface LoginFailure {
-  type: 'LOGIN_FAILURE';
-  error: string;
-}
-
-export interface Logout {
-  type: 'LOGOUT';
-}
-
-export const logout = (): Logout => ({
-  type: LOGOUT,
-});
-
-type AuthAction = LoginRequest | LoginSuccess | LoginFailure | Logout;
 
 export interface AuthState {
   isLoggingIn: boolean;
@@ -42,58 +14,44 @@ export const initialState: AuthState = {
   isLoggingIn: false,
 };
 
-export default function reducer(
-  state: AuthState = { ...initialState, ...getStoredAuthState() },
-  action: AuthAction,
-): AuthState {
-  switch (action.type) {
-    case LOGIN_REQUEST:
-      return iassign(
-        state,
-        state => state.isLoggingIn,
-        () => true,
-      );
-    case LOGIN_SUCCESS:
-      return iassign(
-        state,
-        (s) => {
-          s.isLoggingIn = false;
-          s.idToken = action.idToken;
-          s.profile = action.profile;
-
-          return s;
-        },
-      );
-    case LOGIN_FAILURE:
-      return iassign(
-        state,
-        (s) => {
-          s.isLoggingIn = false;
-          s.idToken = undefined;
-          s.profile = undefined;
-          s.error = action.error;
-
-          return s;
-        },
-      );
-    case LOGOUT:
-      return initialState;
-    default:
-      return state;
-  }
+export interface LoginResponse {
+  profile: auth0.Auth0UserProfile;
+  idToken: string;
 }
 
-export const loginRequest = (): LoginRequest => ({
-  type: LOGIN_REQUEST,
-});
+const actionCreator = actionCreatorFactory('AUTH');
 
-export const loginSuccess = (profile: auth0.Auth0UserProfile, idToken: string): LoginSuccess => ({
-  type: LOGIN_SUCCESS,
-  profile,
-  idToken,
-});
+export const authActions = {
+  login: actionCreator.async<void, LoginResponse, string>('LOGIN'),
+  logout: actionCreator<void>('LOGOUT'),
+};
 
-export const loginFailure = (error: string): LoginFailure => ({
-  type: LOGIN_FAILURE,
-  error,
-});
+export default reducerWithInitialState({ ...initialState, ...getStoredAuthState() })
+  .case(authActions.login.started, state =>
+    produce(state, (draft) => {
+      draft.isLoggingIn = true;
+    }),
+  )
+  .case(authActions.login.done, (state, payload) =>
+    produce(state, (draft) => {
+      draft.isLoggingIn = false;
+      draft.idToken = payload.result.idToken;
+      draft.profile = payload.result.profile;
+    }),
+  )
+  .case(authActions.login.failed, (state, payload) =>
+    produce(state, (draft) => {
+      draft.isLoggingIn = false;
+      draft.idToken = undefined;
+      draft.profile = undefined;
+      draft.error = payload.error;
+    }),
+  )
+  .case(authActions.logout, state =>
+    produce(state, (draft) => {
+      draft.isLoggingIn = false;
+      draft.idToken = undefined;
+      draft.profile = undefined;
+      draft.error = undefined;
+    }),
+  );

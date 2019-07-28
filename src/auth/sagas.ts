@@ -1,96 +1,81 @@
 import Auth0Lock from 'auth0-lock';
 import { push } from 'connected-react-router';
-import { call, put, take } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
+import { call, put, spawn, take } from 'redux-saga/effects';
+import { Action } from 'typescript-fsa';
+import { bindAsyncAction } from 'typescript-fsa-redux-saga';
 import { removeStoredAuthState, setStoredAuthState } from '../utils';
-
-import {
-  loginFailure,
-  loginSuccess,
-  LOGIN_FAILURE,
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGOUT,
-} from './reducer';
+import { authActions } from './reducer';
 
 interface ShowLock {
   profile: auth0.Auth0UserProfile;
   idToken: string;
 }
 
-export function* loginRequestSaga() {
-  const lock = new Auth0Lock(
-    process.env.AUTH0_CLIENT_ID as string,
-    process.env.AUTH0_DOMAIN as string,
-    {
-      auth: { redirect: false },
-      languageDictionary: { title: 'Starter Pack' },
-    },
-  );
+const loginWorker = bindAsyncAction(authActions.login, { skipStartedAction: true })(
+  function* (): SagaIterator {
+    const lock = new Auth0Lock(
+      process.env.AUTH0_CLIENT_ID as string,
+      process.env.AUTH0_DOMAIN as string,
+      {
+        auth: { redirect: false },
+        languageDictionary: { title: 'Starter Pack' },
+      },
+    );
 
-  const showLock = () =>
-    new Promise<ShowLock>((resolve, reject) => {
-      lock.on('hide', () => reject('Lock closed'));
+    const showLock = () =>
+      new Promise<ShowLock>((resolve, reject) => {
+        lock.on('hide', () => reject('Lock closed'));
 
-      lock.on('authenticated', (authResult: auth0.Auth0DecodedHash) => {
-        lock.getUserInfo(
-          authResult.accessToken as string,
-          (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => {
-            if (!error) {
-              lock.hide();
-              resolve({ profile, idToken: authResult.idToken as string });
-            }
-          },
-        );
+        lock.on('authenticated', (authResult: auth0.Auth0DecodedHash) => {
+          lock.getUserInfo(
+            authResult.accessToken as string,
+            (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => {
+              if (!error) {
+                lock.hide();
+                resolve({ profile, idToken: authResult.idToken as string });
+              }
+            },
+          );
+        });
+
+        lock.on('unrecoverable_error', (error) => {
+          lock.hide();
+          reject(error);
+        });
+
+        lock.show();
       });
 
-      lock.on('unrecoverable_error', (error) => {
-        lock.hide();
-        reject(error);
-      });
+    try {
+      const { profile, idToken }: ShowLock = yield call(showLock);
 
-      lock.show();
-    });
+      yield call(setStoredAuthState, profile, idToken);
+      yield put(push('/books'));
 
-  try {
-    const { profile, idToken }: ShowLock = yield call(showLock);
+      return { profile, idToken };
+    } catch (error) {
+      yield call(removeStoredAuthState);
+      yield put(push('/'));
 
-    yield put(loginSuccess(profile, idToken));
-    yield put(push('/books'));
-  } catch (error) {
-    yield put(loginFailure(error));
-    yield put(push('/'));
-  }
-}
+      throw error;
+    }
+  },
+);
 
 export function* watchLoginRequest() {
   while (true) {
-    yield take(LOGIN_REQUEST);
-    yield call(loginRequestSaga);
-  }
-}
+    const action: Action<void> = yield take(authActions.login.started);
 
-export function* watchLoginSuccess() {
-  while (true) {
-    const { profile, idToken }: ShowLock = yield take(LOGIN_SUCCESS);
-
-    setStoredAuthState(profile, idToken);
-  }
-}
-
-export function* watchLoginFailure() {
-  while (true) {
-    yield take(LOGIN_FAILURE);
-
-    removeStoredAuthState();
+    yield spawn(loginWorker, action.payload);
   }
 }
 
 export function* watchLogout() {
   while (true) {
-    yield take(LOGOUT);
+    yield take(authActions.logout);
 
-    removeStoredAuthState();
-
+    yield call(removeStoredAuthState);
     yield put(push('/'));
   }
 }

@@ -11,7 +11,7 @@ const output = webpackConfig.output as webpack.Output;
 
 const compiler = webpack(webpackConfig);
 
-const server = new WebpackDevServer(compiler, {
+const server = new WebpackDevServer(compiler as any, {
   publicPath: output.publicPath as string,
   hot: process.env.NODE_ENV !== 'production',
   historyApiFallback: true,
