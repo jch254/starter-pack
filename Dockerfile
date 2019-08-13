@@ -1,7 +1,7 @@
 FROM node:11-alpine
 WORKDIR /app
 
-COPY package.json yarn.lock .yarnclean ./
+COPY package.json yarn.lock ./
 RUN yarn install
 
 ENV SERVER_HOSTNAME=0.0.0.0
