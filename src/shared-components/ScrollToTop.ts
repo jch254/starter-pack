@@ -22,4 +22,4 @@ class ScrollToTop extends React.PureComponent<Props, {}> {
   }
 }
 
-export default withRouter<Props>(ScrollToTop);
+export default withRouter<Props, typeof ScrollToTop>(ScrollToTop);

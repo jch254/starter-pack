@@ -1,11 +1,10 @@
-import { createBrowserHistory } from 'history';
 import 'isomorphic-fetch';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Provider as RebassProvider } from 'rebass';
 import App from './app/App';
-import { configureStore } from './configureStore';
+import configureStore, { history } from './configureStore';
 
 import './index.css';
 
@@ -15,14 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('map.prototype.tojson');
 }
 
-const history = createBrowserHistory();
-const store = configureStore(history);
-
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION__: any;
-  }
-}
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

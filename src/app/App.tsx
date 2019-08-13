@@ -16,7 +16,7 @@ import Navbar from '../shared-components/Navbar';
 import ScrollToTop from '../shared-components/ScrollToTop';
 
 // tslint:disable-next-line:space-in-parens
-const RestrictedPage = React.lazy(() => import('../auth/RestrictedPage'));
+const RestrictedPage = React.lazy(() => import(/* webpackChunkName: "restricted" */'../auth/RestrictedPage'));
 // tslint:disable-next-line:space-in-parens
 const BooksPage = React.lazy(() => import(/* webpackChunkName: "books" */'../books/BooksPage'));
 // tslint:disable-next-line:space-in-parens

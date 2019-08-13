@@ -1,7 +1,8 @@
+import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as InlineManifestWebpackPlugin from 'inline-manifest-webpack-plugin';
 import * as path from 'path';
 import * as webpack from 'webpack';
-const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
@@ -45,19 +46,41 @@ const config: webpack.Configuration = {
       },
     }),
     new InlineManifestWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      tslint: true,
+      async: false,
+      silent: true,
+    }),
   ],
   optimization: {
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
+        default: false,
+        vendor: {
+          name: 'vendor',
+          chunks: 'all',
+          test: /[\\/]node_modules[\\/]/,
+          priority: 20,
+        },
         auth0: {
-          test: /[\\/]node_modules[\\/](auth0-js|auth0-lock|auth-password-policies)[\\/]/,
+          test: (module: { context: string }) => module.context.includes('node_modules/auth0'),
           name: 'auth0',
+          priority: 30,
         },
         utilities: {
           test: /[\\/]node_modules[\\/](immutable|moment|react|react-dom|react-loading)[\\/]/,
           name: 'utilities',
+          priority: 30,
+        },
+        common: {
+          name: 'async-common',
+          minChunks: 2,
+          chunks: 'async',
+          priority: 10,
+          reuseExistingChunk: true,
+          enforce: true,
         },
       },
     },
@@ -73,16 +96,12 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /\.tsx?$/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-      },
-      {
-        test: /\.tsx?$/,
         include: path.join(__dirname, 'src'),
         use: [{
-          loader: 'awesome-typescript-loader',
+          loader: 'ts-loader',
           options: {
-            silent: true,
+            transpileOnly: true,
+            experimentalWatchApi: true,
           },
         }],
       },

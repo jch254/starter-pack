@@ -1,11 +1,12 @@
+import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as InlineManifestWebpackPlugin from 'inline-manifest-webpack-plugin';
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import * as path from 'path';
-import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import * as TerserPlugin from 'terser-webpack-plugin';
 import * as webpack from 'webpack';
 import * as WebpackChunkHash from 'webpack-chunk-hash';
-const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const config: webpack.Configuration = {
   mode: 'production',
@@ -14,8 +15,8 @@ const config: webpack.Configuration = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'assets/[name].[chunkhash].js',
-    chunkFilename: 'assets/[name].[chunkhash].js',
+    filename: 'assets/[name].[contenthash].js',
+    chunkFilename: 'assets/[name].[contenthash].js',
     publicPath: '/',
   },
   plugins: [
@@ -27,10 +28,10 @@ const config: webpack.Configuration = {
       },
     }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-    new webpack.HashedModuleIdsPlugin(),
     new WebpackChunkHash(),
     new MiniCssExtractPlugin({
       filename: 'assets/[name].[contenthash].css',
+      ignoreOrder: true,
     }),
     new HtmlWebpackPlugin({
       title: 'Starter Pack | 603.nz',
@@ -47,33 +48,64 @@ const config: webpack.Configuration = {
       },
     }),
     new InlineManifestWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      tslint: true,
+      memoryLimit: 4096,
+      async: false,
+      silent: true,
+    }),
   ],
   optimization: {
     runtimeChunk: 'single',
+    moduleIds: 'hashed',
+    chunkIds: 'named',
     minimizer: [
       new OptimizeCssAssetsPlugin({
         cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
         canPrint: false,
       }),
-      new UglifyJsPlugin({
+      new TerserPlugin({
         parallel: true,
+        terserOptions: {
+          mangle: {
+            safari10: true,
+          },
+        },
       }),
     ],
     splitChunks: {
       chunks: 'all',
       maxInitialRequests: Infinity,
       cacheGroups: {
+        default: false,
+        vendor: {
+          name: 'vendor',
+          chunks: 'all',
+          test: /[\\/]node_modules[\\/]/,
+          priority: 20,
+        },
         auth0: {
-          test: /[\\/]node_modules[\\/](auth0-js|auth0-lock|auth-password-policies)[\\/]/,
+          test: (module: { context: string }) => module.context.includes('node_modules/auth0'),
           name: 'auth0',
+          priority: 30,
         },
         utilities: {
           test: /[\\/]node_modules[\\/](immutable|moment|react|react-dom|react-loading)[\\/]/,
           name: 'utilities',
+          priority: 30,
         },
+        common: {
+          name: 'async-common',
+          minChunks: 2,
+          chunks: 'async',
+          priority: 10,
+          reuseExistingChunk: true,
+          enforce: true,
+        },
+        // See: https://github.com/webpack-contrib/mini-css-extract-plugin/issues/85
         styles: {
           name: 'styles',
-          test: /\.css$/,
+          test: module => module.nameForCondition && /\.css$/.test(module.nameForCondition()) && !/^javascript/.test(module.type),
           chunks: 'all',
           enforce: true,
         },
@@ -91,20 +123,12 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /\.tsx?$/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-        options: {
-          emitErrors: true,
-          failOnHint: true,
-        },
-      },
-      {
-        test: /\.tsx?$/,
         include: path.join(__dirname, 'src'),
         use: [{
-          loader: 'awesome-typescript-loader',
+          loader: 'ts-loader',
           options: {
-            silent: true,
+            transpileOnly: true,
+            experimentalWatchApi: true,
           },
         }],
       },
@@ -118,7 +142,6 @@ const config: webpack.Configuration = {
             options: {
               modules: {
                 mode: 'local',
-                localIdentName: '[path][name]__[local]--[hash:base64:5]',
               },
             },
           },

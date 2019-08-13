@@ -13,9 +13,11 @@ export interface GlobalState {
   router: RouterState;
 }
 
-export default (history: History) => combineReducers<GlobalState>({
+const rootReducer = (history: History) => combineReducers({
+  app: recycleState(appReducer, [authActions.logout.type], appInitialState),
   auth: authReducer,
-  app: recycleState(appReducer, [authActions.logout], appInitialState),
-  books: recycleState(booksReducer, [authActions.logout], booksInitialsState),
+  books: recycleState(booksReducer, [authActions.logout.type], booksInitialsState),
   router: connectRouter(history),
 });
+
+export default rootReducer;

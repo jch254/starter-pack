@@ -31,4 +31,4 @@ class GaTracker extends React.PureComponent<Props, {}> {
   }
 }
 
-export default withRouter<Props>(GaTracker);
+export default withRouter<Props, typeof GaTracker>(GaTracker);
