@@ -16,7 +16,7 @@ env:
     TF_VAR_dns_names: '["starter-pack-typescript.603.nz"]'
     TF_VAR_route53_zone_id: "Z18NTUPI1RKRGC"
     TF_VAR_acm_arn: "arn:aws:acm:us-east-1:982898479788:certificate/65811194-cc89-4926-83c3-199c5c0b6e0c"
-    AUTH0_CLIENT_ID: "kM4QwLQxic0Kvxur0d4frLI8CY0FxOmk"
+    AUTH0_CLIENT_ID: "4o9Sngqkj55rQuEpI3TUs64c5EMJ2hO9"
     AUTH0_DOMAIN: "603.au.auth0.com"
     REMOTE_STATE_BUCKET: "603-terraform-remote-state"
   parameter-store:

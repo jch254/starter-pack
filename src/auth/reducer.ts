@@ -1,57 +1,23 @@
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import produce from 'immer';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { getStoredAuthState } from '../utils';
 
 export interface AuthState {
-  isLoggingIn: boolean;
-  idToken?: string;
-  profile?: auth0.Auth0UserProfile;
-  error?: string;
+  auth0Client?: Auth0Client;
 }
 
-export const initialState: AuthState = {
-  isLoggingIn: false,
-};
-
-export interface LoginResponse {
-  profile: auth0.Auth0UserProfile;
-  idToken: string;
-}
+export const initialState: AuthState = {};
 
 const actionCreator = actionCreatorFactory('AUTH');
 
 export const authActions = {
-  login: actionCreator.async<void, LoginResponse, string>('LOGIN'),
-  logout: actionCreator<void>('LOGOUT'),
+  setAuth0Client: actionCreator<Auth0Client>('SET_AUTH0_CLIENT'),
 };
 
-export default reducerWithInitialState({ ...initialState, ...getStoredAuthState() })
-  .case(authActions.login.started, state =>
+export default reducerWithInitialState(initialState)
+  .case(authActions.setAuth0Client, (state, payload) =>
     produce(state, (draft) => {
-      draft.isLoggingIn = true;
-    }),
-  )
-  .case(authActions.login.done, (state, payload) =>
-    produce(state, (draft) => {
-      draft.isLoggingIn = false;
-      draft.idToken = payload.result.idToken;
-      draft.profile = payload.result.profile;
-    }),
-  )
-  .case(authActions.login.failed, (state, payload) =>
-    produce(state, (draft) => {
-      draft.isLoggingIn = false;
-      draft.idToken = undefined;
-      draft.profile = undefined;
-      draft.error = payload.error;
-    }),
-  )
-  .case(authActions.logout, state =>
-    produce(state, (draft) => {
-      draft.isLoggingIn = false;
-      draft.idToken = undefined;
-      draft.profile = undefined;
-      draft.error = undefined;
+      draft.auth0Client = payload;
     }),
   );

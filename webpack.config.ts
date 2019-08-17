@@ -64,11 +64,6 @@ const config: webpack.Configuration = {
           test: /[\\/]node_modules[\\/]/,
           priority: 20,
         },
-        auth0: {
-          test: (module: { context: string }) => module.context.includes('node_modules/auth0'),
-          name: 'auth0',
-          priority: 30,
-        },
         utilities: {
           test: /[\\/]node_modules[\\/](immutable|moment|react|react-dom|react-loading)[\\/]/,
           name: 'utilities',

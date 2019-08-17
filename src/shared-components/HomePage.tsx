@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Banner,
   Box,
@@ -12,7 +12,7 @@ import {
 
 const banner = require('./Banner.jpg');
 
-const HomePage: React.StatelessComponent<RouteComponentProps<any>> = () => (
+const HomePage = () => (
   <React.Fragment>
     <Banner
       style={{ minHeight: '75vh', backgroundAttachment: 'scroll' }}
@@ -40,10 +40,10 @@ const HomePage: React.StatelessComponent<RouteComponentProps<any>> = () => (
       <Text fontSize={4} width={[1, 1, 2 / 3]}>
         <a href="https://github.com/jch254/starter-pack/tree/typescript" target="_blank" rel="noopener noreferrer">
           Starter Pack</a> combines <a href="https://github.com/facebook/react" target="_blank"
-            rel="noopener noreferrer">React</a>, <a href="https://github.com/reactjs/redux" target="_blank"
+            rel="noopener noreferrer">React (ft. hooks)</a>, <a href="https://github.com/reactjs/redux" target="_blank"
               rel="noopener noreferrer">Redux</a> and <a href="https://github.com/yelouafi/redux-saga" target="_blank"
-                rel="noopener noreferrer">Redux-saga</a> with <a href="https://github.com/auth0/lock" target="_blank"
-                  rel="noopener noreferrer">Auth0&#39;s Lock</a> as a starting point for modern web apps with solid
+                rel="noopener noreferrer">Redux-saga</a> with <a href="https://github.com/auth0/auth0-spa-js" target="_blank"
+                  rel="noopener noreferrer">Auth0&#39;s Universal Login</a> as a starting point for modern web apps with solid
         authentication. Why reinvent the wheel? The app utilises <a href="https://github.com/jxnblk/rebass"
           target="_blank" rel="noopener noreferrer">Rebass</a> to keep things looking decent. I built this
 as a way to quickly prototype new ideas.
@@ -69,7 +69,7 @@ as a way to quickly prototype new ideas.
         </Box>
         <Box p={2} width={[1, 1 / 2, 1 / 4]}>
           <Text fontSize={4}>
-            <a href="https://github.com/auth0/lock" target="_blank" rel="noopener noreferrer">Auth0 Lock</a>
+            <a href="https://github.com/auth0/auth0-spa-js" target="_blank" rel="noopener noreferrer">Auth0 Universal Login</a>
           </Text>
         </Box>
         <Box p={2} width={[1, 1 / 2, 1 / 4]}>

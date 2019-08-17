@@ -1,7 +1,9 @@
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { AnyAction } from 'redux';
-import { put } from 'redux-saga/effects';
-import { authActions } from './auth/reducer';
+import { put, select } from 'redux-saga/effects';
+import { getAuth0Client } from './auth/selectors';
 import Book from './books/Book';
+import { GlobalState } from './rootReducer';
 
 const books = require('./books/books.json');
 
@@ -60,7 +62,12 @@ export function* handleApiError(error: any, failureAction?: (error?: any) => Any
       if (failureAction !== undefined) {
         yield put(failureAction());
       }
-      yield put(authActions.login.started());
+
+      const auth0Client: Auth0Client = yield select(getAuth0Client);
+      const path: Auth0Client = yield select((state: GlobalState) => state.router.location.pathname);
+
+      auth0Client.logout();
+      auth0Client.loginWithRedirect({ appState: { targetUrl: path } });
     }
   } else {
     if (failureAction !== undefined) {

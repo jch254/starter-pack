@@ -6,12 +6,11 @@ import {
   Label,
   Toolbar,
 } from 'rebass';
-import { authActions } from '../auth/reducer';
 
 interface NavbarProps {
-  profile?: auth0.Auth0UserProfile;
-  handleLogin: typeof authActions.login.started;
-  handleLogout: typeof authActions.logout;
+  user?: any;
+  handleLogin: (options?: RedirectLoginOptions) => Promise<void>;
+  handleLogout: (options?: LogoutOptions) => void;
 }
 
 const activeStyle = {
@@ -19,7 +18,7 @@ const activeStyle = {
 };
 
 const Navbar: React.StatelessComponent<NavbarProps> = ({
-  profile,
+  user,
   handleLogin,
   handleLogout,
 }) => (
@@ -31,7 +30,7 @@ const Navbar: React.StatelessComponent<NavbarProps> = ({
         </Label>
         </NavLink>
         {
-          profile &&
+          user &&
           <NavLink to="/books" activeStyle={activeStyle}>
             <Label mx={3} style={{ cursor: 'pointer' }}>
               Books
@@ -39,7 +38,7 @@ const Navbar: React.StatelessComponent<NavbarProps> = ({
           </NavLink>
         }
         {
-          profile === undefined ?
+          user === undefined ?
             <Button ml="auto" bg="green" onClick={handleLogin} style={{ cursor: 'pointer' }}>
               Login
             </Button> :

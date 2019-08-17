@@ -2,8 +2,8 @@
 
 ## Overview
 
-Starter Pack combines React, Redux and Redux-saga with Auth0's Lock as a starting point for modern
-web apps with solid authentication. Why reinvent the wheel? The app utilises Rebass to
+Starter Pack combines React (ft. hooks), Redux and Redux-saga with Auth0's Universal Login as a starting point 
+for modern web apps with solid authentication. Why reinvent the wheel? The app utilises Rebass to
 keep things looking decent. I built this as a way to quickly prototype new ideas.
 
 Webpack (ft. various loaders/plugins/tools) is used to run a local development server and build
@@ -39,7 +39,7 @@ is a JavaScript implementation.
 * [React](https://github.com/facebook/react)
 * [Redux](https://github.com/reactjs/redux) (ft. various middleware)
 * [Redux Saga](https://github.com/yelouafi/redux-saga)
-* [Auth0 Lock](https://github.com/auth0/lock)
+* [Auth0 SDK for Single Page Applications](https://github.com/auth0/auth0-spa-js)
 * [React Router](https://github.com/ReactTraining/react-router)
 * [Reselect](https://github.com/jxnblk/rebass)
 * [Rebass](https://github.com/jxnblk/rebass)

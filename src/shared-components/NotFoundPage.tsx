@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import {
   Blockquote,
   Container,
   Heading,
 } from 'rebass';
 
-const NotFoundPage: React.StatelessComponent<RouteComponentProps<any>> = () => (
+const NotFoundPage = () => (
   <Container py={5} style={{ flex: 'auto' }}>
     <Heading fontSize={8}>404.</Heading>
     <Heading>

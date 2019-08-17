@@ -5,7 +5,7 @@ import {
   Toolbar,
 } from 'rebass';
 
-const AppFooter: React.StatelessComponent<{}> = () => (
+const AppFooter = () => (
   <Toolbar bg="white">
     <Small ml="auto">
       <a href="https://603.nz" style={{ cursor: 'pointer', color: 'black' }}>
