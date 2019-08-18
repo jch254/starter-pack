@@ -74,7 +74,7 @@ yarn install
 yarn run build
 ```
 
-### Running production version locally
+## Running production version locally
 
 1. Run the following commands in the app's root directory then open http://localhost:3001
 
@@ -83,7 +83,7 @@ yarn install
 yarn run prod
 ```
 
-### Running in Docker container
+## Running in Docker container
 1. Run the following commands in the app's root directory then submit requests to http://localhost:3001.
 
 ```
