@@ -16,7 +16,7 @@ import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { booksActions } from './reducer';
 import { getError, getIsFetching, getSortedBooks } from './selectors';
 
-const styles = require('./BooksPage.css');
+import styles from './BooksPage.css';
 
 const BooksPage = () => {
   const { getTokenSilently } = useAuth0();

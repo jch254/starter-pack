@@ -129,7 +129,9 @@ inlined into index.html to save requests.
       <Text fontSize={3} py={2}>
         This branch utilises <a href="https://www.youtube.com/watch?v=V1po0BT7kac" target="_blank"
           rel="noopener noreferrer">TypeScript for type checking</a> and transpliation to
-browser-friendly ES5 JavaScript.
+browser-friendly ES5 JavaScript. ESLint (ft. plugins) runs on compilation and fails the build
+if errors are reported. Eslint-plugin-css-modules provides type checking of CSS modules - identifying
+CSS files with unused classes and components using undefined CSS classes.
       </Text>
     </Container>
   </React.Fragment>

@@ -47,7 +47,7 @@ const config: webpack.Configuration = {
     }),
     new InlineManifestWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
-      tslint: true,
+      eslint: true,
       async: false,
       silent: true,
     }),

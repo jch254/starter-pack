@@ -26,7 +26,10 @@ of authentication in action.
 
 This branch utilises [TypeScript for type checking](https://www.youtube.com/watch?v=V1po0BT7kac) and
 transpliation to browser-friendly ES5 JavaScript while the [master branch](https://github.com/jch254/starter-pack/tree/master)
-is a JavaScript implementation.
+is a JavaScript implementation. ESLint (ft. plugins) is run on compilation and will fail the build
+if errors are reported. [Eslint-plugin-css-modules](https://github.com/atfzl/eslint-plugin-css-modules) provides
+type checking of CSS modules - identifying CSS files with unused classes and components using undefined CSS classes
+e.g. `styles.doesNotExist`.
 
 ![Main](https://img.jch254.com/Main.png)
 
@@ -45,6 +48,7 @@ is a JavaScript implementation.
 * [Rebass](https://github.com/jxnblk/rebass)
 * [Webpack](https://github.com/webpack/webpack)
 * [TypeScript](https://github.com/Microsoft/TypeScript)
+* [ESLint](https://github.com/typescript-eslint/typescript-eslint)
 * [Node.js](https://github.com/nodejs/node)
 
 **AUTH0_CLIENT_ID and AUTH0_DOMAIN environment variable must be set before `yarn run` commands below.**

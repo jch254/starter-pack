@@ -49,7 +49,7 @@ const config: webpack.Configuration = {
     }),
     new InlineManifestWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
-      tslint: true,
+      eslint: true,
       memoryLimit: 4096,
       async: false,
       silent: true,
@@ -137,6 +137,7 @@ const config: webpack.Configuration = {
             options: {
               modules: {
                 mode: 'local',
+                localIdentName: '[hash:base64:5]',
               },
             },
           },

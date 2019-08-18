@@ -7,7 +7,7 @@
     "dev": "cross-env TS_NODE_PROJECT=tsconfig-webpack.json ts-node server.ts",
     "build": "rimraf dist && cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig-webpack.json webpack --config ./webpack.prod.config.ts --progress --profile --colors",
     "prod": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig-webpack.json ts-node server.ts",
-    "lint": "tslint --type-check --project 'tsconfig.json' 'src/**/*.ts?(x)' || exit 0",
+    "lint": "eslint ./ --ext ts,tsx",
     "analyze-dev": "rimraf stats.json && cross-env TS_NODE_PROJECT=tsconfig-webpack.json webpack --config webpack.config.ts --profile --json > stats.json && webpack-bundle-analyzer stats.json",
     "analyze-prod": "rimraf stats.json && cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig-webpack.json webpack --config webpack.prod.config.ts --profile --json > stats.json && webpack-bundle-analyzer stats.json"
   },
@@ -55,8 +55,13 @@
     "@types/webpack": "^4.32.2",
     "@types/webpack-dev-server": "^3.1.7",
     "@types/webpack-env": "^1.14.0",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "cross-env": "^5.2.0",
     "css-loader": "^3.2.0",
+    "eslint": "^6.1.0",
+    "eslint-plugin-css-modules": "^2.11.0",
     "file-loader": "^4.2.0",
     "fork-ts-checker-webpack-plugin": "^1.5.0",
     "html-webpack-plugin": "^3.2.0",
@@ -79,7 +84,7 @@
     "webpack": "^4.39.2",
     "webpack-bundle-analyzer": "^3.4.1",
     "webpack-chunk-hash": "^0.6.0",
-    "webpack-cli": "^3.3.6",
+    "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0"
   }
 }
