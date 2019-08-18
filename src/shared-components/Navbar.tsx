@@ -17,11 +17,11 @@ const activeStyle = {
   color: '#111',
 };
 
-const Navbar: React.StatelessComponent<NavbarProps> = ({
+const Navbar = ({
   user,
   handleLogin,
   handleLogout,
-}) => (
+}: NavbarProps) => (
     <Fixed top={0} left={0} right={0} z={1}>
       <Toolbar bg="white">
         <NavLink to="/" exact activeStyle={activeStyle}>
