@@ -37,7 +37,7 @@ const App = ({
                 <Navbar
                   user={user}
                   handleLogin={() => loginWithRedirect({ appState: { targetUrl: '/books' } })}
-                  handleLogout={() => logout()}
+                  handleLogout={() => logout({ returnTo: window.location.origin, client_id: process.env.AUTH0_CLIENT_ID })}
                 />
                 <React.Suspense fallback={<FullscreenLoader />}>
                   <Switch>

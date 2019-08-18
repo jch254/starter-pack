@@ -64,9 +64,9 @@ export function* handleApiError(error: any, failureAction?: (error?: any) => Any
       }
 
       const auth0Client: Auth0Client = yield select(getAuth0Client);
-      const path: Auth0Client = yield select((state: GlobalState) => state.router.location.pathname);
+      const path: string = yield select((state: GlobalState) => state.router.location.pathname);
 
-      auth0Client.logout();
+      auth0Client.logout({ returnTo: window.location.origin, client_id: process.env.AUTH0_CLIENT_ID });
       auth0Client.loginWithRedirect({ appState: { targetUrl: path } });
     }
   } else {
