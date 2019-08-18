@@ -66,17 +66,6 @@ yarn install
 yarn run dev
 ```
 
-### Running development version locally in Docker container
-1. Run the following commands in the app's root directory then submit requests to http://localhost:3001.
-
-```
-docker build -t starter-pack .
-docker run -p 3001:3001 -e AUTH0_CLIENT_ID=YOUR_CLIENT_ID -e AUTH0_DOMAIN=YOUR_DOMAIN starter-pack SCRIPT_NAME
-```
-
-The SCRIPT_NAME value must be one of the npm script names in [package.json](./package.json) - e.g. dev or prod. Omitting the SCRIPT_NAME variable 
-will cause the container to exit with a 'No command specified' error and list the available commands.
-
 ## Building the production version
 1. Run the following commands in the app's root directory then check the /dist folder
 
@@ -93,6 +82,17 @@ yarn run build
 yarn install
 yarn run prod
 ```
+
+### Running in Docker container
+1. Run the following commands in the app's root directory then submit requests to http://localhost:3001.
+
+```
+docker build -t starter-pack .
+docker run -p 3001:3001 -e AUTH0_CLIENT_ID=YOUR_CLIENT_ID -e AUTH0_DOMAIN=YOUR_DOMAIN starter-pack SCRIPT_NAME
+```
+
+The SCRIPT_NAME value must be one of the npm script names in [package.json](./package.json) - e.g. dev or prod. Omitting the SCRIPT_NAME variable 
+will cause the container to exit with a 'No command specified' error and list the available commands.
 
 ## Deployment/Infrastructure
 
