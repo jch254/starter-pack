@@ -1,5 +1,7 @@
 # [Starter Pack](https://starter-pack-typescript.603.nz)
 
+![Build Status](https://codebuild.ap-southeast-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiK2RUODZJTEw1YStIMDBhQmoyNGZuQmJzVi9FZFRoVGIrWWxCZVRuRlRZUlVOeFRLZzl1azA0Sm1mUEVLU3d6YWxoR2c4bHlpNHZVNnBpb09aOEVUMUdFPSIsIml2UGFyYW1ldGVyU3BlYyI6IjdKSzZqbGtVVHRDY2xjemoiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=typescript)
+
 ## Overview
 
 Starter Pack combines React (ft. hooks), Redux and Redux-saga with Auth0's Universal Login as a starting point 
