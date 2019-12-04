@@ -131,6 +131,7 @@ const config: webpack.Configuration = {
           loader: 'url-loader',
           options: {
             limit: 10240,
+            esModule: false,
           },
         }],
       },
