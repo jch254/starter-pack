@@ -1,3 +1,4 @@
+import { LogoutOptions, RedirectLoginOptions } from '@auth0/auth0-spa-js';
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import {

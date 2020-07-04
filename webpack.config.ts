@@ -1,8 +1,9 @@
-import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as InlineManifestWebpackPlugin from 'inline-manifest-webpack-plugin';
 import * as path from 'path';
 import * as webpack from 'webpack';
+
+import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
@@ -47,9 +48,10 @@ const config: webpack.Configuration = {
     }),
     new InlineManifestWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
-      eslint: true,
       async: false,
-      silent: true,
+      eslint: {
+        files: './src/**/*.{ts,tsx,js,jsx}', // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js,.jsx`
+      },
     }),
   ],
   optimization: {

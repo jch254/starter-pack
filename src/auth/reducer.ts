@@ -1,4 +1,4 @@
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import produce from 'immer';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';

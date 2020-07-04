@@ -1,4 +1,3 @@
-import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as InlineManifestWebpackPlugin from 'inline-manifest-webpack-plugin';
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -7,6 +6,8 @@ import * as path from 'path';
 import * as TerserPlugin from 'terser-webpack-plugin';
 import * as webpack from 'webpack';
 import * as WebpackChunkHash from 'webpack-chunk-hash';
+
+import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const config: webpack.Configuration = {
   mode: 'production',
@@ -49,10 +50,10 @@ const config: webpack.Configuration = {
     }),
     new InlineManifestWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
-      eslint: true,
-      memoryLimit: 4096,
       async: false,
-      silent: true,
+      eslint: {
+        files: './src/**/*.{ts,tsx,js,jsx}', // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js,.jsx`
+      },
     }),
   ],
   optimization: {

@@ -1,5 +1,14 @@
-import createAuth0Client from '@auth0/auth0-spa-js';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
+import createAuth0Client, {
+  getIdTokenClaimsOptions,
+  Auth0Client,
+  Auth0ClientOptions,
+  GetTokenSilentlyOptions,
+  GetTokenWithPopupOptions,
+  IdToken,
+  LogoutOptions,
+  PopupLoginOptions,
+  RedirectLoginOptions,
+} from '@auth0/auth0-spa-js';
 import { replace } from 'connected-react-router';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,7 +50,7 @@ export const Auth0Provider = ({
   React.useEffect(
     () => {
       const initAuth0 = async () => {
-        const auth0Client = await createAuth0Client(auth0Options);
+        const auth0Client = await createAuth0Client(auth0Options as Auth0ClientOptions);
 
         dispatch(authActions.setAuth0Client(auth0Client));
 

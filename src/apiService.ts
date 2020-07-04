@@ -1,4 +1,4 @@
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import { AnyAction } from 'redux';
 import { put, select } from 'redux-saga/effects';
 import { getAuth0Client } from './auth/selectors';
