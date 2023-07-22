@@ -6,7 +6,7 @@ terraform {
 
 provider "aws" {
   region  = "${var.region}"
-  version = "~> 1.0"
+  version = "~> 2.0"
 }
 
 resource "aws_iam_role" "codebuild_role" {
@@ -31,7 +31,7 @@ EOF
 data "template_file" "codebuild_policy" {
   template = "${file("./codebuild-role-policy.tpl")}"
 
-  vars {
+  vars = {
     kms_key_arns       = "${var.kms_key_arns}"
     ssm_parameter_arns = "${var.ssm_parameter_arns}"
   }
