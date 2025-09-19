@@ -62,10 +62,10 @@ module "codebuild_project" {
 }
 
 module "webapp" {
-  source = "github.com/jch254/terraform-modules//web-app?ref=1.0.6"
+  source = "github.com/jch254/terraform-modules//web-app?ref=1.0.8"
 
   bucket_name     = "${var.bucket_name}"
-  dns_names       = "${var.dns_names}"
-  route53_zone_id = "${var.route53_zone_id}"
+  dns_names       = "${length(var.dns_names) > 0 ? var.dns_names : []}"
+  route53_zone_id = "${var.route53_zone_id != "" ? var.route53_zone_id : ""}"
   acm_arn         = "${var.acm_arn}"
 }

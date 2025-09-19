@@ -47,10 +47,12 @@ variable "bucket_name" {
 variable "dns_names" {
   description = "List of DNS names for app"
   type        = "list"
+  default     = []
 }
 
 variable "route53_zone_id" {
   description = "Route 53 Hosted Zone ID"
+  default     = ""
 }
 
 variable "acm_arn" {
