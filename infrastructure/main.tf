@@ -2,11 +2,16 @@ terraform {
   backend "s3" {
     encrypt = "true"
   }
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
 }
 
 provider "aws" {
-  region  = "${var.region}"
-  version = "~> 2.0"
+  region = var.region
 }
 
 resource "aws_iam_role" "codebuild_role" {
@@ -62,7 +67,7 @@ module "codebuild_project" {
 }
 
 module "webapp" {
-  source = "github.com/jch254/terraform-modules//web-app?ref=1.0.4"
+  source = "github.com/jch254/terraform-modules//web-app?ref=1.0.10"
 
   bucket_name     = "${var.bucket_name}"
   dns_names       = "${var.dns_names}"

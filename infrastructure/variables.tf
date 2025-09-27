@@ -46,7 +46,7 @@ variable "bucket_name" {
 
 variable "dns_names" {
   description = "List of DNS names for app"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "route53_zone_id" {
