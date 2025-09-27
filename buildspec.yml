@@ -8,7 +8,7 @@ env:
     TF_VAR_kms_key_arns: '["arn:aws:kms:ap-southeast-2:982898479788:key/0ec9686b-13a1-40fc-8256-86e8d3503e9c"]'
     TF_VAR_ssm_parameter_arns: '["arn:aws:ssm:ap-southeast-2:982898479788:parameter/shared/*","arn:aws:ssm:ap-southeast-2:982898479788:parameter/starter-pack/*"]'
     TF_VAR_build_docker_image: "jch254/docker-node-terraform-aws"
-    TF_VAR_build_docker_tag: "14.x"
+    TF_VAR_build_docker_tag: "22.x"
     TF_VAR_buildspec: "buildspec.yml"
     TF_VAR_source_location: "https://github.com/jch254/starter-pack.git"
     TF_VAR_cache_bucket: "603-codebuild-cache/starter-pack"

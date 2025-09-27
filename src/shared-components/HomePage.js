@@ -44,8 +44,8 @@ const HomePage = () => (
             target="_blank"
             rel="noopener noreferrer"
           >Redux</a> and <a href="https://github.com/yelouafi/redux-saga" target="_blank" rel="noopener noreferrer">
-          Redux-saga</a> with <a href="https://github.com/auth0/lock" target="_blank" rel="noopener noreferrer">
-          Auth0&#39;s Lock</a> as a starting point for modern web apps with solid authentication.
+            Redux-saga</a> with <a href="https://github.com/auth0/lock" target="_blank" rel="noopener noreferrer">
+              Auth0&#39;s Lock</a> as a starting point for modern web apps with solid authentication.
           Why reinvent the wheel? The app utilises <a
             href="https://github.com/jxnblk/rebass"
             target="_blank"

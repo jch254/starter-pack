@@ -1,8 +1,16 @@
 {
-  "presets": ["env", "react"],
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "> 1%", "ie >= 11"]
+      }
+    }], 
+    "react"
+  ],
   "plugins": [
     "transform-inline-environment-variables",
     "transform-class-properties",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "syntax-dynamic-import"
   ]
 }

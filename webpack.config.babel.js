@@ -4,15 +4,10 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import InlineChunkManifestHtmlWebpackPlugin from 'inline-chunk-manifest-html-webpack-plugin';
 
-const SERVER_PORT = process.env.SERVER_PORT || 3001;
-const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
-
 export default {
   devtool: 'cheap-module-source-map',
   entry: [
     'babel-polyfill',
-    'webpack/hot/dev-server',
-    `webpack-dev-server/client?http://${SERVER_HOSTNAME}:${SERVER_PORT}`,
     path.join(__dirname, 'src', 'index.js'),
   ],
   output: {

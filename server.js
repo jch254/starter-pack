@@ -1,34 +1,21 @@
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
+const path = require('path');
 
-import devConfig from './webpack.config.babel';
-import prodConfig from './webpack.prod.config.babel';
+const express = require('express');
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
 
-const webpackConfig = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
+const app = express();
 
-const compiler = webpack(webpackConfig);
+// Serve static files
+app.use(express.static(path.join(process.cwd(), 'dist')));
 
-const server = new WebpackDevServer(compiler, {
-  publicPath: webpackConfig.output.publicPath,
-  hot: process.env.NODE_ENV !== 'production',
-  historyApiFallback: true,
-  stats: {
-    colors: true,
-    hash: false,
-    timings: true,
-    chunks: false,
-    chunkModules: false,
-    modules: false,
-  },
+// Handle client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
 });
 
-server.listen(SERVER_PORT, SERVER_HOSTNAME, (err) => {
-  if (err) {
-    console.log(err);
-  }
-
+app.listen(SERVER_PORT, SERVER_HOSTNAME, () => {
+  // eslint-disable-next-line no-console
   console.log(`Server listening at http://${SERVER_HOSTNAME}:${SERVER_PORT}`);
 });
