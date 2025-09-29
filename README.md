@@ -1,101 +1,243 @@
-# [Starter Pack](https://starter-pack-typescript.603.nz)
+# Starter Pack (TypeScript Edition)
 
-![Build Status](https://codebuild.ap-southeast-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiK2RUODZJTEw1YStIMDBhQmoyNGZuQmJzVi9FZFRoVGIrWWxCZVRuRlRZUlVOeFRLZzl1azA0Sm1mUEVLU3d6YWxoR2c4bHlpNHZVNnBpb09aOEVUMUdFPSIsIml2UGFyYW1ldGVyU3BlYyI6IjdKSzZqbGtVVHRDY2xjemoiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=typescript)
+[![Build Status](https://codebuild.ap-southeast-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiK2RUODZJTEw1YStIMDBhQmoyNGZuQmJzVi9FZFRoVGIrWWxCZVRuRlRZUlVOeFRLZzl1azA0Sm1mUEVLU3d6YWxoR2c4bHlpNHZVNnBpb09aOEVUMUdFPSIsIml2UGFyYW1ldGVyU3BlYyI6IjdKSzZqbGtVVHRDY2xjemoiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=typescript)](https://starter-pack-typescript.603.nz)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing-)
 
-## Overview
+Modern React + Auth0 + Redux Saga + Webpack setup for quickly prototyping secure single‑page applications.
 
-Starter Pack combines React (ft. hooks), Redux and Redux-saga with Auth0's Universal Login as a starting point 
-for modern web apps with solid authentication. Why reinvent the wheel? The app utilises Rebass to
-keep things looking decent. I built this as a way to quickly prototype new ideas.
+## Why this project?
 
-Webpack (ft. various loaders/plugins/tools) is used to run a local development server and build
-the production version. [Code splitting](https://webpack.js.org/guides/code-splitting)
-(with [long-term caching](https://webpack.js.org/guides/caching) in the production version) has
-been set up via Webpack and React. Webpack's SplitChunksPlugin is used to split vendor
-code. [React.lazy](https://reactjs.org/docs/code-splitting.html#reactlazy) is used for
-async component-centric code splitting and loading - see [App.tsx](./src/app/App.tsx) as an
-example of creating a split point (restart the dev server if the new chunk is not emitted).
-MiniCssExtractPlugin is used to split CSS. HtmlWebpackPlugin is used to generate an index.html
-with the appropriate output assets injected, the Webpack manifest is inlined into index.html to save requests.
+Spinning up a serious front‑end often means repeating the same plumbing: auth flows, routing, state management, async side effects, code splitting, build optimisation, and a decent component baseline. Starter Pack gives you an opinionated, production‑leaning foundation so you can focus on your idea—not on wiring boilerplate.
 
-The app contains a 'locked down' Books page which requires a user to log in/sign up before content
-will be visible. The data is read from a local JSON file as this is a only demonstration/starting
-point. In the real world data would be fetched from an API - see [apiService.ts](./src/apiService.ts).
-Protected routes in the API should check validity of the JWT token and return unauthorised
-if invalid. The app should then prompt the user to log in again. See
-[Serverless API](https://github.com/jch254/serverless-node-dynamodb-api) for a more detailed example
-of authentication in action.
+You get:
 
-This branch utilises [TypeScript for type checking](https://www.youtube.com/watch?v=V1po0BT7kac) and
-transpliation to browser-friendly ES5 JavaScript while the [master branch](https://github.com/jch254/starter-pack/tree/master)
-is a JavaScript implementation. ESLint (ft. plugins) is run on compilation and will fail the build
-if errors are reported. [Eslint-plugin-css-modules](https://github.com/atfzl/eslint-plugin-css-modules) provides
-type checking of CSS modules - identifying CSS files with unused classes and components using undefined CSS classes
-e.g. `styles.doesNotExist`.
+* Robust authentication via Auth0 Universal Login (JWT-based, ready to pair with any API)
+* A protected example route (Books) demonstrating gated content & token handling
+* Sensible architecture with Redux + Redux Saga for predictable async workflows
+* Modern React (hooks + lazy loading) with granular code splitting & long‑term caching
+* TypeScript everywhere for safer refactors and discoverable APIs
+* Fast, cache‑friendly Webpack build geared for dev velocity and production reliability
 
-![Main](https://img.jch254.com/Main.png)
+## Key Features
 
-![Modal](https://img.jch254.com/Login.png)
+* 🔐 Auth0 Universal Login integration (easily swap provider if needed)
+* 🔄 Redux + Redux Saga side‑effect model
+* 🧩 Code splitting with `React.lazy` + Webpack SplitChunks + CSS extraction
+* 🏗 Strong type safety (TypeScript) + linting (ESLint + css‑modules validation)
+* 🎯 Example domain (books) incl. protected route + JSON data stub
+* 🚀 Hot‑reload dev server
+* 🐳 Docker support for parity & deployment experiments
+* 📦 Production build with hashed assets & manifest inlining
 
-![Recommended](https://img.jch254.com/Books.png)
+## Live Demo
 
-## Tools Used
+Visit: <https://starter-pack-typescript.603.nz>
 
-* [React](https://github.com/facebook/react)
-* [Redux](https://github.com/reactjs/redux) (ft. various middleware)
-* [Redux Saga](https://github.com/yelouafi/redux-saga)
-* [Auth0 SDK for Single Page Applications](https://github.com/auth0/auth0-spa-js)
-* [React Router](https://github.com/ReactTraining/react-router)
-* [Reselect](https://github.com/jxnblk/rebass)
-* [Rebass](https://github.com/jxnblk/rebass)
-* [Webpack](https://github.com/webpack/webpack)
-* [TypeScript](https://github.com/Microsoft/TypeScript)
-* [ESLint](https://github.com/typescript-eslint/typescript-eslint)
-* [Node.js](https://github.com/nodejs/node)
+Screenshots:
 
-**AUTH0_CLIENT_ID and AUTH0_DOMAIN environment variable must be set before `yarn run` commands below.**
+| Main | Login | Protected Content |
+|------|-------|-------------------|
+| ![Main](https://img.jch254.com/Main.png) | ![Modal](https://img.jch254.com/Login.png) | ![Recommended](https://img.jch254.com/Books.png) |
 
-E.g. `AUTH0_CLIENT_ID=YOUR_CLIENT_ID AUTH0_DOMAIN=YOUR_DOMAIN yarn run dev`
+## Quick Start (Copy & Paste)
 
-## Running locally (with hot reloading)
-
-1. Sign up and create a new [Auth0 app](https://auth0.com)
-1. Add http://localhost:3001 as an Allowed Origin (CORS) for your newly created app (don't forget to press save)
-1. Run the following commands in the app's root directory then open http://localhost:3001
-
-```
+```bash
+git clone https://github.com/jch254/starter-pack.git
+cd starter-pack
+git checkout typescript
 yarn install
+AUTH0_CLIENT_ID=YOUR_CLIENT_ID \
+AUTH0_DOMAIN=YOUR_DOMAIN \
 yarn run dev
 ```
 
-## Building the production version
-1. Run the following commands in the app's root directory then check the /dist folder
+Open <http://localhost:3001>
 
-```
+Don't have Auth0 values yet? See Configuration below—you can still explore most of the UI without logging in.
+
+## Installation
+
+Prerequisites:
+
+* Node.js (LTS recommended)
+* Yarn (or adapt commands to npm/pnpm)
+* Auth0 account (for full auth flow)
+
+Install dependencies:
+
+```bash
 yarn install
+```
+
+## Configuration (Environment Variables)
+
+Two environment variables are required for authentication to function:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `AUTH0_CLIENT_ID` | SPA application Client ID | `abc123XYZ` |
+| `AUTH0_DOMAIN` | Your Auth0 tenant domain | `your-tenant.eu.auth0.com` |
+
+Set them inline when running scripts:
+
+```bash
+AUTH0_CLIENT_ID=abc AUTH0_DOMAIN=your-tenant.eu.auth0.com yarn run dev
+```
+
+Or export them (macOS/Linux):
+
+```bash
+export AUTH0_CLIENT_ID=abc
+export AUTH0_DOMAIN=your-tenant.eu.auth0.com
+yarn run dev
+```
+
+Auth0 Setup:
+
+1. Create a Single Page Application in the Auth0 dashboard
+2. Add `http://localhost:3001` to Allowed Callback URLs & Allowed Web Origins
+3. Save changes and copy the Client ID + Domain
+
+## Available Scripts
+
+| Script | Purpose | Notes |
+|--------|---------|-------|
+| `yarn run dev` | Start dev server with hot reload | Serves at <http://localhost:3001> |
+| `yarn run build` | Production bundle | Outputs to `/dist` |
+| `yarn run prod` | Serve built production bundle | Requires prior build (invokes build if necessary) |
+
+## Development Workflow
+
+Start locally (auth enabled):
+
+```bash
+AUTH0_CLIENT_ID=abc AUTH0_DOMAIN=your-tenant.eu.auth0.com yarn run dev
+```
+
+Build production assets:
+
+```bash
 yarn run build
 ```
 
-## Running production version locally
+Serve production build locally:
 
-1. Run the following commands in the app's root directory then open http://localhost:3001
-
-```
-yarn install
+```bash
 yarn run prod
 ```
 
-## Running in Docker container
-1. Run the following commands in the app's root directory then submit requests to http://localhost:3001.
+## Docker Usage
 
-```
+Build image:
+
+```bash
 docker build -t starter-pack .
-docker run -p 3001:3001 -e AUTH0_CLIENT_ID=YOUR_CLIENT_ID -e AUTH0_DOMAIN=YOUR_DOMAIN starter-pack SCRIPT_NAME
 ```
 
-The SCRIPT_NAME value must be one of the npm script names in [package.json](./package.json) - e.g. dev or prod. Omitting the SCRIPT_NAME variable 
-will cause the container to exit with a 'No command specified' error and list the available commands.
+Run (choose an npm script: `dev` or `prod`):
 
-## Deployment/Infrastructure
+```bash
+docker run \
+  -p 3001:3001 \
+  -e AUTH0_CLIENT_ID=abc \
+  -e AUTH0_DOMAIN=your-tenant.eu.auth0.com \
+  starter-pack dev
+```
 
-Refer to the [/infrastructure](./infrastructure) directory.
+If you omit the script name the container will exit and list available commands.
+
+## Architecture & Tech Stack
+
+Core stack:
+
+* React (hooks) + React Router
+* Redux + Redux Saga + Reselect
+* Auth0 SPA SDK
+* TypeScript (strict-ish typing) + ESLint
+* Rebass (primitive UI components) + CSS Modules
+* Webpack (dev server, SplitChunks, manifest inlining, MiniCssExtractPlugin)
+
+Notable implementation details:
+
+* Code splitting: dynamic `React.lazy` boundaries (see `src/app/App.tsx`)
+* Protected route pattern via Auth0 wrapper (`src/auth` directory)
+* Example data service abstraction (`src/apiService.ts`)
+* Separate reducers & sagas by domain (`src/books`, `src/app`)
+* Type definitions in `typings/` for external modules without bundled types
+
+Directory snapshot:
+
+```text
+src/
+  app/               # App shell & root component
+  auth/              # Auth0 integration + route guard
+  books/             # Example protected feature module
+  shared-components/ # Reusable UI pieces
+infrastructure/   # Terraform + scripts for infra & deployment
+```
+
+## Extending / Customisation Ideas
+
+* Swap Auth0 for another OIDC/OAuth provider
+* Add API layer + real network calls (fetch/axios + token refresh)
+* Introduce testing (Jest + React Testing Library)
+* Add performance budgets / bundle analyzer
+* Implement dark mode theme toggle
+
+## Contributing 🙌
+
+Contributions are very welcome—whether it's a bug report, feature idea, documentation tweak, or a pull request.
+
+1. Fork the repo & create a branch: `git checkout -b feature/your-thing`
+2. Make changes (keep commits purposeful)
+3. Run lint/build locally
+4. Open a Pull Request describing the change & rationale
+
+Guidelines:
+Guidelines:
+
+* Keep scope minimal—small PRs are easier to review
+* Add comments where intent isn't obvious
+* Prefer TypeScript strictness over `any`
+* Match existing code style (lint will help)
+
+Feel free to open an issue first to discuss bigger ideas.
+
+## Reporting Issues
+
+When filing an issue, please include:
+
+* What you expected vs what happened
+* Steps to reproduce
+* Environment (OS, Node version) if relevant
+* Logs or screenshots (if helpful)
+
+## FAQ
+
+**Q: Can I use npm instead of yarn?**  
+A: Yes—adapt commands (`npm install`, `npm run dev`, etc.).
+
+**Q: Do I need Auth0 to try it?**  
+A: You can run the app without environment variables; protected routes will simply not authenticate.
+
+**Q: Where do I plug in an API?**  
+A: Start in `src/apiService.ts` and replace the mocked JSON flow with real fetch logic.
+
+## License
+
+MIT © 2016–present Jordan Hornblow. See [LICENSE](./LICENSE) for full text.
+
+## Acknowledgements
+
+* Auth0 for the SPA SDK
+* React, Redux, Saga & broader OSS ecosystem
+
+---
+
+Enjoying this starter? A star ⭐ helps others discover it.
+
+---
+
+Looking for the plain JavaScript version? See the [master branch](https://github.com/jch254/starter-pack/tree/master).
