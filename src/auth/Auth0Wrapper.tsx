@@ -21,7 +21,7 @@ export interface Auth0Context {
   isLoggingIn: boolean;
   isPopupOpen: boolean;
   loginWithPopup: (options?: PopupLoginOptions) => Promise<void>;
-  getIdTokenClaims: (options?: getIdTokenClaimsOptions) => Promise<IdToken>;
+  getIdTokenClaims: (options?: getIdTokenClaimsOptions) => Promise<IdToken | undefined>;
   loginWithRedirect: (options?: RedirectLoginOptions) => Promise<void>;
   getTokenSilently: (options?: GetTokenSilentlyOptions) => Promise<any>;
   getTokenWithPopup: (options?: GetTokenWithPopupOptions) => Promise<string>;
