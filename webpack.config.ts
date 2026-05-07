@@ -3,7 +3,7 @@ import * as InlineManifestWebpackPlugin from 'inline-manifest-webpack-plugin';
 import * as path from 'path';
 import * as webpack from 'webpack';
 
-import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';

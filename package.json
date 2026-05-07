@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "React + Redux + Auth0",
   "license": "MIT",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "cross-env TS_NODE_PROJECT=tsconfig-webpack.json ts-node server.ts",
     "build": "rimraf dist && cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig-webpack.json webpack --config ./webpack.prod.config.ts --progress --profile --colors",

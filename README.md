@@ -1,6 +1,6 @@
 # Starter Pack (TypeScript Edition)
 
-[![Build Status](https://codebuild.ap-southeast-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiK2RUODZJTEw1YStIMDBhQmoyNGZuQmJzVi9FZFRoVGIrWWxCZVRuRlRZUlVOeFRLZzl1azA0Sm1mUEVLU3d6YWxoR2c4bHlpNHZVNnBpb09aOEVUMUdFPSIsIml2UGFyYW1ldGVyU3BlYyI6IjdKSzZqbGtVVHRDY2xjemoiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=typescript)](https://starter-pack-typescript.603.nz)
+[![Live Site](https://img.shields.io/badge/live-starter--pack.603.nz-3178C6)](https://starter-pack.603.nz)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing-)
@@ -33,7 +33,7 @@ You get:
 
 ## Live Demo
 
-Visit: <https://starter-pack-typescript.603.nz>
+Visit: <https://starter-pack.603.nz>
 
 Screenshots:
 
@@ -47,10 +47,11 @@ Screenshots:
 git clone https://github.com/jch254/starter-pack.git
 cd starter-pack
 git checkout typescript
-yarn install
+corepack enable
+pnpm install --frozen-lockfile
 AUTH0_CLIENT_ID=YOUR_CLIENT_ID \
 AUTH0_DOMAIN=YOUR_DOMAIN \
-yarn run dev
+pnpm run dev
 ```
 
 Open <http://localhost:3001>
@@ -61,14 +62,14 @@ Don't have Auth0 values yet? See Configuration below—you can still explore mos
 
 Prerequisites:
 
-* Node.js (LTS recommended)
-* Yarn (or adapt commands to npm/pnpm)
+* Node.js 22.x (see [`.nvmrc`](./.nvmrc))
+* pnpm (auto-activated via Corepack — `corepack enable`)
 * Auth0 account (for full auth flow)
 
 Install dependencies:
 
 ```bash
-yarn install
+pnpm install --frozen-lockfile
 ```
 
 ## Configuration (Environment Variables)
@@ -83,7 +84,7 @@ Two environment variables are required for authentication to function:
 Set them inline when running scripts:
 
 ```bash
-AUTH0_CLIENT_ID=abc AUTH0_DOMAIN=your-tenant.eu.auth0.com yarn run dev
+AUTH0_CLIENT_ID=abc AUTH0_DOMAIN=your-tenant.eu.auth0.com pnpm run dev
 ```
 
 Or export them (macOS/Linux):
@@ -91,7 +92,7 @@ Or export them (macOS/Linux):
 ```bash
 export AUTH0_CLIENT_ID=abc
 export AUTH0_DOMAIN=your-tenant.eu.auth0.com
-yarn run dev
+pnpm run dev
 ```
 
 Auth0 Setup:
@@ -104,28 +105,28 @@ Auth0 Setup:
 
 | Script | Purpose | Notes |
 |--------|---------|-------|
-| `yarn run dev` | Start dev server with hot reload | Serves at <http://localhost:3001> |
-| `yarn run build` | Production bundle | Outputs to `/dist` |
-| `yarn run prod` | Serve built production bundle | Requires prior build (invokes build if necessary) |
+| `pnpm run dev` | Start dev server with hot reload | Serves at <http://localhost:3001> |
+| `pnpm run build` | Production bundle | Outputs to `/dist` |
+| `pnpm run prod` | Serve built production bundle | Requires prior build (invokes build if necessary) |
 
 ## Development Workflow
 
 Start locally (auth enabled):
 
 ```bash
-AUTH0_CLIENT_ID=abc AUTH0_DOMAIN=your-tenant.eu.auth0.com yarn run dev
+AUTH0_CLIENT_ID=abc AUTH0_DOMAIN=your-tenant.eu.auth0.com pnpm run dev
 ```
 
 Build production assets:
 
 ```bash
-yarn run build
+pnpm run build
 ```
 
 Serve production build locally:
 
 ```bash
-yarn run prod
+pnpm run prod
 ```
 
 ## Docker Usage
@@ -216,8 +217,8 @@ When filing an issue, please include:
 
 ## FAQ
 
-**Q: Can I use npm instead of yarn?**  
-A: Yes—adapt commands (`npm install`, `npm run dev`, etc.).
+**Q: Can I use npm or yarn instead of pnpm?**  
+A: pnpm is the supported package manager (declared via `packageManager` in `package.json` and resolved via Corepack). npm should work in a pinch, but only `pnpm-lock.yaml` is committed — switching managers means regenerating the lockfile.
 
 **Q: Do I need Auth0 to try it?**  
 A: You can run the app without environment variables; protected routes will simply not authenticate.

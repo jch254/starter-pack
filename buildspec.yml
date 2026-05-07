@@ -1,41 +1,50 @@
-# All commands below are run from root directory of repository by CodeBuild
 version: 0.2
 
 env:
   variables:
-    TF_VAR_region: "ap-southeast-2"
-    TF_VAR_name: "starter-pack-typescript"
-    TF_VAR_kms_key_arns: '["arn:aws:kms:ap-southeast-2:982898479788:key/0ec9686b-13a1-40fc-8256-86e8d3503e9c"]'
-    TF_VAR_ssm_parameter_arns: '["arn:aws:ssm:ap-southeast-2:982898479788:parameter/shared/*","arn:aws:ssm:ap-southeast-2:982898479788:parameter/starter-pack-typescript/*"]'
-    TF_VAR_build_docker_image: "jch254/docker-node-terraform-aws"
-    TF_VAR_build_docker_tag: "14.x"
-    TF_VAR_buildspec: "buildspec.yml"
-    TF_VAR_source_location: "https://github.com/jch254/starter-pack.git"
-    TF_VAR_cache_bucket: "603-codebuild-cache/starter-pack-typescript"
-    TF_VAR_bucket_name: "starter-pack-typescript.603.nz"
-    TF_VAR_dns_names: '["starter-pack-typescript.603.nz"]'
-    TF_VAR_acm_arn: "arn:aws:acm:us-east-1:982898479788:certificate/dfff91b1-8a64-41de-91b4-6e469cc15214"
+    AWS_DEFAULT_REGION: "ap-southeast-4"
+    REMOTE_STATE_BUCKET: "jch254-terraform-remote-state"
+    TF_STATE_KEY: "starter-pack-prod-infrastructure"
+    APP_HOSTNAME: "starter-pack.603.nz"
+    DEPLOYMENT_BUCKET: "starter-pack.603.nz"
     AUTH0_CLIENT_ID: "4o9Sngqkj55rQuEpI3TUs64c5EMJ2hO9"
     AUTH0_DOMAIN: "603.au.auth0.com"
-    REMOTE_STATE_BUCKET: "603-terraform-remote-state"
   parameter-store:
-    GA_ID: "/starter-pack-typescript/ga-id"
+    CLOUDFLARE_API_TOKEN: "/starter-pack/cloudflare-api-token"
+    GA_ID: "/starter-pack/ga-id"
 
 phases:
   install:
     commands:
-      # Workaround until CodeBuild/CodePipeline retains file permissions
+      - echo Setting up Terraform plugin cache...
+      - export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+      - mkdir -p "$TF_PLUGIN_CACHE_DIR"
       - find ./infrastructure -name "*.bash" -exec chmod +x {} \;
-      - ./infrastructure/install.bash
+      - echo Installing Node dependencies...
+      - corepack enable
+      - corepack prepare pnpm@9.15.9 --activate
+      - pnpm config set store-dir /root/.pnpm-store
+      - pnpm install --frozen-lockfile
+
+  pre_build:
+    commands:
+      - echo Verifying required parameters...
+      - 'test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN is required"; exit 1; }'
+      - 'test -n "$GA_ID" || { echo "GA_ID is required"; exit 1; }'
 
   build:
     commands:
-      - ./infrastructure/build-artifacts.bash
+      - echo Deploying infrastructure...
       - ./infrastructure/deploy-infrastructure.bash
-      - ./infrastructure/upload-artifacts.bash
+      - echo Building application bundle...
+      - pnpm run build
+
+  post_build:
+    commands:
+      - echo Publishing build artifacts...
+      - ./infrastructure/deploy-artifacts.bash
 
 cache:
-   paths:
-     - 'infrastructure/.terraform/modules/**/*'
-     - 'infrastructure/.terraform/plugins/**/*'
-     - '/usr/local/share/.cache/yarn/v1/**/*'
+  paths:
+    - "/root/.terraform.d/plugin-cache/**/*"
+    - "/root/.pnpm-store/**/*"

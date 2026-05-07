@@ -11,3 +11,4 @@ yarn-error.log
 .history/
 *.tfplan
 stats.json
+.terraform.lock.hcl
