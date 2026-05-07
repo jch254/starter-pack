@@ -35,48 +35,9 @@ importers:
       '@redux-saga/symbols':
         specifier: 1.2.1
         version: 1.2.1
-      '@styled-system/background':
-        specifier: ^5.1.2
-        version: 5.1.2
-      '@styled-system/border':
-        specifier: ^5.1.5
-        version: 5.1.5
-      '@styled-system/color':
-        specifier: ^5.1.2
-        version: 5.1.2
-      '@styled-system/core':
-        specifier: ^5.1.2
-        version: 5.1.2
-      '@styled-system/css':
-        specifier: ^5.1.5
-        version: 5.1.5
-      '@styled-system/flexbox':
-        specifier: ^5.1.2
-        version: 5.1.2
-      '@styled-system/grid':
-        specifier: ^5.1.2
-        version: 5.1.2
-      '@styled-system/layout':
-        specifier: ^5.1.2
-        version: 5.1.2
-      '@styled-system/position':
-        specifier: ^5.1.2
-        version: 5.1.2
       '@styled-system/prop-types':
-        specifier: ^5.1.5
-        version: 5.1.5(styled-system@5.1.5)
-      '@styled-system/shadow':
-        specifier: ^5.1.2
-        version: 5.1.2
-      '@styled-system/space':
-        specifier: ^5.1.2
-        version: 5.1.2
-      '@styled-system/typography':
-        specifier: ^5.1.2
-        version: 5.1.2
-      '@styled-system/variant':
-        specifier: ^5.1.5
-        version: 5.1.5
+        specifier: 5.1.5
+        version: 5.1.5(styled-system@3.2.1)
       base64-js:
         specifier: ^1.5.1
         version: 1.5.1
@@ -177,8 +138,8 @@ importers:
         specifier: 3.4.10
         version: 3.4.10(react@16.14.0)
       styled-system:
-        specifier: ^5.1.5
-        version: 5.1.5
+        specifier: ^3.2.1
+        version: 3.2.1
       stylis:
         specifier: ^3.5.4
         version: 3.5.4
@@ -3956,6 +3917,9 @@ packages:
   styled-system@3.0.3:
     resolution: {integrity: sha512-+tW500CMIJAGJInkzF5cgUPYaCnz8PcPxdV5okfyU8EQAH4JHkmZL0ycPNsMxAXNzYxAk4TQD8zr8RKk4Qwtfg==}
 
+  styled-system@3.2.1:
+    resolution: {integrity: sha512-ag0Yp7UeVHHc3t+1uM3jvlljaZYzwqpbJ8hMrFvpaKfUd8xsB9JeQXLwMpEsz8iLx8Lz/+9j0coWFZjmw8MogQ==}
+
   styled-system@5.1.5:
     resolution: {integrity: sha512-7VoD0o2R3RKzOzPK0jYrVnS8iJdfkKsQJNiLRDjikOpQVqQHns/DXWaPZOH4tIKkhAT7I6wIsy9FWTWh2X3q+A==}
 
@@ -4615,7 +4579,7 @@ snapshots:
 
   '@rebass/components@4.0.0-1':
     dependencies:
-      styled-system: 3.0.3
+      styled-system: 3.2.1
 
   '@rebass/grid@6.0.0-0(emotion@11.0.0)(react-emotion@10.0.0)(styled-components@3.4.10(react@16.14.0))':
     dependencies:
@@ -4687,6 +4651,11 @@ snapshots:
   '@styled-system/position@5.1.2':
     dependencies:
       '@styled-system/core': 5.1.2
+
+  '@styled-system/prop-types@5.1.5(styled-system@3.2.1)':
+    dependencies:
+      prop-types: 15.8.1
+      styled-system: 3.2.1
 
   '@styled-system/prop-types@5.1.5(styled-system@5.1.5)':
     dependencies:
@@ -8870,6 +8839,11 @@ snapshots:
 
   styled-system@3.0.3:
     dependencies:
+      prop-types: 15.8.1
+
+  styled-system@3.2.1:
+    dependencies:
+      '@babel/runtime': 7.29.2
       prop-types: 15.8.1
 
   styled-system@5.1.5:
