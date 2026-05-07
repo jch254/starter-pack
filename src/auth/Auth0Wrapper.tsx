@@ -9,9 +9,9 @@ import createAuth0Client, {
   PopupLoginOptions,
   RedirectLoginOptions,
 } from '@auth0/auth0-spa-js';
-import { replace } from 'connected-react-router';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { authActions } from './reducer';
 import { getAuth0Client } from './selectors';
 
@@ -44,7 +44,8 @@ export const Auth0Provider = ({
   const [user, setUser] = React.useState<any>();
   const [isLoggingIn, setIsLoggingIn] = React.useState(true);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
+  const navigate = useNavigate();
   const auth0Client = useSelector(getAuth0Client);
 
   React.useEffect(
@@ -57,7 +58,7 @@ export const Auth0Provider = ({
         if (window.location.search.includes('code=')) {
           const { appState } = await auth0Client.handleRedirectCallback();
 
-          dispatch(replace(appState && appState.targetUrl ? appState.targetUrl : '/'));
+          navigate(appState && appState.targetUrl ? appState.targetUrl : '/', { replace: true });
         }
 
         const isAuthenticated = await auth0Client.isAuthenticated();

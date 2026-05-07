@@ -6,7 +6,7 @@ import {
   Fixed,
   Label,
   Toolbar,
-} from 'rebass';
+} from './rebassCompat';
 
 interface NavbarProps {
   user?: any;
@@ -18,6 +18,8 @@ const activeStyle = {
   color: '#111',
 };
 
+const navStyle = ({ isActive }: { isActive: boolean }) => isActive ? activeStyle : undefined;
+
 const Navbar = ({
   user,
   handleLogin,
@@ -25,14 +27,14 @@ const Navbar = ({
 }: NavbarProps) => (
     <Fixed top={0} left={0} right={0} z={1}>
       <Toolbar bg="white">
-        <NavLink to="/" exact activeStyle={activeStyle}>
+        <NavLink to="/" end style={navStyle}>
           <Label mx={3} style={{ cursor: 'pointer' }}>
             Home
         </Label>
         </NavLink>
         {
           user &&
-          <NavLink to="/books" activeStyle={activeStyle}>
+          <NavLink to="/books" style={navStyle}>
             <Label mx={3} style={{ cursor: 'pointer' }}>
               Books
           </Label>

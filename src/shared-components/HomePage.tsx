@@ -8,7 +8,7 @@ import {
   Heading,
   Subhead,
   Text,
-} from 'rebass';
+} from './rebassCompat';
 
 const banner = require('./Banner.jpg');
 

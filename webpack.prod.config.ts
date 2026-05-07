@@ -1,11 +1,9 @@
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as InlineManifestWebpackPlugin from 'inline-manifest-webpack-plugin';
-import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import * as OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as path from 'path';
-import * as TerserPlugin from 'terser-webpack-plugin';
-import * as webpack from 'webpack';
-import * as WebpackChunkHash from 'webpack-chunk-hash';
+import TerserPlugin from 'terser-webpack-plugin';
+import webpack from 'webpack';
 
 import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
@@ -29,7 +27,6 @@ const config: webpack.Configuration = {
       },
     }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-    new WebpackChunkHash(),
     new MiniCssExtractPlugin({
       filename: 'assets/[name].[contenthash].css',
       ignoreOrder: true,
@@ -38,32 +35,31 @@ const config: webpack.Configuration = {
       title: 'Starter Pack | 603.nz',
       template: path.join(__dirname, 'src', 'index.ejs'),
       favicon: path.join(__dirname, 'src', 'favicon.ico'),
-      meta: [
-        {
-          name: 'description',
-          content: 'React + Redux + Auth0',
-        },
-      ],
+      meta: {
+        description: 'React + Redux + Auth0',
+      },
       minify: {
         collapseWhitespace: true,
       },
     }),
-    new InlineManifestWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      eslint: {
-        files: './src/**/*.{ts,tsx,js,jsx}', // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js,.jsx`
-      },
     }),
   ],
   optimization: {
     runtimeChunk: 'single',
-    moduleIds: 'hashed',
+    moduleIds: 'deterministic',
     chunkIds: 'named',
     minimizer: [
-      new OptimizeCssAssetsPlugin({
-        cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
-        canPrint: false,
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            'default',
+            {
+              discardComments: { removeAll: true },
+            },
+          ],
+        },
       }),
       new TerserPlugin({
         parallel: true,
@@ -98,10 +94,12 @@ const config: webpack.Configuration = {
           reuseExistingChunk: true,
           enforce: true,
         },
-        // See: https://github.com/webpack-contrib/mini-css-extract-plugin/issues/85
         styles: {
           name: 'styles',
-          test: module => module.nameForCondition && /\.css$/.test(module.nameForCondition()) && !/^javascript/.test(module.type),
+          test: (module: any) =>
+            module.nameForCondition &&
+            /\.css$/.test(module.nameForCondition()) &&
+            !/^javascript/.test(module.type),
           chunks: 'all',
           enforce: true,
         },
@@ -120,13 +118,15 @@ const config: webpack.Configuration = {
       {
         test: /\.tsx?$/,
         include: path.join(__dirname, 'src'),
-        use: [{
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
-            experimentalWatchApi: true,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              experimentalWatchApi: true,
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.css?$/,
@@ -147,13 +147,15 @@ const config: webpack.Configuration = {
       {
         test: /\.(jpe?g|png|gif|svg|ico)$/,
         include: path.join(__dirname, 'src'),
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10240,
-            esModule: false,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10240,
+              esModule: false,
+            },
           },
-        }],
+        ],
       },
     ],
   },

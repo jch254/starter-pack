@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Loading from 'react-loading';
-import { Flex } from 'rebass';
+import { Flex } from './rebassCompat';
 
 interface FullscreenLoaderProps {
   delay?: number;

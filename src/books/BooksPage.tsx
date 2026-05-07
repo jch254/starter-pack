@@ -9,7 +9,7 @@ import {
   Image,
   Message,
   Text,
-} from 'rebass';
+} from '../shared-components/rebassCompat';
 import { useAuth0 } from '../auth/Auth0Wrapper';
 import { GlobalState } from '../rootReducer';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
@@ -20,7 +20,7 @@ import styles from './BooksPage.css';
 
 const BooksPage = () => {
   const { getTokenSilently } = useAuth0();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const books = useSelector((state: GlobalState) => getSortedBooks(state));
   const isFetching = useSelector((state: GlobalState) => getIsFetching(state));
   const error = useSelector((state: GlobalState) => getError(state));

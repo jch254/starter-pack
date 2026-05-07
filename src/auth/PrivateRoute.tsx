@@ -1,17 +1,16 @@
 import * as React from 'react';
-// tslint:disable-next-line:no-duplicate-imports
 import { ComponentType } from 'react';
-import { Route } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useAuth0 } from './Auth0Wrapper';
 
 interface PrivateRouteProps {
   component: ComponentType;
   path: string;
-  [key: string]: any;
 }
 
-const PrivateRoute = ({ component: Component, path, ...rest }: PrivateRouteProps) => {
+const PrivateRoute = ({ component: Component, path }: PrivateRouteProps) => {
   const { isLoggingIn, isAuthenticated, loginWithRedirect } = useAuth0();
+  const location = useLocation();
 
   React.useEffect(
     () => {
@@ -21,18 +20,16 @@ const PrivateRoute = ({ component: Component, path, ...rest }: PrivateRouteProps
 
       const login = async () => {
         await loginWithRedirect({
-          appState: { targetUrl: path },
+          appState: { targetUrl: location.pathname || path },
         });
       };
 
       login();
     },
-    [isLoggingIn, isAuthenticated, loginWithRedirect, path],
+    [isLoggingIn, isAuthenticated, loginWithRedirect, location.pathname, path],
   );
 
-  const render = (props: any) => isAuthenticated ? <Component {...props} /> : null;
-
-  return <Route path={path} render={render} {...rest} />;
+  return isAuthenticated ? <Component /> : null;
 };
 
 export default PrivateRoute;

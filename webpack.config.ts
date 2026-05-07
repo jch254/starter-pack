@@ -1,9 +1,8 @@
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as InlineManifestWebpackPlugin from 'inline-manifest-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as path from 'path';
-import * as webpack from 'webpack';
+import webpack from 'webpack';
 
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
@@ -36,22 +35,15 @@ const config: webpack.Configuration = {
       title: 'Starter Pack | 603.nz',
       template: path.join(__dirname, 'src', 'index.ejs'),
       favicon: path.join(__dirname, 'src', 'favicon.ico'),
-      meta: [
-        {
-          name: 'description',
-          content: 'React + Redux + Auth0',
-        },
-      ],
+      meta: {
+        description: 'React + Redux + Auth0',
+      },
       minify: {
         collapseWhitespace: true,
       },
     }),
-    new InlineManifestWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      eslint: {
-        files: './src/**/*.{ts,tsx,js,jsx}', // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js,.jsx`
-      },
     }),
   ],
   optimization: {
@@ -88,19 +80,24 @@ const config: webpack.Configuration = {
       path.join(__dirname, 'src'),
       path.join(__dirname, 'node_modules'),
     ],
+    fallback: {
+      events: require.resolve('events'),
+    },
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         include: path.join(__dirname, 'src'),
-        use: [{
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
-            experimentalWatchApi: true,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              experimentalWatchApi: true,
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.js$/,
@@ -129,13 +126,15 @@ const config: webpack.Configuration = {
       {
         test: /\.(jpe?g|png|gif|svg|ico)$/,
         include: path.join(__dirname, 'src'),
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10240,
-            esModule: false,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10240,
+              esModule: false,
+            },
           },
-        }],
+        ],
       },
     ],
   },

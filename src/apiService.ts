@@ -3,7 +3,6 @@ import { AnyAction } from 'redux';
 import { put, select } from 'redux-saga/effects';
 import { getAuth0Client } from './auth/selectors';
 import Book from './books/Book';
-import { GlobalState } from './rootReducer';
 
 const books = require('./books/books.json');
 
@@ -64,7 +63,7 @@ export function* handleApiError(error: any, failureAction?: (error?: any) => Any
       }
 
       const auth0Client: Auth0Client = yield select(getAuth0Client);
-      const path: string = yield select((state: GlobalState) => state.router.location.pathname);
+      const path = window.location.pathname;
 
       auth0Client.logout({ returnTo: window.location.origin, client_id: process.env.AUTH0_CLIENT_ID });
       auth0Client.loginWithRedirect({ appState: { targetUrl: path } });

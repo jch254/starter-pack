@@ -1,5 +1,6 @@
-import * as webpack from 'webpack';
-import * as WebpackDevServer from 'webpack-dev-server';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+
 import devConfig from './webpack.config';
 import prodConfig from './webpack.prod.config';
 
@@ -7,28 +8,25 @@ const SERVER_PORT = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT a
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
 
 const webpackConfig = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
-const output = webpackConfig.output as webpack.Output;
-
 const compiler = webpack(webpackConfig);
 
-const server = new WebpackDevServer(compiler as any, {
-  publicPath: output.publicPath as string,
+if (!compiler) {
+  throw new Error('Webpack compiler could not be created');
+}
+
+const devServerOptions: WebpackDevServer.Configuration = {
+  port: SERVER_PORT,
+  host: SERVER_HOSTNAME,
   hot: process.env.NODE_ENV !== 'production',
   historyApiFallback: true,
-  stats: {
-    colors: true,
-    hash: false,
-    timings: true,
-    chunks: false,
-    chunkModules: false,
-    modules: false,
-  },
-});
+};
 
-server.listen(SERVER_PORT, SERVER_HOSTNAME, (err?: Error) => {
-  if (err) {
-    console.log(err);
-  }
+const server = new WebpackDevServer(devServerOptions, compiler);
 
+const runServer = async () => {
+  console.log('Starting server...');
+  await server.start();
   console.log(`Server listening at http://${SERVER_HOSTNAME}:${SERVER_PORT}`);
-});
+};
+
+runServer();

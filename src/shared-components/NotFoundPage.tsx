@@ -3,7 +3,7 @@ import {
   Blockquote,
   Container,
   Heading,
-} from 'rebass';
+} from './rebassCompat';
 
 const NotFoundPage = () => (
   <Container py={5} style={{ flex: 'auto' }}>

@@ -1,9 +1,9 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import * as React from 'react';
 import {
   Small,
   Toolbar,
-} from 'rebass';
+} from './rebassCompat';
 
 const AppFooter = () => (
   <Toolbar bg="white">

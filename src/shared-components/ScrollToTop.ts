@@ -1,25 +1,21 @@
 import * as React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 interface ScrollToTopProps {
-  children?: any;
+  children?: React.ReactNode;
 }
 
-type Props = ScrollToTopProps & RouteComponentProps<any>;
+const ScrollToTop = ({ children }: ScrollToTopProps) => {
+  const location = useLocation();
 
-class ScrollToTop extends React.PureComponent<Props, {}> {
-  componentDidUpdate(prevProps: Props) {
-    // TODO: Restore scroll position on browser back button etc.
-    if (this.props.location !== prevProps.location) {
+  React.useEffect(
+    () => {
       window.scrollTo(0, 0);
-    }
-  }
+    },
+    [location.pathname, location.search],
+  );
 
-  render() {
-    const { children } = this.props;
+  return React.createElement(React.Fragment, null, children);
+};
 
-    return children;
-  }
-}
-
-export default withRouter<Props, typeof ScrollToTop>(ScrollToTop);
+export default ScrollToTop;
