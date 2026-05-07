@@ -23,9 +23,6 @@ importers:
       isomorphic-fetch:
         specifier: ^2.2.1
         version: 2.2.1
-      lodash.isequalwith:
-        specifier: ^4.4.0
-        version: 4.4.0
       moment:
         specifier: ^2.27.0
         version: 2.30.1
@@ -153,9 +150,6 @@ importers:
       inline-manifest-webpack-plugin:
         specifier: ^4.0.2
         version: 4.0.2
-      lodash.isequalwith+:
-        specifier: link:@types/lodash.isequalwith+
-        version: link:@types/lodash.isequalwith+
       map.prototype.tojson:
         specifier: ^0.1.3
         version: 0.1.3
