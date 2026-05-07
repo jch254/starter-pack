@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing-)
 
-Modern React + Auth0 + Redux Saga + Webpack setup for quickly prototyping secure single‑page applications.
+Modern React 18 + Auth0 + Redux Saga + Webpack 5 setup for quickly prototyping secure single-page applications.
 
 ## Why this project?
 
@@ -16,20 +16,20 @@ You get:
 * Robust authentication via Auth0 Universal Login (JWT-based, ready to pair with any API)
 * A protected example route (Books) demonstrating gated content & token handling
 * Sensible architecture with Redux + Redux Saga for predictable async workflows
-* Modern React (hooks + lazy loading) with granular code splitting & long‑term caching
+* React 18 (hooks + lazy loading) with granular code splitting & long-term caching
 * TypeScript everywhere for safer refactors and discoverable APIs
-* Fast, cache‑friendly Webpack build geared for dev velocity and production reliability
+* Fast, cache-friendly Webpack 5 build geared for dev velocity and production reliability
 
 ## Key Features
 
 * 🔐 Auth0 Universal Login integration (easily swap provider if needed)
 * 🔄 Redux + Redux Saga side‑effect model
 * 🧩 Code splitting with `React.lazy` + Webpack SplitChunks + CSS extraction
-* 🏗 Strong type safety (TypeScript) + linting (ESLint + css‑modules validation)
+* 🏗 Strong type safety (TypeScript) + linting (ESLint + css-modules validation)
 * 🎯 Example domain (books) incl. protected route + JSON data stub
 * 🚀 Hot‑reload dev server
 * 🐳 Docker support for parity & deployment experiments
-* 📦 Production build with hashed assets & manifest inlining
+* 📦 Production build with hashed assets & deterministic pnpm installs
 
 ## Live Demo
 
@@ -137,7 +137,7 @@ Build image:
 docker build -t starter-pack .
 ```
 
-Run (choose an npm script: `dev` or `prod`):
+Run (choose a package script: `dev` or `prod`):
 
 ```bash
 docker run \
@@ -153,20 +153,29 @@ If you omit the script name the container will exit and list available commands.
 
 Core stack:
 
-* React (hooks) + React Router
-* Redux + Redux Saga + Reselect
+* React 18 (hooks) + React Router 6
+* Redux 5 + React Redux 9 + Redux Saga + Reselect
 * Auth0 SPA SDK
 * TypeScript (strict-ish typing) + ESLint
-* Rebass (primitive UI components) + CSS Modules
-* Webpack (dev server, SplitChunks, manifest inlining, MiniCssExtractPlugin)
+* Rebass 4 / Reflexbox / Emotion / Styled System 5 + CSS Modules
+* Webpack 5 (dev server, SplitChunks, MiniCssExtractPlugin, CssMinimizerPlugin)
 
 Notable implementation details:
 
 * Code splitting: dynamic `React.lazy` boundaries (see `src/app/App.tsx`)
+* Route management: `BrowserRouter` + React Router 6 `Routes`/`Route` APIs
 * Protected route pattern via Auth0 wrapper (`src/auth` directory)
 * Example data service abstraction (`src/apiService.ts`)
 * Separate reducers & sagas by domain (`src/books`, `src/app`)
+* `src/shared-components/rebassCompat.tsx` keeps the old Rebass 2 component call sites working over the Rebass 4 primitive set
 * Type definitions in `typings/` for external modules without bundled types
+
+Dependency strategy:
+
+* pnpm is the source of truth; CI uses `pnpm install --frozen-lockfile`.
+* The app intentionally follows the modernised `buildpipeline` dependency era: React 18, React Router 6, Webpack 5, Rebass 4, Emotion, and Styled System 5.
+* Do not reintroduce the old mixed stack of `rebass@2`, `@rebass/components`, `@rebass/grid`, `styled-components@3`, `styled-system@3`, or `stylis@3`.
+* Add explicit transitive dependencies only when pnpm strict resolution or Webpack proves they are required at runtime/build time.
 
 Directory snapshot:
 
@@ -218,7 +227,7 @@ When filing an issue, please include:
 ## FAQ
 
 **Q: Can I use npm or yarn instead of pnpm?**  
-A: pnpm is the supported package manager (declared via `packageManager` in `package.json` and resolved via Corepack). npm should work in a pinch, but only `pnpm-lock.yaml` is committed — switching managers means regenerating the lockfile.
+A: pnpm is the supported package manager (declared via `packageManager` in `package.json` and resolved via Corepack). CI installs with `pnpm install --frozen-lockfile`; switching managers means regenerating the lockfile and is not part of the supported workflow.
 
 **Q: Do I need Auth0 to try it?**  
 A: You can run the app without environment variables; protected routes will simply not authenticate.

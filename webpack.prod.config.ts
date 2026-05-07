@@ -139,6 +139,7 @@ const config: webpack.Configuration = {
               modules: {
                 mode: 'local',
                 localIdentName: '[hash:base64:5]',
+                namedExport: false,
               },
             },
           },
