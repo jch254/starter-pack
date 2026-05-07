@@ -118,8 +118,14 @@ variable "codebuild_webhook_branch" {
   default     = "typescript"
 }
 
-variable "build_notifier_lambda_function_arn" {
-  description = "Optional shared build-notifier Lambda ARN for CodeBuild success/failure notifications."
+variable "build_notifier_region" {
+  description = "AWS region where shared-platform deploys the build notification formatter Lambda. Defaults to aws_region."
   type        = string
-  default     = ""
+  default     = null
+}
+
+variable "build_notifier_lambda_function_name" {
+  description = "Name of the shared-platform build notification formatter Lambda."
+  type        = string
+  default     = "shared-platform-build-notification-formatter"
 }
