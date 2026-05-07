@@ -22,6 +22,12 @@ variable "host" {
   default     = "starter-pack.603.nz"
 }
 
+variable "bucket_name" {
+  description = "S3 bucket name used for the private CloudFront origin."
+  type        = string
+  default     = "starter-pack-603-nz-prod"
+}
+
 variable "cloudflare_api_token_parameter_name" {
   description = "SSM Parameter Store name containing the Cloudflare API token."
   type        = string

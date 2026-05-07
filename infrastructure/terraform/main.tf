@@ -32,7 +32,7 @@ data "cloudflare_zone" "zone" {
 }
 
 locals {
-  bucket_name = var.host
+  bucket_name = var.bucket_name
 
   codebuild_cache_bucket_parts = var.codebuild_cache_bucket == "" ? [] : split("/", var.codebuild_cache_bucket)
   codebuild_cache_bucket_name  = length(local.codebuild_cache_bucket_parts) > 0 ? local.codebuild_cache_bucket_parts[0] : ""
@@ -50,26 +50,9 @@ locals {
   codebuild_project_arn   = "arn:aws:codebuild:${var.aws_region}:${data.aws_caller_identity.current.account_id}:project/${var.codebuild_project_name}"
   deployment_bucket_arn   = "arn:aws:s3:::${local.bucket_name}"
 
-  acm_validation_records = {
-    for key, record in module.acm_certificate.validation_records :
-    "acm_${key}" => {
-      name    = trimsuffix(record.name, ".")
-      type    = record.type
-      content = trimsuffix(record.value, ".")
-      proxied = false
-      ttl     = 1
-    }
-  }
-
-  app_dns_records = {
-    host = {
-      content = module.web_app.cloudfront_domain_name
-      name    = var.host
-      proxied = false
-      ttl     = 1
-      type    = "CNAME"
-    }
-  }
+  # Single-domain cert -> exactly one validation record. Pulled from the module's
+  # validation_records map (keyed by the unknown ACM resource_record_name) via one(values(..)).
+  acm_validation_record = one(values(module.acm_certificate.validation_records))
 
   cloudfront_policy_statement = {
     Effect = "Allow"
@@ -183,20 +166,29 @@ module "acm_certificate" {
   }
 }
 
-module "dns_validation_records" {
-  source = "github.com/jch254/terraform-modules//cloudflare-dns-records?ref=1.17.0"
-
+# ACM validation record. Inlined (rather than going through cloudflare-dns-records) because
+# the record's name/type/value come from the cert's validation_records output and are unknown
+# at plan time. for_each requires known map keys, so the module fails on this case; a single
+# resource has no such constraint.
+resource "cloudflare_dns_record" "acm_validation" {
   zone_id = data.cloudflare_zone.zone.id
-  records = local.acm_validation_records
+  name    = trimsuffix(local.acm_validation_record.name, ".")
+  type    = local.acm_validation_record.type
+  content = trimsuffix(local.acm_validation_record.value, ".")
+  proxied = false
+  ttl     = 1
 }
 
 resource "aws_acm_certificate_validation" "host" {
   provider = aws.us_east_1
 
-  certificate_arn         = module.acm_certificate.arn
-  validation_record_fqdns = [for r in local.acm_validation_records : r.name]
+  certificate_arn = module.acm_certificate.arn
 
-  depends_on = [module.dns_validation_records]
+  validation_record_fqdns = [
+    trimsuffix(cloudflare_dns_record.acm_validation.name, ".")
+  ]
+
+  depends_on = [cloudflare_dns_record.acm_validation]
 }
 
 module "web_app" {
@@ -211,11 +203,16 @@ module "web_app" {
   }
 }
 
-module "dns_app_records" {
-  source = "github.com/jch254/terraform-modules//cloudflare-dns-records?ref=1.17.0"
-
+# App CNAME. Inlined for the same reason as acm_validation: content is the CloudFront
+# distribution's domain (unknown at plan time), and the cloudflare-dns-records module's
+# for_each on var.records can't accept maps where the values are unknown at plan time.
+resource "cloudflare_dns_record" "host" {
   zone_id = data.cloudflare_zone.zone.id
-  records = local.app_dns_records
+  name    = var.host
+  type    = "CNAME"
+  content = module.web_app.cloudfront_domain_name
+  proxied = false
+  ttl     = 1
 }
 
 module "codebuild_role" {
