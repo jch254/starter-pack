@@ -135,8 +135,8 @@ importers:
         specifier: ^3.0.0
         version: 3.3.1(prop-types@15.8.1)(react@16.14.0)
       react-is:
-        specifier: ^19.2.6
-        version: 19.2.6
+        specifier: ^16.13.1
+        version: 16.13.1
       react-loading:
         specifier: ^2.0.3
         version: 2.0.3(prop-types@15.8.1)(react@16.14.0)
@@ -3435,9 +3435,6 @@ packages:
 
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
-
-  react-is@19.2.6:
-    resolution: {integrity: sha512-XjBR15BhXuylgWGuslhDKqlSayuqvqBX91BP8pauG8kd1zY8kotkNWbXksTCNRarse4kuGbe2kIY05ARtwNIvw==}
 
   react-loading@2.0.3:
     resolution: {integrity: sha512-Vdqy79zq+bpeWJqC+xjltUjuGApyoItPgL0vgVfcJHhqwU7bAMKzysfGW/ADu6i0z0JiOCRJjo+IkFNkRNbA3A==}
@@ -8213,8 +8210,6 @@ snapshots:
   react-is@16.13.1: {}
 
   react-is@17.0.2: {}
-
-  react-is@19.2.6: {}
 
   react-loading@2.0.3(prop-types@15.8.1)(react@16.14.0):
     dependencies:
