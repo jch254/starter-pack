@@ -33,11 +33,13 @@ phases:
       - 'test -n "$GA_ID" || { echo "GA_ID is required"; exit 1; }'
 
   build:
+    on-failure: ABORT
     commands:
       - echo Deploying infrastructure...
       - ./infrastructure/deploy-infrastructure.bash
       - echo Building application bundle...
       - pnpm run build
+      - test -s dist/index.html || { echo "Build did not produce dist/index.html"; exit 1; }
 
   post_build:
     commands:
