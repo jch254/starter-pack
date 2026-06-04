@@ -8,8 +8,8 @@ import {
 const AppFooter = () => (
   <Toolbar bg="white">
     <Small ml="auto">
-      <a href="https://603.nz" style={{ cursor: 'pointer', color: 'black' }}>
-        {`© 603.nz ${moment().year()}`}
+      <a href="https://jch254.com" style={{ cursor: 'pointer', color: 'black' }}>
+        {`© Jordan Hornblow ${moment().year()}`}
       </a>
     </Small>
   </Toolbar>
